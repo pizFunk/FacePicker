@@ -1,0 +1,328 @@
+//
+//  FacePicker.swift
+//  FacePicker
+//
+//  Created by matthew on 9/5/18.
+//  Copyright © 2018 matthew. All rights reserved.
+//
+
+import UIKit
+import CoreData
+import ContextMenu
+
+@IBDesignable
+class SessionController: UIViewController {
+    
+    //MARK: - Properties
+    
+    var faceImageView: UIImageView = UIImageView()
+    var previousSwitch: UISwitch!
+    private var siteButtons = [String:UIButton]()
+    private var sites = [String:InjectionSite]()
+    private var layoutConstraints = [NSLayoutConstraint]()
+    var delegate: SessionControllerDelegate?
+    
+    var session: Session? {
+        didSet {
+            clientSet()
+        }
+    }
+}
+
+extension SessionController {
+    
+    // MARK: - Overrides
+    
+    override func viewDidLoad() {
+//        print("SessionController.viewDidLoad")
+        super.viewDidLoad()
+        
+        let bundle = Bundle(for: type(of: self))
+        let faceImage = UIImage(named: "face", in: bundle, compatibleWith: self.traitCollection)
+        let faceImageView = UIImageView(image: faceImage)
+        view.addSubview(faceImageView)
+        
+        faceImageView.translatesAutoresizingMaskIntoConstraints = false
+        faceImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        faceImageView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        faceImageView.isHidden = true
+        self.faceImageView = faceImageView
+        
+        SiteMenuController.usePreviousValues = true
+        
+        setupTouchHandler()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
+    }
+    override func viewWillLayoutSubviews() {
+//        print("SessionController.viewWillLayoutSubviews")
+        super.viewWillLayoutSubviews()
+        
+        navigationController?.isNavigationBarHidden = UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight
+        
+        if faceImageView.isDescendant(of: view) {
+            // when setting preferred fraction of splitviewcontroller our viewcontroller loads without a Session
+//            let viewBounds = view.bounds
+            let safeAreaLayoutFrame = view.safeAreaLayoutGuide.layoutFrame
+//            print("safeAreaLayoutFrame = \(safeAreaLayoutFrame)")
+//            print("viewBounds = \(viewBounds)")
+            
+            NSLayoutConstraint.deactivate(layoutConstraints)
+            layoutConstraints.removeAll()
+            if safeAreaLayoutFrame.width * 1.178 > safeAreaLayoutFrame.height {
+//                print("SessionController.viewWillLayoutSubviews limiting height of face")
+                layoutConstraints.append(faceImageView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.95))
+                layoutConstraints.append(faceImageView.widthAnchor.constraint(equalTo: faceImageView.heightAnchor, multiplier: 0.849))
+            } else {
+//                print("SessionController.viewWillLayoutSubviews limiting width of face")
+                layoutConstraints.append(faceImageView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.95))
+                layoutConstraints.append(faceImageView.heightAnchor.constraint(equalTo: faceImageView.widthAnchor, multiplier: 1.178))
+            }
+            NSLayoutConstraint.activate(layoutConstraints)
+        }
+    }
+    override func viewDidLayoutSubviews() {
+//        print("SessionController.viewDidLayoutSubviews")
+        super.viewDidLayoutSubviews()
+        
+        positionButtons()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(false)
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func backToClientsPressed(_ sender: UIBarButtonItem) {
+        //delegate?.portraitBackButtonPressed(sender)
+        splitViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc
+    func facePressed(sender: UILongPressGestureRecognizer) {
+//        print("--- FacePicker.facePressed(sender:) ---")
+        
+        if (sender.state == .began) {
+            let point = sender.location(in: faceImageView)
+//            print("FacePicker touched at: \(point)") //"  (x,y): (\(point.x),\(point.y))")
+            addSite(atPoint: point)
+        }
+    }
+    @objc
+    func siteTapped(site: UIButton) {
+//        print("--- FacePicker.siteTapped(site:) ---")
+        guard let uuid = site.restorationIdentifier else {
+            fatalError("The tapped button did not have a set uuid!!!")
+        }
+        let siteMenuController = SiteMenuController()
+        siteMenuController.site = sites[uuid]
+        siteMenuController.delegate = self
+        siteMenuController.editMode = true
+        siteMenuController.siteButton = site
+        ContextMenu.shared.show(
+            sourceViewController: self,
+            viewController: siteMenuController,
+            options: ContextMenu.Options(),
+            sourceView: site,
+            delegate: self)
+    }
+}
+
+//MARK: - Private Functions
+
+private extension SessionController {
+    func setupTouchHandler() {
+        //print("Setting up FacePicker touch handler.")
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(SessionController.facePressed(sender:)))
+        longPress.minimumPressDuration = 0.5
+        faceImageView.addGestureRecognizer(longPress)
+        
+        //        print("Current self.isUserInteractionEnabled = \(faceImageView.isUserInteractionEnabled)")
+        faceImageView.isUserInteractionEnabled = true
+    }
+    func addSite(atPoint point: CGPoint) {
+        //        print("--- FaceController.addSite(atPoint:) ---")
+        //        print("point = \(point)")
+        
+        let context = managedContext()
+        
+        let uuid = UUID() //NSUUID().uuidString
+        let siteMenuController = SiteMenuController()
+        //
+        // resolve x,y proportion from current pixels
+        //
+        let x = Double(point.x / faceImageView.frame.size.width)
+        let y = Double(point.y / faceImageView.frame.size.height)
+        let siteEntity = NSEntityDescription.entity(forEntityName: "InjectionSite", in: context)!
+        let site = InjectionSite(entity: siteEntity, insertInto: context)
+        session?.addToInjections(site)
+        site.setIdAndPosition(x: x, y: y, uuid: uuid)
+        sites[uuid.uuidString] = site
+        
+        let siteButton = createAndAddSiteButton(withSite: site)
+        ViewHelper.positionView(siteButton, at: point)
+        
+        siteMenuController.site = site
+        siteMenuController.delegate = self
+        siteMenuController.siteButton = siteButton
+        ContextMenu.shared.show(
+            sourceViewController: self,
+            viewController: siteMenuController,
+            options: ContextMenu.Options(),
+            sourceView: siteButton,
+            delegate: self)
+    }
+    func createAndAddSiteButton(withSite site: InjectionSite) -> UIButton {
+        let siteButton = UIButton()
+        siteButton.restorationIdentifier = site.uuid.uuidString
+        siteButton.setTitle(site.formattedUnits(), for: .normal)
+        siteButton.setTitleColor(view.tintColor, for: UIControlState.normal)
+        siteButton.addTarget(self, action: #selector(SessionController.siteTapped(site:)), for: UIControlEvents.touchUpInside)
+        
+        //
+        // TODO: revisit styling
+        //
+        //        siteButton.titleLabel?.layer.shadowColor = UIColor.black.cgColor
+        //        siteButton.titleLabel?.layer.shadowRadius = 10
+        //        siteButton.titleLabel?.layer.shadowOpacity = 0.8
+        siteButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 22)
+        
+        
+        siteButton.sizeToFit()
+        
+        siteButtons[siteButton.restorationIdentifier!] = siteButton
+        faceImageView.addSubview(siteButton)
+        
+        return siteButton
+    }
+    func positionButtons() {
+        for (uuid, site) in sites {
+            guard let siteButton = siteButtons[uuid] else {
+                fatalError("Did not find siteButton with uuid: \(uuid) as expected.")
+            }
+            let point = ViewHelper.resolvePixelsFromProportions(size: faceImageView.frame.size, x: site.xPos, y: site.yPos)
+            ViewHelper.positionView(siteButton, at: point)
+        }
+    }
+    func removeSite(_ site: InjectionSite) {
+        //        print("--- FaceController.removeSite(_:) ---")
+        let uuid = site.uuid.uuidString
+        guard let removedSite = sites.removeValue(forKey: uuid) else {
+            fatalError("Unable to find site with uuid = \(uuid) in the sites array.")
+        }
+        // TODO: verify we need to remove from parent or not:
+        //session?.removeFromInjections(removedSite)
+        let context = managedContext()
+        context.delete(removedSite)
+        saveContext()
+        //        print("Removed site with uuid = \(uuid) from sites array.")
+        guard let siteButton = siteButtons.removeValue(forKey: uuid)  else {
+            fatalError("Unable to find button with uuid = \(uuid) in the siteButtons array.")
+        }
+        siteButton.removeFromSuperview()
+        //        print("Removed button with uuid = \(uuid) from siteButtons array.")
+    }
+    func saveContext() {
+        guard let session = session else {
+            fatalError("SessionController: No session when saving context!")
+        }
+        appDelegate().saveContext()
+        session.updateSessionImage()
+        //        delegate?.sessionDidChange(session: session)
+        NotificationCenter.default.post(name: .sessionDidChange, object: nil, userInfo: ["": session])
+    }
+    func clientSet() {
+        loadViewIfNeeded()
+        
+        // clear existing
+        for (_, button) in siteButtons {
+            button.removeFromSuperview()
+        }
+        siteButtons.removeAll()
+        sites.removeAll()
+        
+        if let injections = session?.injections {
+            faceImageView.isHidden = false
+            let sites = Array(injections)
+            for site in sites {
+                self.sites[site.uuid.uuidString] = site
+                let button = createAndAddSiteButton(withSite: site)
+                SessionHelper.setTitleAndColor(forButton: button, withSite: site)
+            }
+            positionButtons()
+        }
+    }
+}
+
+//MARK: - SessionListShowDetailDelegate
+
+extension SessionController : SessionListShowDetailDelegate {
+    func showSessionDetail(_ session: Session) {
+        self.session = session
+    }
+}
+
+//MARK: - ContextMenuDelegate
+
+extension SessionController : ContextMenuDelegate {
+    func contextMenuWillDismiss(viewController: UIViewController, animated: Bool) {
+        //        print("--- FaceController.contextMenuWillDismiss(viewController:animated:) ---")
+    }
+    
+    func contextMenuDidDismiss(viewController: UIViewController, animated: Bool) {
+        //        print("--- FaceController.contextMenuDidDismiss(viewController:animated:) ---")
+        guard let controller = viewController as? SiteMenuController else {
+            fatalError("Controller was not expected type of SiteMenuController")
+        }
+        // ignore dismiss if we were editing
+        if controller.editMode {
+            return
+        }
+        switch controller.state {
+        case .Saving, .Deleting:
+            // let our delegate functions handle
+            return
+        default:
+            // need to clean up button that was orphaned
+            guard let site = controller.site else {
+                fatalError("Couldn't get the site object from SiteMenuController")
+            }
+            removeSite(site)
+        }
+    }
+}
+
+//MARK: - SiteMenuControllerDelegate
+
+extension SessionController : SiteMenuControllerDelegate {
+    func siteMenuDidSave(savedSite: InjectionSite?) {
+        //        print("--- FaceController.contextMenuDidSave(savedSite:) ---")
+        guard let site = savedSite else {
+            return
+        }
+        // update or store new site in our dictionary
+        // SiteMenuController handling now...
+        let uuid = site.uuid.uuidString
+        //        guard let siteButton = siteButtons[uuid] else {
+        //            fatalError("Couldn't find corresponding siteButton with uuid = \(uuid)")
+        //        }
+        //        SessionHelper.setTitleAndColor(forButton: siteButton, withSite: site)
+        saveContext()
+        print("Saved site with uuid = \(uuid)")
+    }
+    
+    func siteMenuDidDelete(deletedSite: InjectionSite?) {
+        //        print("--- FaceController.contextMenuDidDelete(deletedSite:) ---")
+        guard let site = deletedSite else {
+            return
+        }
+        removeSite(site)
+    }
+}
+
+protocol SessionControllerDelegate {
+//    func sessionDidChange(session: Session?)
+    func portraitBackButtonPressed(_ sender: UIBarButtonItem)
+}

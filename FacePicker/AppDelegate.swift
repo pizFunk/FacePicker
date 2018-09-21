@@ -5,9 +5,10 @@
 //  Created by matthew on 9/5/18.
 //  Copyright © 2018 matthew. All rights reserved.
 //
-
+	
 import UIKit
 import CoreData
+import DropDown
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // DropDown setup
+        ViewHelper.setDropDownAppearance()
+        
+        // SplitViewController setup
+        guard let splitViewController = self.window?.rootViewController as? UISplitViewController,
+            let clientListNavController = splitViewController.viewControllers.first as? UINavigationController,
+            let clientListController = clientListNavController.topViewController as? ClientListController,
+            let clientDetailNavController = splitViewController.viewControllers.last as? UINavigationController,
+            let clientDetailController = clientDetailNavController.topViewController as? ClientDetailController
+            else {
+                fatalError("AppDelegate.application: Unexpected view controller configuration at application startup!")
+        }
+//        splitViewController.delegate = clientDetailController
+        clientListController.delegate = clientDetailController
+        clientDetailController.delegate = clientListController
+        splitViewController.preferredDisplayMode = .allVisible
+        splitViewController.preferredPrimaryColumnWidthFraction = 0.25
+        clientDetailController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+//        clientDetailController.navigationItem.leftItemsSupplementBackButton = true // mutually exclusive with .allVisible?
+        
         return true
     }
 

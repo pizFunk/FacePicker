@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClientConsentController" customModule="FacePicker" customModuleProvider="target">
+            <connections>
+                <outlet property="signatureDateLabel" destination="ckj-1I-9Wo" id="lhR-My-K7o"/>
+                <outlet property="signatureImageView" destination="Rla-Sk-eaX" id="Rll-x6-RxI"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="618"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="u8d-B4-cjO">
+                    <rect key="frame" x="15" y="15" width="370" height="587.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Release and waiver of liability:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQ7-Ut-GfU">
+                            <rect key="frame" x="0.0" y="0.0" width="246.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fcX-dO-0Dc" userLabel="I understand">
+                            <rect key="frame" x="0.0" y="28.5" width="370" height="243.5"/>
+                            <string key="text">I understand that the cosmetic procedure that I am voluntarily undergoing on this and future dates can cause localized pain, redness, bruising/bleeding, infection, swelling, temporary eyelid droop, headache and nausea. I herevy release, indemnify and hold harmless Tamara Ostapowicz, MD, agents and asigns from any and all liability, damage, claim of any nature whatsoever arising out of or in any way related to my participation in these medical procedures. I assume and understand all risks related to this medical procedure.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5g-jz-ZrZ" userLabel="My signature">
+                            <rect key="frame" x="0.0" y="280" width="370" height="203"/>
+                            <string key="text">My signature below indicates that I have read, understood and freely signed this agreement. I expressly agree that this agreement shall be construed and enforced in accordance with Missouri law and I consent to the jurisdiction of said state. I agree that this waiver and release is intended to be as broad and inclusive as permitted under Missouri law so that if any portion hereof is held invalid, the balance shall continue in full legal force and effect.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3Sp-gm-pXn">
+                            <rect key="frame" x="0.0" y="491" width="370" height="20.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DE2-0N-ZYL">
+                                    <rect key="frame" x="0.0" y="0.0" width="203.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZX-nS-228">
+                                    <rect key="frame" x="211.5" y="0.0" width="158.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0Zw-hP-rNf">
+                            <rect key="frame" x="0.0" y="519.5" width="370" height="68"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rla-Sk-eaX">
+                                    <rect key="frame" x="0.0" y="0.0" width="203.5" height="68"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="Rla-Sk-eaX" secondAttribute="height" multiplier="3:1" id="GnS-0v-OQ0"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Signature Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckj-1I-9Wo">
+                                    <rect key="frame" x="211.5" y="0.0" width="158.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="Rla-Sk-eaX" firstAttribute="width" secondItem="0Zw-hP-rNf" secondAttribute="width" multiplier="0.55" id="Mft-1K-T9n"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="3Sp-gm-pXn" secondAttribute="trailing" id="NmA-WU-sd9"/>
+                        <constraint firstAttribute="trailing" secondItem="0Zw-hP-rNf" secondAttribute="trailing" id="oZy-EU-7aA"/>
+                        <constraint firstItem="DE2-0N-ZYL" firstAttribute="width" secondItem="u8d-B4-cjO" secondAttribute="width" multiplier="0.55" id="xE2-sS-zoc"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="u8d-B4-cjO" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="15" id="55W-R8-SiB"/>
+                <constraint firstItem="u8d-B4-cjO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="RLI-OD-nBN"/>
+                <constraint firstAttribute="trailing" secondItem="u8d-B4-cjO" secondAttribute="trailing" constant="15" id="ci7-Lt-3DV"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="25" y="-19.5"/>
+        </view>
+    </objects>
+</document>

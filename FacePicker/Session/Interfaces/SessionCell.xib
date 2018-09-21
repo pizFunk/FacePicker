@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="cTh-Qw-Lo1" customClass="SessionCell" customModule="FacePicker" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yex-48-hcl">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YIb-xu-o3G">
+                                <rect key="frame" x="41.5" y="8" width="217" height="255.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="YIb-xu-o3G" secondAttribute="height" multiplier="1:1.178" id="e5P-AG-Lf1"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwJ-0r-Erv">
+                                <rect key="frame" x="129" y="271.5" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jwJ-0r-Erv" firstAttribute="centerX" secondItem="Yex-48-hcl" secondAttribute="centerX" id="79E-hj-JpT"/>
+                            <constraint firstItem="jwJ-0r-Erv" firstAttribute="top" secondItem="YIb-xu-o3G" secondAttribute="bottom" constant="8" id="GeQ-Wd-Qe7"/>
+                            <constraint firstItem="YIb-xu-o3G" firstAttribute="top" secondItem="Yex-48-hcl" secondAttribute="top" constant="8" id="WKy-ZC-fZx"/>
+                            <constraint firstItem="YIb-xu-o3G" firstAttribute="centerX" secondItem="Yex-48-hcl" secondAttribute="centerX" id="Wsv-B3-VxM"/>
+                            <constraint firstAttribute="bottom" secondItem="jwJ-0r-Erv" secondAttribute="bottom" constant="8" id="slc-a2-Hvo"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Yex-48-hcl" secondAttribute="trailing" id="BX7-cw-Z83"/>
+                <constraint firstItem="Yex-48-hcl" firstAttribute="leading" secondItem="cTh-Qw-Lo1" secondAttribute="leading" id="xOH-uh-2fc"/>
+                <constraint firstItem="Yex-48-hcl" firstAttribute="top" secondItem="cTh-Qw-Lo1" secondAttribute="top" id="xay-w7-ob0"/>
+                <constraint firstAttribute="bottom" secondItem="Yex-48-hcl" secondAttribute="bottom" id="zqe-HK-Uf6"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="5f2-zf-kaJ"/>
+            <connections>
+                <outlet property="dateLabel" destination="jwJ-0r-Erv" id="YVQ-1X-tdr"/>
+                <outlet property="faceImageView" destination="YIb-xu-o3G" id="e2y-E7-KLm"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>
