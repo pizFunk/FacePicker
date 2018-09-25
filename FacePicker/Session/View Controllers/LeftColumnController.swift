@@ -16,6 +16,7 @@ class LeftColumnController: UIViewController {
     
     let sessionListViewController: SessionListController
     let sessionDetailViewController: SessionDetailController
+    let sessionDetailNibName = "SessionDetailController"
     
     var session: Session? {
         didSet {
@@ -32,22 +33,28 @@ class LeftColumnController: UIViewController {
         }
     }
     
-    convenience init() {
-        self.init(nibName: nil, bundle: nil)
-    }
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         sessionListViewController = SessionListController()
-        sessionDetailViewController = SessionDetailController()
-        
+        sessionDetailViewController = SessionDetailController(nibName: sessionDetailNibName, bundle: nil)
+
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        addChildViewController(sessionListViewController)
+        sessionListViewController.didMove(toParentViewController: self)
+        addChildViewController(sessionDetailViewController)
+        sessionDetailViewController.didMove(toParentViewController: self)
     }
     
     required init?(coder aDecoder: NSCoder) {
         sessionListViewController = SessionListController()
-        sessionDetailViewController = SessionDetailController()
+        sessionDetailViewController = SessionDetailController(nibName: sessionDetailNibName, bundle: nil)
         
         super.init(coder: aDecoder)
+        
+        addChildViewController(sessionListViewController)
+        sessionListViewController.didMove(toParentViewController: self)
+        addChildViewController(sessionDetailViewController)
+        sessionDetailViewController.didMove(toParentViewController: self)
     }
     
     override func viewDidLoad() {

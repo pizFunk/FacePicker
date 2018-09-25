@@ -56,19 +56,21 @@ public class ViewHelper {
         
         return CGPoint(x: pixelX, y: pixelY)
     }
+    public static func roundCornersOnView(_ view: UIView, withRadius radius: CGFloat = 8) {
+        view.layer.cornerRadius = radius
+        view.layer.masksToBounds = radius > 0
+    }
     public static func setBorderOnView(_ view: UIView, withColor color: CGColor, andWidth width: CGFloat = 1.0, rounded: Bool = true) {
         view.layer.borderWidth = width
         view.layer.borderColor = color
         if rounded {
-            view.layer.cornerRadius = 8
-            view.layer.masksToBounds = true
+            ViewHelper.roundCornersOnView(view)
         }
     }
     public static func clearBorderOnView(_ view: UIView) {
         view.layer.borderWidth = 0
         view.layer.borderColor = UIColor.clear.cgColor
-        view.layer.cornerRadius = 0
-        view.layer.masksToBounds = false
+        ViewHelper.roundCornersOnView(view, withRadius: 0)
     }
     // dropdown
     public static func setDropDownAppearance() {

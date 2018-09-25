@@ -299,18 +299,18 @@ extension SessionController : ContextMenuDelegate {
 extension SessionController : SiteMenuControllerDelegate {
     func siteMenuDidSave(savedSite: InjectionSite?) {
         //        print("--- FaceController.contextMenuDidSave(savedSite:) ---")
-        guard let site = savedSite else {
-            return
+        guard savedSite != nil else {
+            fatalError("Attempting to save a nil site!")
         }
         // update or store new site in our dictionary
         // SiteMenuController handling now...
-        let uuid = site.uuid.uuidString
+//        let uuid = site.uuid.uuidString
         //        guard let siteButton = siteButtons[uuid] else {
         //            fatalError("Couldn't find corresponding siteButton with uuid = \(uuid)")
         //        }
         //        SessionHelper.setTitleAndColor(forButton: siteButton, withSite: site)
         saveContext()
-        print("Saved site with uuid = \(uuid)")
+//        print("Saved site with uuid = \(uuid)")
     }
     
     func siteMenuDidDelete(deletedSite: InjectionSite?) {

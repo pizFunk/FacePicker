@@ -46,4 +46,11 @@ public class Session: NSManagedObject {
             _cachedSessionImage = SessionHelper.textToImage(drawSites: sites, inImage: SessionHelper.defaultFaceImage)
         }
     }
+    
+    func labelsArray() -> Array<ProductLabel> {
+        guard let labels = self.labels else {
+            return [ProductLabel]()
+        }
+        return Array(labels)
+    }
 }

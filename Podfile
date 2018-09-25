@@ -9,6 +9,7 @@ target 'FacePicker' do
   pod 'ContextMenu'
   pod 'DropDown'
   pod 'SwiftSignatureView'
+  pod 'CropViewController'
 
   target 'FacePickerTests' do
     inherit! :search_paths

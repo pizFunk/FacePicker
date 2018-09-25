@@ -3,38 +3,97 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "ClientsController.viewDidLoad():ClientsController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "SiteMenuController.setCurrentValues():SiteMenuController.swift">
+         contextName = "SiteMenuController.onSave():SiteMenuController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "site.type!.rawValue">
+               value = "unitTypeDropDown">
             </PersistentString>
             <PersistentString
-               value = "unitTypeDropDown.indexPathForSelectedRow.row">
+               value = "SiteMenuController.previousSite.type">
+            </PersistentString>
+            <PersistentString
+               value = "unitTypeDropDown.indexPathForSelectedRow">
             </PersistentString>
             <PersistentString
                value = "SiteMenuController.previousSite.units">
             </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientDetailController.viewDidAppear(_:):ClientDetailController.swift">
+         <PersistentStrings>
             <PersistentString
-               value = "unitTypeDropDown.selectedItem">
+               value = "collectionView.visibleCells.first">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ClientController.bindFormToClientAndSave():ClientController.swift">
+         contextName = "ClientViewController.viewTapped(sender:):ClientViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "Date.init()">
-            </PersistentString>
-            <PersistentString
-               value = "zipTextField.text">
-            </PersistentString>
-            <PersistentString
-               value = "lastNeuroDatePicker.date">
+               value = "notesTextView.bounds">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientListController.tableView(_:commit:forRowAt:):ClientListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "tableView.indexPathForSelectedRow">
+            </PersistentString>
+            <PersistentString
+               value = "selectedRowBeforeEdit">
+            </PersistentString>
+            <PersistentString
+               value = "tableView.indexPathForSelectedRow == indexPath">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SessionListController.viewDidLayoutSubviews():SessionListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "collectionView.visibleCells">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientDetailController.collectionView(_:numberOfItemsInSection:):ClientDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "client?.sessions?.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ClientListController.updateSearchResults(for:):ClientListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "client.formattedName().lowercased()">
+            </PersistentString>
+            <PersistentString
+               value = "searchController.searchBar.text!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SessionDetailController.collectionView(_:layout:sizeForItemAt:):SessionDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "productCellSize">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SignatureController.viewDidLoad():ClientController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "view.topAnchor">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientsController.viewDidLoad():ClientsController.swift">
       </ContextState>
       <ContextState
          contextName = "ClientListController.updateSearchResults(for:):ClientListController.swift">
@@ -60,124 +119,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ClientDetailController.addNewSession():ClientDetailController.swift">
+         contextName = "ClientDetailController.viewDidLoad():ClientDetailController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ProductLabelCell.setImage(_:):ProductLabelCell.swift">
          <PersistentStrings>
             <PersistentString
-               value = "client">
+               value = "imageViewHeightAnchor">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "FaceController.addSite(atPoint:):FaceController.swift">
+         contextName = "EqualSpacedCollectionViewFlowLayout.prepare():EqualSpacedCollectionViewFlowLayout.swift">
          <PersistentStrings>
             <PersistentString
-               value = "faceImageView.frame.size.width">
-            </PersistentString>
-            <PersistentString
-               value = "faceImageView.frame.size.height">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "SiteMenuController.setDefaultValues():SiteMenuController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "previous.units">
-            </PersistentString>
-            <PersistentString
-               value = "SiteMenuController.previousSite.units">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ClientViewController.clientControllerDidSave(client:):ClientViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.client.formattedName()">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "SessionListController.viewDidLayoutSubviews():SessionListController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "collectionView.visibleCells">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ClientListController.tableView(_:commit:forRowAt:):ClientListController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "tableView.indexPathForSelectedRow">
-            </PersistentString>
-            <PersistentString
-               value = "selectedRowBeforeEdit">
-            </PersistentString>
-            <PersistentString
-               value = "tableView.indexPathForSelectedRow == indexPath">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ClientDetailController.collectionView(_:numberOfItemsInSection:):ClientDetailController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "client?.sessions?.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "InjectionSite.type.setter:InjectionSite+CoreDataProperties.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "Int16(newValue.rawValue)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ClientController.viewDidLoad():ClientController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "firstNameTextView.layer.borderColor">
-            </PersistentString>
-            <PersistentString
-               value = "mainStackView">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ClientViewController.loadClientData():ClientViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "client.firstName">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ClientController.textFieldDidEndEditing(_:reason:):ClientController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "textField === cellAreaTextField">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "SessionListController.collectionView(_:layout:sizeForItemAt:):SessionListController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "collectionView.frame.width">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "SessionCell.session.didset:SessionCell.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "session.formattedDate()">
-            </PersistentString>
-            <PersistentString
-               value = "session.id?.uuidString">
+               value = "collectionView?.cellForItem(at: IndexPath(row: 0, section: 0))?.contentView.frame.width">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -199,50 +155,34 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "FaceController.viewDidLayoutSubviews():FaceController.swift">
+         contextName = "ClientController.recursivelyResetBorders(inView:):ClientController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "faceImageView.frame.size">
+               value = "view.subviews">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SessionListController.collectionView(_:numberOfItemsInSection:):SessionListController.swift">
+         contextName = "sizeCollectionView #1 () in SessionDetailController.cropViewController(_:didCropToImage:withRect:angle:):SessionDetailController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sessions.count">
+               value = "productLabelCollectionView.frame">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ClientDetailController.sessionDidChange(_:):ClientDetailController.swift">
+         contextName = "ClientViewController.loadClientData():ClientViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sessions">
+               value = "client.firstName">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SessionListController.backToClientsTapped(_:):SessionListController.swift">
+         contextName = "SessionListController.collectionView(_:layout:sizeForItemAt:):SessionListController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "isModalInPopover">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ClientDetailController.viewDidAppear(_:):ClientDetailController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "collectionView.visibleCells.first">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "SiteMenuController.viewWillAppear(_:):SiteMenuController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "unitTypeDropDown.indexPathForSelectedRow.row">
+               value = "collectionView.frame.width">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -261,6 +201,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "FaceController.viewDidLayoutSubviews():FaceController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "faceImageView.frame.size">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ClientController.textViewDidBeginEditing(_:):ClientController.swift">
          <PersistentStrings>
             <PersistentString
@@ -269,22 +217,199 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "SessionListController.viewDidLoad():SessionListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "collectionView">
+            </PersistentString>
+            <PersistentString
+               value = "reuseIdentifier">
+            </PersistentString>
+            <PersistentString
+               value = "selectedSession">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SessionDetailController.collectionView(_:cellForItemAt:):SessionDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "images[indexPath.item]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FaceController.contextMenuDidDismiss(viewController:animated:):FaceController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sites">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientController.viewDidLoad():ClientController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "firstNameTextView.layer.borderColor">
+            </PersistentString>
+            <PersistentString
+               value = "mainStackView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SiteMenuController.viewDidLayoutSubviews():SiteMenuController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "unitTypeDropDown.indexPathForSelectedRow.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DropDown.show(beforeTransform:anchorPoint:):DropDown.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "selectedRowIndices">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientController.validateBlankSignature(signature:):ClientController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "image.getPixelColor(x: x, y: y)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SiteMenuController.viewWillAppear(_:):SiteMenuController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "unitTypeDropDown.indexPathForSelectedRow.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientViewController.clientControllerDidSave(client:):ClientViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.client.formattedName()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientController.textFieldDidEndEditing(_:reason:):ClientController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "textField === cellAreaTextField">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SessionCell.session.didset:SessionCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "session.formattedDate()">
+            </PersistentString>
+            <PersistentString
+               value = "session.id?.uuidString">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientViewController.textViewDidEndEditing(_:):ClientViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "client.notes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SessionDetailController.isNotesDifferentThanSaved():SessionDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "notesTextView.text">
+            </PersistentString>
+            <PersistentString
+               value = "session?.notes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FaceController.addSite(atPoint:):FaceController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "faceImageView.frame.size.width">
+            </PersistentString>
+            <PersistentString
+               value = "faceImageView.frame.size.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientDetailController.addNewSession():ClientDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "client">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FaceController.siteTapped(button:):FaceController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "button.restorationIdentifier">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientDetailController.prepare(for:sender:):ClientDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "split.viewControllers.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SessionListController.collectionView(_:numberOfItemsInSection:):SessionListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sessions.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Client.formattedHomePhone():Client+CoreDataClass.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "homeArea">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SessionListController.backToClientsTapped(_:):SessionListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "isModalInPopover">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ClientController.textField(_:shouldChangeCharactersIn:replacementString:):ClientController.swift">
       </ContextState>
       <ContextState
-         contextName = "SiteMenuController.onSave():SiteMenuController.swift">
+         contextName = "SessionListController.collectionView(_:cellForItemAt:):SessionListController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "unitTypeDropDown">
+               value = "indexPath.row">
             </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientDetailController.sessionDidChange(_:):ClientDetailController.swift">
+         <PersistentStrings>
             <PersistentString
-               value = "SiteMenuController.previousSite.type">
-            </PersistentString>
-            <PersistentString
-               value = "unitTypeDropDown.indexPathForSelectedRow">
-            </PersistentString>
-            <PersistentString
-               value = "SiteMenuController.previousSite.units">
+               value = "sessions">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -306,64 +431,99 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "FaceController.siteTapped(button:):FaceController.swift">
+         contextName = "SessionDetailController.setTotals():SessionDetailController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "button.restorationIdentifier">
+               value = "totalsStackView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "DropDown.show(beforeTransform:anchorPoint:):DropDown.swift">
+         contextName = "SessionDetailController.productCellSize.getter:SessionDetailController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "selectedRowIndices">
+               value = "sectionInsets.left">
+            </PersistentString>
+            <PersistentString
+               value = "sectionInsets.right">
+            </PersistentString>
+            <PersistentString
+               value = "(productLabelCollectionView.contentSize.width - (minimumInterimSpacing * columns - 1) - sectionInsets.left - sectionInsets.right) / columns">
+            </PersistentString>
+            <PersistentString
+               value = "productLabelCollectionView.contentSize.width">
+            </PersistentString>
+            <PersistentString
+               value = "CGFloat.init(489).remainder(dividingBy: CGFloat.init(2))">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ClientViewController.viewTapped(sender:):ClientViewController.swift">
+         contextName = "SiteMenuController.setCurrentValues():SiteMenuController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "notesTextView.bounds">
+               value = "site.type!.rawValue">
+            </PersistentString>
+            <PersistentString
+               value = "unitTypeDropDown.indexPathForSelectedRow.row">
+            </PersistentString>
+            <PersistentString
+               value = "SiteMenuController.previousSite.units">
+            </PersistentString>
+            <PersistentString
+               value = "unitTypeDropDown.selectedItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "Client.formattedHomePhone():Client+CoreDataClass.swift">
+         contextName = "SessionDetailController.cropViewController(_:didCropToImage:withRect:angle:):SessionDetailController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "homeArea">
+               value = "images">
+            </PersistentString>
+            <PersistentString
+               value = "productLabelCollectionView.contentSize">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SessionListController.viewDidLoad():SessionListController.swift">
+         contextName = "SessionDetailController.collectionView(_:numberOfItemsInSection:):SessionDetailController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "collectionView">
-            </PersistentString>
-            <PersistentString
-               value = "reuseIdentifier">
-            </PersistentString>
-            <PersistentString
-               value = "selectedSession">
+               value = "images.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ClientViewController.textViewDidEndEditing(_:):ClientViewController.swift">
+         contextName = "SiteMenuController.setDefaultValues():SiteMenuController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "client.notes">
+               value = "previous.units">
+            </PersistentString>
+            <PersistentString
+               value = "SiteMenuController.previousSite.units">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SignatureController.viewDidLoad():ClientController.swift">
+         contextName = "ClientController.bindFormToClientAndSave():ClientController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "view.topAnchor">
+               value = "Date.init()">
+            </PersistentString>
+            <PersistentString
+               value = "zipTextField.text">
+            </PersistentString>
+            <PersistentString
+               value = "lastNeuroDatePicker.date">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InjectionSite.type.setter:InjectionSite+CoreDataProperties.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Int16(newValue.rawValue)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -372,76 +532,6 @@
          <PersistentStrings>
             <PersistentString
                value = "collectionView.visibleCells">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ClientController.recursivelyResetBorders(inView:):ClientController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "view.subviews">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "EqualSpacedCollectionViewFlowLayout.prepare():EqualSpacedCollectionViewFlowLayout.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "collectionView?.cellForItem(at: IndexPath(row: 0, section: 0))?.contentView.frame.width">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ClientDetailController.viewDidLoad():ClientDetailController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "SessionListController.collectionView(_:cellForItemAt:):SessionListController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "indexPath.row">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ClientDetailController.prepare(for:sender:):ClientDetailController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "split.viewControllers.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "SiteMenuController.viewDidLayoutSubviews():SiteMenuController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "unitTypeDropDown.indexPathForSelectedRow.row">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "FaceController.contextMenuDidDismiss(viewController:animated:):FaceController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "sites">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ClientController.validateBlankSignature(signature:):ClientController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "image.getPixelColor(x: x, y: y)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ClientListController.updateSearchResults(for:):ClientListController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "client.formattedName().lowercased()">
-            </PersistentString>
-            <PersistentString
-               value = "searchController.searchBar.text!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -38,15 +38,22 @@
         <attribute name="yPos" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="injections" inverseEntity="Session" syncable="YES"/>
     </entity>
+    <entity name="ProductLabel" representedClassName="ProductLabel" syncable="YES">
+        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="labels" inverseEntity="Session" syncable="YES"/>
+    </entity>
     <entity name="Session" representedClassName="Session" syncable="YES">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="client" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Client" inverseName="sessions" inverseEntity="Client" syncable="YES"/>
         <relationship name="injections" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="InjectionSite" inverseName="session" inverseEntity="InjectionSite" syncable="YES"/>
+        <relationship name="labels" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ProductLabel" inverseName="session" inverseEntity="ProductLabel" syncable="YES"/>
     </entity>
     <elements>
         <element name="Client" positionX="-63" positionY="18" width="128" height="463"/>
         <element name="InjectionSite" positionX="475" positionY="234" width="128" height="135"/>
-        <element name="Session" positionX="234" positionY="183" width="128" height="103"/>
+        <element name="Session" positionX="234" positionY="183" width="128" height="135"/>
+        <element name="ProductLabel" positionX="135" positionY="162" width="128" height="75"/>
     </elements>
 </model>
