@@ -11,6 +11,9 @@
 		31501B0E215AB892003D29B7 /* ProductLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31501B0C215AB892003D29B7 /* ProductLabelCell.xib */; };
 		31501B11215ACA5F003D29B7 /* ProductLabel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31501B0F215ACA5F003D29B7 /* ProductLabel+CoreDataClass.swift */; };
 		31501B12215ACA5F003D29B7 /* ProductLabel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31501B10215ACA5F003D29B7 /* ProductLabel+CoreDataProperties.swift */; };
+		31501B1F215B0E2A003D29B7 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31501B1E215B0E2A003D29B7 /* Settings.swift */; };
+		31501B26215B12D0003D29B7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31501B24215B12D0003D29B7 /* SettingsViewController.swift */; };
+		31501B27215B12D0003D29B7 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31501B25215B12D0003D29B7 /* SettingsViewController.xib */; };
 		315D7F2E214C25DD009149B9 /* InjectionSite+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315D7F2C214C25DD009149B9 /* InjectionSite+CoreDataProperties.swift */; };
 		315D7F31214C4096009149B9 /* ClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315D7F2F214C4096009149B9 /* ClientViewController.swift */; };
 		315D7F34214C5510009149B9 /* ClientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315D7F33214C5510009149B9 /* ClientViewController.xib */; };
@@ -48,7 +51,6 @@
 		31D8952D2159985A003C4DB1 /* SessionTotalsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D8952C2159985A003C4DB1 /* SessionTotalsRow.swift */; };
 		31D8952F215999E1003C4DB1 /* SessionDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31D8952E215999E1003C4DB1 /* SessionDetailController.xib */; };
 		31D8953121599A3D003C4DB1 /* UnderlinedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D8953021599A3D003C4DB1 /* UnderlinedLabel.swift */; };
-		31F30E0B214E1647008EA9D1 /* EqualSpacedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F30E0A214E1647008EA9D1 /* EqualSpacedCollectionViewFlowLayout.swift */; };
 		31F78E25214698FB00418B6D /* SiteMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F78E23214698FB00418B6D /* SiteMenuController.swift */; };
 		31F78E452147402E00418B6D /* InjectionSite+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F78E432147402E00418B6D /* InjectionSite+CoreDataClass.swift */; };
 		31FF70A12151543000D3BBC2 /* SessionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31FF70A02151543000D3BBC2 /* SessionCell.xib */; };
@@ -80,6 +82,9 @@
 		31501B0C215AB892003D29B7 /* ProductLabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductLabelCell.xib; sourceTree = "<group>"; };
 		31501B0F215ACA5F003D29B7 /* ProductLabel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductLabel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		31501B10215ACA5F003D29B7 /* ProductLabel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductLabel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		31501B1E215B0E2A003D29B7 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		31501B24215B12D0003D29B7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		31501B25215B12D0003D29B7 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		315D7F2C214C25DD009149B9 /* InjectionSite+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InjectionSite+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		315D7F2F214C4096009149B9 /* ClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewController.swift; sourceTree = "<group>"; };
 		315D7F33214C5510009149B9 /* ClientViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientViewController.xib; sourceTree = "<group>"; };
@@ -87,7 +92,7 @@
 		315D7F39214DBA01009149B9 /* ClientConsentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientConsentController.swift; sourceTree = "<group>"; };
 		315D7F3A214DBA01009149B9 /* ClientConsentController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientConsentController.xib; sourceTree = "<group>"; };
 		315D7F3D214DEA15009149B9 /* UIImage+PixelColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+PixelColor.swift"; sourceTree = "<group>"; };
-		31602FB72140087C0023F8A2 /* FacePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FacePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		31602FB72140087C0023F8A2 /* Ostapowicz, MD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ostapowicz, MD.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		31602FBA2140087C0023F8A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31602FBC2140087C0023F8A2 /* ClientController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientController.swift; sourceTree = "<group>"; };
 		31602FBF2140087C0023F8A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -123,7 +128,6 @@
 		31D8952C2159985A003C4DB1 /* SessionTotalsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTotalsRow.swift; sourceTree = "<group>"; };
 		31D8952E215999E1003C4DB1 /* SessionDetailController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionDetailController.xib; sourceTree = "<group>"; };
 		31D8953021599A3D003C4DB1 /* UnderlinedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlinedLabel.swift; sourceTree = "<group>"; };
-		31F30E0A214E1647008EA9D1 /* EqualSpacedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualSpacedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		31F78E23214698FB00418B6D /* SiteMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteMenuController.swift; sourceTree = "<group>"; };
 		31F78E432147402E00418B6D /* InjectionSite+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InjectionSite+CoreDataClass.swift"; sourceTree = "<group>"; };
 		31FF70A02151543000D3BBC2 /* SessionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionCell.xib; sourceTree = "<group>"; };
@@ -177,6 +181,74 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		31501B1B215B0D98003D29B7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				31A0FA202149FBC700F96845 /* ClientTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		31501B1C215B0DAD003D29B7 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				31AC2460214ACE4B003B6C5C /* ClientController.xib */,
+				315D7F3A214DBA01009149B9 /* ClientConsentController.xib */,
+				315D7F33214C5510009149B9 /* ClientViewController.xib */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		31501B1D215B0DBA003D29B7 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				31602FBC2140087C0023F8A2 /* ClientController.swift */,
+				31A0FA1E2149F85A00F96845 /* ClientListController.swift */,
+				315D7F2F214C4096009149B9 /* ClientViewController.swift */,
+				315D7F39214DBA01009149B9 /* ClientConsentController.swift */,
+				31A0FA24214A09EB00F96845 /* ClientDetailController.swift */,
+				31A0FA22214A033300F96845 /* SignatureViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		31501B20215B1189003D29B7 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				31602FBA2140087C0023F8A2 /* AppDelegate.swift */,
+				31FF70B221518D1900D3BBC2 /* Notification+Names.swift */,
+				31501B1E215B0E2A003D29B7 /* Settings.swift */,
+				31AC2468214B62AE003B6C5C /* ViewHelper.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		31501B21215B11B3003D29B7 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				31602FBE2140087C0023F8A2 /* Main.storyboard */,
+				31602FC62140087E0023F8A2 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		31501B22215B121B003D29B7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				31602FC92140087E0023F8A2 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		31501B23215B127D003D29B7 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				31501B24215B12D0003D29B7 /* SettingsViewController.swift */,
+				31501B25215B12D0003D29B7 /* SettingsViewController.xib */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		31602FAE2140087C0023F8A2 = {
 			isa = PBXGroup;
 			children = (
@@ -192,7 +264,7 @@
 		31602FB82140087C0023F8A2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				31602FB72140087C0023F8A2 /* FacePicker.app */,
+				31602FB72140087C0023F8A2 /* Ostapowicz, MD.app */,
 				31602FCE2140087E0023F8A2 /* FacePickerTests.xctest */,
 				31602FD92140087E0023F8A2 /* FacePickerUITests.xctest */,
 			);
@@ -202,21 +274,17 @@
 		31602FB92140087C0023F8A2 /* FacePicker */ = {
 			isa = PBXGroup;
 			children = (
+				31501B20215B1189003D29B7 /* Application */,
 				31F78E51214807CE00418B6D /* Model */,
 				31FF70B02151817F00D3BBC2 /* Client */,
 				31FF70B1215181A700D3BBC2 /* Session */,
-				31602FBA2140087C0023F8A2 /* AppDelegate.swift */,
-				31FF70B221518D1900D3BBC2 /* Notification+Names.swift */,
+				31501B23215B127D003D29B7 /* Settings */,
+				31501B22215B121B003D29B7 /* Resources */,
+				31501B21215B11B3003D29B7 /* Storyboards */,
 				31D8953021599A3D003C4DB1 /* UnderlinedLabel.swift */,
 				315D7F3D214DEA15009149B9 /* UIImage+PixelColor.swift */,
 				31A0FA102149C55600F96845 /* UIViewController+Extensions.swift */,
-				31AC2468214B62AE003B6C5C /* ViewHelper.swift */,
-				31F30E0A214E1647008EA9D1 /* EqualSpacedCollectionViewFlowLayout.swift */,
-				31602FBE2140087C0023F8A2 /* Main.storyboard */,
 				31602FC42140087E0023F8A2 /* Assets.xcassets */,
-				31602FC62140087E0023F8A2 /* LaunchScreen.storyboard */,
-				31602FC92140087E0023F8A2 /* Info.plist */,
-				31602FC12140087C0023F8A2 /* FacePicker.xcdatamodeld */,
 			);
 			path = FacePicker;
 			sourceTree = "<group>";
@@ -292,6 +360,7 @@
 				315D7F2C214C25DD009149B9 /* InjectionSite+CoreDataProperties.swift */,
 				31A0FA162149EDFC00F96845 /* Session+CoreDataClass.swift */,
 				31A0FA172149EDFC00F96845 /* Session+CoreDataProperties.swift */,
+				31602FC12140087C0023F8A2 /* FacePicker.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -299,16 +368,9 @@
 		31FF70B02151817F00D3BBC2 /* Client */ = {
 			isa = PBXGroup;
 			children = (
-				31AC2460214ACE4B003B6C5C /* ClientController.xib */,
-				31602FBC2140087C0023F8A2 /* ClientController.swift */,
-				31A0FA22214A033300F96845 /* SignatureViewController.swift */,
-				31A0FA1E2149F85A00F96845 /* ClientListController.swift */,
-				31A0FA202149FBC700F96845 /* ClientTableViewCell.swift */,
-				315D7F33214C5510009149B9 /* ClientViewController.xib */,
-				315D7F2F214C4096009149B9 /* ClientViewController.swift */,
-				315D7F3A214DBA01009149B9 /* ClientConsentController.xib */,
-				315D7F39214DBA01009149B9 /* ClientConsentController.swift */,
-				31A0FA24214A09EB00F96845 /* ClientDetailController.swift */,
+				31501B1B215B0D98003D29B7 /* Views */,
+				31501B1C215B0DAD003D29B7 /* Interfaces */,
+				31501B1D215B0DBA003D29B7 /* ViewControllers */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -357,7 +419,7 @@
 			);
 			name = FacePicker;
 			productName = FacePicker;
-			productReference = 31602FB72140087C0023F8A2 /* FacePicker.app */;
+			productReference = 31602FB72140087C0023F8A2 /* Ostapowicz, MD.app */;
 			productType = "com.apple.product-type.application";
 		};
 		31602FCD2140087E0023F8A2 /* FacePickerTests */ = {
@@ -448,6 +510,7 @@
 			files = (
 				31D8952A215978F4003C4DB1 /* SessionTotalsRow.xib in Resources */,
 				31D8952F215999E1003C4DB1 /* SessionDetailController.xib in Resources */,
+				31501B27215B12D0003D29B7 /* SettingsViewController.xib in Resources */,
 				31AC2461214ACE4B003B6C5C /* ClientController.xib in Resources */,
 				315D7F3C214DBA01009149B9 /* ClientConsentController.xib in Resources */,
 				31501B0E215AB892003D29B7 /* ProductLabelCell.xib in Resources */,
@@ -563,8 +626,8 @@
 			files = (
 				31D8952D2159985A003C4DB1 /* SessionTotalsRow.swift in Sources */,
 				31F78E452147402E00418B6D /* InjectionSite+CoreDataClass.swift in Sources */,
-				31F30E0B214E1647008EA9D1 /* EqualSpacedCollectionViewFlowLayout.swift in Sources */,
 				31A0FA1F2149F85A00F96845 /* ClientListController.swift in Sources */,
+				31501B1F215B0E2A003D29B7 /* Settings.swift in Sources */,
 				315D7F2E214C25DD009149B9 /* InjectionSite+CoreDataProperties.swift in Sources */,
 				31F78E25214698FB00418B6D /* SiteMenuController.swift in Sources */,
 				31501B12215ACA5F003D29B7 /* ProductLabel+CoreDataProperties.swift in Sources */,
@@ -584,6 +647,7 @@
 				31501B0D215AB892003D29B7 /* ProductLabelCell.swift in Sources */,
 				31A0FA1C2149EDFC00F96845 /* Client+CoreDataClass.swift in Sources */,
 				31613DCD21553AD000146DF4 /* SessionDetailController.swift in Sources */,
+				31501B26215B12D0003D29B7 /* SettingsViewController.swift in Sources */,
 				315D7F3B214DBA01009149B9 /* ClientConsentController.swift in Sources */,
 				31A0FA1A2149EDFC00F96845 /* Session+CoreDataClass.swift in Sources */,
 				31A0FA27214A179D00F96845 /* SessionCell.swift in Sources */,
@@ -770,13 +834,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3QR92DHDGW;
-				INFOPLIST_FILE = FacePicker/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/FacePicker/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pizFunk.FacePicker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Ostapowicz, MD";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -789,13 +853,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3QR92DHDGW;
-				INFOPLIST_FILE = FacePicker/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/FacePicker/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pizFunk.FacePicker;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Ostapowicz, MD";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

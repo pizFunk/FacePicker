@@ -201,6 +201,7 @@ private extension SessionDetailController {
             print("session notes saved")
         }
         saveNotesButton.isHidden = true
+        notesTextView.resignFirstResponder()
     }
     
     private func addNewLabel(_ image: UIImage) {

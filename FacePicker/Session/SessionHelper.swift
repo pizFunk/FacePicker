@@ -24,7 +24,10 @@ public class SessionHelper {
     }
     public static func setTitleAndColor(forButton button: UIButton, withSite site: InjectionSite) {
         let buttonTitle = site.formattedUnits()
+        let centerX = button.center.x
         button.setTitle(buttonTitle, for: .normal)
+        button.sizeToFit()
+        button.center.x = centerX
         button.setTitleColor(SessionHelper.getColor(forType: site.type), for: .normal)
     }
     public static func setTitleAndColor(forLabel label: UILabel, withSite site: InjectionSite) {

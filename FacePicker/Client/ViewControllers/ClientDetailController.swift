@@ -55,12 +55,12 @@ class ClientDetailController: UIViewController, UICollectionViewDelegate, UIColl
                 // no client
                 self.stackView.isHidden = true
             }
-            if var rightBarButtonItems = navigationItem.rightBarButtonItems {
-                let buttonExists = rightBarButtonItems.contains(newSessionButton)
+            if navigationItem.rightBarButtonItems != nil {
+                let buttonExists = navigationItem.rightBarButtonItems!.contains(newSessionButton)
                 if showNewSessionButton && !buttonExists  {
-                    self.navigationItem.rightBarButtonItems?.append(newSessionButton)
+                    self.navigationItem.rightBarButtonItems!.append(newSessionButton)
                 } else if !showNewSessionButton && buttonExists {
-                    rightBarButtonItems.removeLast()
+                    navigationItem.rightBarButtonItems!.removeLast()
                 }
             }
             // reload collection view
@@ -171,6 +171,11 @@ class ClientDetailController: UIViewController, UICollectionViewDelegate, UIColl
         performSegue(withIdentifier: sessionSplitSegueIdentifier, sender: newSession)
     }
     
+    @IBAction func settingsButtonPressed(_ sender: UIBarButtonItem) {
+        let settingsController = SettingsViewController(nibName: SettingsViewController.nibName, bundle: nil)
+        showContextualMenu(settingsController)
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -196,7 +201,7 @@ class ClientDetailController: UIViewController, UICollectionViewDelegate, UIColl
             guard let session = sender as? Session else {
                 fatalError("ClientDataController: segue sender was not a Session!")
             }
-            sessionListController.selectedSession = self.sessions.index(of: session)
+            sessionListController.initialSelectedSession = self.sessions.index(of: session)
             sessionListController.sessions = self.sessions
             leftColumnController.session = session
             sessionController.session = session

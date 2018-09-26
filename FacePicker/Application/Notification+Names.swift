@@ -10,4 +10,5 @@ import Foundation
 
 extension Notification.Name {
     static let sessionDidChange = Notification.Name("sessionDidChange")
+    static let listAllClientsSettingDidChange = Notification.Name("listAllClientsSettingDidChange")
 }

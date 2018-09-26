@@ -12,7 +12,7 @@ class SessionListController: UIViewController {
     private let reuseIdentifier = "SessionCell"
     
     var sessions: [Session] = [Session]()
-    var selectedSession: Int?
+    var initialSelectedSession: Int?
     
     var parentDelegate: SessionListParentDelegate?
     var showDetailDelegate: SessionListShowDetailDelegate?
@@ -53,6 +53,11 @@ extension SessionListController {
     override func viewDidLayoutSubviews() {
         //        print("SessionListController.viewDidLayoutSubviews")
         super.viewDidLayoutSubviews()
+        
+        if initialSelectedSession != nil {
+            self.collectionView.selectItem(at: IndexPath(item: initialSelectedSession!, section: 0), animated: false, scrollPosition: .centeredVertically)
+            initialSelectedSession = nil
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -63,10 +68,6 @@ extension SessionListController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if selectedSession != nil {
-            self.collectionView.selectItem(at: IndexPath(item: selectedSession!, section: 0), animated: true, scrollPosition: .centeredVertically)
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -128,7 +129,6 @@ extension SessionListController : UICollectionViewDataSource {
 extension SessionListController : UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        selectedSession = indexPath.item
         parentDelegate?.sessionSelected(indexPath: indexPath)
         collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
         let session = sessions[indexPath.item]

@@ -325,6 +325,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ClientDetailController.client.didset:ClientDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "navigationItem.rightBarButtonItems">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "SessionDetailController.isNotesDifferentThanSaved():SessionDetailController.swift">
          <PersistentStrings>
             <PersistentString
@@ -332,6 +340,14 @@
             </PersistentString>
             <PersistentString
                value = "session?.notes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LeftColumnController.columnTogglePressed(_:):LeftColumnController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "pageControl.currentPage">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -32,7 +32,7 @@ public class InjectionSite: NSManagedObject {
 //    }
     
     func formattedUnits() -> String {
-        return String(format: "%.1f", self.units)
+        return self.units.description // String(format: "%.1f", self.units)
     }
 }
 

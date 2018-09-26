@@ -35,8 +35,10 @@ class ClientViewController: UIViewController, UITextViewDelegate, ContextMenuDel
     @IBOutlet weak var editClientButton: UIButton!
     
     var delegate: ClientViewControllerDelegate?
-    var client: Client! {
+    var client: Client? {
         didSet {
+            guard client != nil else { return }
+            loadViewIfNeeded()
             loadClientData()
             setStyling()
         }
@@ -66,6 +68,7 @@ class ClientViewController: UIViewController, UITextViewDelegate, ContextMenuDel
     
     // MARK: - Private Functions
     private func loadClientData() {
+        guard let client = client else { return }
         nameLabel.text = client.formattedName()
         dobLabel.text = client.formattedDOB()
         streetAdressLabel.text = client.streetAddress
@@ -118,13 +121,15 @@ class ClientViewController: UIViewController, UITextViewDelegate, ContextMenuDel
     
     // MARK: - UITextViewDelegate
     func textViewDidEndEditing(_ textView: UITextView) {
+        guard let client = client else { return }
         client.notes = notesTextView.text
         appDelegate().saveContext()
     }
     
     // MARK: - Actions
     @IBAction func editClientPressed(_ sender: UIButton) {
-        self.namePriorToEdit = self.client.formattedName()
+        guard let client = client else { return }
+        self.namePriorToEdit = client.formattedName()
         let clientController = ClientController(nibName: "ClientController", bundle: nil)
         clientController.delegate = self
         clientController.client = self.client
@@ -135,10 +140,11 @@ class ClientViewController: UIViewController, UITextViewDelegate, ContextMenuDel
             delegate: self)
     }
     @IBAction func showConsentButtonPressed(_ sender: UIButton) {
-        let clientConsentController = ClientConsentController(nibName: "ClientConsentController", bundle: nil)
-        guard let signatureData = client.signature as Data?, let signatureDate = client.formattedSignatureDate() else {
-            fatalError("Couldn't find signature image or date when trying to show consent overlay!")
+        guard let client = client, let signatureData = client.signature as Data?, let signatureDate = client.formattedSignatureDate() else {
+            return
+//            fatalError("Couldn't find signature image or date when trying to show consent overlay!")
         }
+        let clientConsentController = ClientConsentController(nibName: "ClientConsentController", bundle: nil)
         clientConsentController.signatureImage = UIImage(data: signatureData)
         clientConsentController.signatureDate = signatureDate
         showContextualMenu(clientConsentController)

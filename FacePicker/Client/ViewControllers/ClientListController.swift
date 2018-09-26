@@ -38,11 +38,17 @@ class ClientListController: UITableViewController, ClientControllerDelegate, Con
         //definesPresentationContext = true
         
         fetchClients()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ClientListController.onListAllClientsSettingDidChange(notification:)), name: .listAllClientsSettingDidChange, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK: - Private Functions
@@ -66,7 +72,7 @@ class ClientListController: UITableViewController, ClientControllerDelegate, Con
         }
         return nil
     }
-    private func setSelectedClient(client: Client) {
+    private func setSelectedClient(client: Client) -> Bool {
         var index:Int?
         if isFiltering() {
             index = filteredClients.index(of: client)
@@ -75,7 +81,9 @@ class ClientListController: UITableViewController, ClientControllerDelegate, Con
         }
         if index != nil {
             tableView.selectRow(at: IndexPath(row: index!, section: 0), animated: true, scrollPosition: .none)
+            return true
         }
+        return false
     }
     private func sortClients() {
         clients.sort(by: { return $0.firstName.lowercased() < $1.firstName.lowercased() })
@@ -133,11 +141,9 @@ class ClientListController: UITableViewController, ClientControllerDelegate, Con
         })
         tableView.reloadData()
         
-        if let client = selectedClient {
-            setSelectedClient(client: client)
+        if selectedClient == nil || !setSelectedClient(client: selectedClient!) {
+            delegate?.clientSelectionDidChange(nil)
         }
-        // else pass nil?
-        // delegate?.clientSelectionDidChange(nil)
     }
 
     // MARK: - Table view data source
@@ -151,8 +157,10 @@ class ClientListController: UITableViewController, ClientControllerDelegate, Con
         // #warning Incomplete implementation, return the number of rows
         if isFiltering() {
             return filteredClients.count
-        } else {
+        } else if Settings.listAllClients {
             return clients.count
+        } else {
+            return 0
         }
     }
 
@@ -268,6 +276,13 @@ class ClientListController: UITableViewController, ClientControllerDelegate, Con
             options: ContextMenu.Options(
                 allowTapDismiss: false),
             delegate: self)
+    }
+    
+    @objc func onListAllClientsSettingDidChange(notification: Notification) {
+        if !isFiltering() {
+            tableView.reloadData()
+            delegate?.clientSelectionDidChange(nil)
+        }
     }
 }
 

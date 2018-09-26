@@ -40,10 +40,11 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
     @IBOutlet weak var referralTextField: UITextField!
     @IBOutlet weak var signatureImageView: UIImageView!
     @IBOutlet weak var dateTextField: UITextField!
-    // stackviews for show/hide
+    // for show/hide
     @IBOutlet weak var smokeHowMuchStackView: UIStackView!
     @IBOutlet weak var priorNeuroStackView: UIStackView!
     @IBOutlet weak var priorFillerStackView: UIStackView!
+    @IBOutlet weak var invalidePhoneLabel: UILabel!
     // date pickers
     var dobDatePicker = UIDatePicker()
     var lastNeuroDatePicker = UIDatePicker()
@@ -246,46 +247,88 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
             }
         }
     }
-    private func validateTextFieldNotEmpty(_ textField: UITextField) -> Bool {
+    private func setInvalidBorder(_ view: UIView) {
+        ViewHelper.setBorderOnView(view, withColor: ViewHelper.validationColor)
+    }
+    private func validateTextFieldNotEmpty(_ textField: UITextField, setFieldInvalid: Bool = true) -> Bool {
         if textField.text == nil || textField.text!.isEmpty {
-            ViewHelper.setBorderOnView(textField, withColor: ViewHelper.validationColor)
+            if setFieldInvalid {
+                setInvalidBorder(textField)
+            }
             return false
         }
         return true
     }
     private func validateDropDown(dropDown: DropDown, withButton button: UIButton) -> Bool {
         if dropDown.selectedItem == nil {
-            ViewHelper.setBorderOnView(button, withColor: ViewHelper.validationColor)
+            setInvalidBorder(button)
             return false
         }
         return true
     }
     private func validateSignature(_ signature: UIImageView) -> Bool {
         if signature.image == nil || signature.image!.cgImage == nil || signature.image == defaultSignatureImage {
-            ViewHelper.setBorderOnView(signature, withColor: ViewHelper.validationColor)
+            setInvalidBorder(signature)
             return false
         }
         return true
     }
     private func isFormValid() -> Bool {
         recursivelyResetBorders(inView: self.view)
+        invalidePhoneLabel.isHidden = true
         
         var formIsValid = true
+        // always require at least a name!
         formIsValid = validateTextFieldNotEmpty(firstNameTextField)
         formIsValid = validateTextFieldNotEmpty(lastNameTextField) && formIsValid
-        formIsValid = validateTextFieldNotEmpty(dobTextField) && formIsValid
-        formIsValid = validateTextFieldNotEmpty(addressTextField) && formIsValid
-        formIsValid = validateTextFieldNotEmpty(cityTextField) && formIsValid
-        formIsValid = validateTextFieldNotEmpty(stateTextField) && formIsValid
-        formIsValid = validateTextFieldNotEmpty(zipTextField) && formIsValid
-        formIsValid = validateTextFieldNotEmpty(cellAreaTextField) && formIsValid
-        formIsValid = validateTextFieldNotEmpty(cellPrefixTextField) && formIsValid
-        formIsValid = validateTextFieldNotEmpty(cellSuffixTextField) && formIsValid
-        formIsValid = validateTextFieldNotEmpty(emailTextField) && formIsValid
-        formIsValid = validateDropDown(dropDown: smokeDropDown, withButton: smokeDropDownButton) && formIsValid
-        formIsValid = validateDropDown(dropDown: priorTreatmentDropDown, withButton: priorTreatmentDropDownButton) && formIsValid
-        formIsValid = validateSignature(signatureImageView) && formIsValid
-        formIsValid = validateTextFieldNotEmpty(dateTextField) && formIsValid
+        
+        if Settings.validateClient {
+            if Settings.validateDOB {
+                formIsValid = validateTextFieldNotEmpty(dobTextField) && formIsValid
+            }
+            if Settings.validateAddress {
+                formIsValid = validateTextFieldNotEmpty(addressTextField) && formIsValid
+                formIsValid = validateTextFieldNotEmpty(cityTextField) && formIsValid
+                formIsValid = validateTextFieldNotEmpty(stateTextField) && formIsValid
+                formIsValid = validateTextFieldNotEmpty(zipTextField) && formIsValid
+            }
+            if Settings.validatePhone {
+                var cellPhoneValid = true
+                cellPhoneValid = validateTextFieldNotEmpty(cellAreaTextField, setFieldInvalid: false)
+                cellPhoneValid = validateTextFieldNotEmpty(cellPrefixTextField, setFieldInvalid: false) && cellPhoneValid
+                cellPhoneValid = validateTextFieldNotEmpty(cellSuffixTextField, setFieldInvalid: false) && cellPhoneValid
+                
+                var homePhoneValid = true
+                homePhoneValid = validateTextFieldNotEmpty(homeAreaTextField, setFieldInvalid: false)
+                homePhoneValid = validateTextFieldNotEmpty(homePrefixTextField, setFieldInvalid: false) && homePhoneValid
+                homePhoneValid = validateTextFieldNotEmpty(homeSuffixTextField, setFieldInvalid: false) && homePhoneValid
+                
+                let atLeastOnePhone = cellPhoneValid || homePhoneValid
+                if !atLeastOnePhone {
+                    invalidePhoneLabel.isHidden = false
+                    setInvalidBorder(cellAreaTextField)
+                    setInvalidBorder(cellPrefixTextField)
+                    setInvalidBorder(cellSuffixTextField)
+                    setInvalidBorder(homeAreaTextField)
+                    setInvalidBorder(homePrefixTextField)
+                    setInvalidBorder(homeSuffixTextField)
+                }
+                
+                formIsValid = atLeastOnePhone && formIsValid
+            }
+            if Settings.validateEmail {
+                formIsValid = validateTextFieldNotEmpty(emailTextField) && formIsValid
+            }
+            
+            // add another option to Settings for these?
+            formIsValid = validateDropDown(dropDown: smokeDropDown, withButton: smokeDropDownButton) && formIsValid
+            formIsValid = validateDropDown(dropDown: priorTreatmentDropDown, withButton: priorTreatmentDropDownButton) && formIsValid
+            
+            if Settings.validateSignature {
+                formIsValid = validateSignature(signatureImageView) && formIsValid
+                formIsValid = validateTextFieldNotEmpty(dateTextField) && formIsValid
+            }
+        }
         
         return formIsValid
     }
@@ -574,12 +617,12 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
     //MARK: - Actions
     @objc
     func onSave(sender: UIBarButtonItem) {
-//        if !isFormValid() {
-//            let alert = UIAlertController(title: "Please complete the fields highlighted in red.", message: "", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
-//            self.present(alert, animated: true)
-//            return
-//        }
+        if !isFormValid() {
+            let alert = UIAlertController(title: "Please complete the fields highlighted in red.", message: "", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
         if let client = bindFormToClientAndSave() {
             delegate?.clientControllerDidSave(client: client)
         }

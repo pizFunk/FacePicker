@@ -75,7 +75,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="9bs-vi-e2s">
-                        <barButtonItem key="rightBarButtonItem" image="gear-icon" id="w5g-Do-RxB"/>
+                        <barButtonItem key="rightBarButtonItem" image="gear-icon" id="w5g-Do-RxB">
+                            <connections>
+                                <action selector="settingsButtonPressed:" destination="swC-Zb-MfT" id="UR5-w1-FBv"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -173,7 +177,11 @@
                                 <action selector="backToClientsPressed:" destination="wKu-Lz-npv" id="Kbf-WB-aC1"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Show Totals" id="a4K-RJ-dkO"/>
+                        <barButtonItem key="rightBarButtonItem" title="Title" id="a4K-RJ-dkO">
+                            <connections>
+                                <action selector="columnTogglePressed:" destination="wKu-Lz-npv" id="FMR-rf-NNm"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="mDz-3t-dvA" id="u0g-8R-uu7"/>

@@ -18,6 +18,10 @@ class LeftColumnController: UIViewController {
     let sessionDetailViewController: SessionDetailController
     let sessionDetailNibName = "SessionDetailController"
     
+    // button bar labels
+    let showDetailLabel = "Show Detail"
+    let showHistoryLabel = "Show History"
+    
     var session: Session? {
         didSet {
             sessionDetailViewController.session = session
@@ -72,6 +76,7 @@ class LeftColumnController: UIViewController {
         
         sessionListViewController.selectionChangedHandler = { (session) in
             self.session = session
+            self.scrollToPage(1)
         }
     }
 
@@ -85,13 +90,23 @@ class LeftColumnController: UIViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
+    var initialScrollComplete = false
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if !initialScrollComplete {
+            scrollToPage(1, animated: false)
+            initialScrollComplete = true
+        }
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+        let page = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+        setPage(page)
     }
     
     @objc
     func pageControlValueChanged(sender: UIPageControl) {
-        collectionView.scrollToItem(at: IndexPath(item: sender.currentPage, section: 0), at: .centeredHorizontally, animated: true)
+        scrollToPage(sender.currentPage)
     }
     
     @IBAction func backToClientsPressed(_ sender: UIBarButtonItem) {
@@ -100,12 +115,43 @@ class LeftColumnController: UIViewController {
         }
         splitViewController?.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func columnTogglePressed(_ sender: UIBarButtonItem) {
+//        print("columnTogglePressed: currentPage = \(pageControl.currentPage)")
+        switch pageControl.currentPage {
+        case 0:
+            scrollToPage(1)
+        case 1:
+            scrollToPage(0)
+        default:
+            break
+        }
+    }
 }
 
 private extension LeftColumnController {
-    func setupCollectionViewCells() {
+    private func setupCollectionViewCells() {
         self.collectionView.register(SessionListCell.classForCoder(), forCellWithReuseIdentifier: SessionListCell.reuseIdentifier)
         self.collectionView.register(SessionDetailCell.classForCoder(), forCellWithReuseIdentifier: SessionDetailCell.reuseIdentifier)
+    }
+    
+    private func setPage(_ page: Int) {
+//        print("setPage: \(page)")
+        pageControl.currentPage = page
+        switch page {
+        case 0:
+            navigationItem.rightBarButtonItem?.title = showDetailLabel
+        case 1:
+            navigationItem.rightBarButtonItem?.title = showHistoryLabel
+        default:
+            break
+        }
+    }
+    
+    private func scrollToPage(_ page: Int, animated: Bool = true) {
+//        print("scroll to page: \(page)")
+        collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .centeredHorizontally, animated: animated)
+        setPage(page)
     }
 }
 

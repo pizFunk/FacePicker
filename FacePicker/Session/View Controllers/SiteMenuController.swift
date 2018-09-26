@@ -18,7 +18,7 @@ class SiteMenuController: UIViewController {
     // button from SessionController menu is shown for:
     var siteButton: UIButton!
     
-    public let sliderStepInterval: Float = 0.5
+    public let sliderStepInterval = Settings.unitSelectionIncrement
     public var editMode: Bool = false
     public var delegate: SiteMenuControllerDelegate?
     public var site: InjectionSite!
@@ -61,7 +61,7 @@ class SiteMenuController: UIViewController {
         //
         let slider = UISlider()
         slider.addTarget(self, action: #selector(sliderDidChange(sender:)), for: UIControlEvents.valueChanged)
-        slider.minimumValue = 0.5
+        slider.minimumValue = sliderStepInterval
         slider.maximumValue = 5.0
         view.addSubview(slider)
         
@@ -93,7 +93,7 @@ class SiteMenuController: UIViewController {
         NSLayoutConstraint.activate([
             label2.centerYAnchor.constraint(equalTo: label.centerYAnchor), //constant: -1.0),
             label2.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 20.0),
-            label2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40.0)
+            label2.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 0.0)
             ])
         
         
@@ -172,7 +172,7 @@ class SiteMenuController: UIViewController {
         setTypeButton(site.type.description)
     }
     private func setUnitLabel(_ units: Float) {
-        unitLabel.text = String(format: "%.1f", units)
+        unitLabel.text = units.description // String(format: "%.1f", units)
     }
     private func setTypeButton(_ type: String) {
         unitTypeButton.setTitle(type, for: .normal)
