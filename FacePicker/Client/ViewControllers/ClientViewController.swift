@@ -9,7 +9,10 @@
 import UIKit
 import ContextMenu
 
-class ClientViewController: UIViewController, UITextViewDelegate, ContextMenuDelegate, ClientControllerDelegate {
+// MARK: - Properties
+
+class ClientViewController: UIViewController {
+    
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dobLabel: UILabel!
@@ -33,6 +36,7 @@ class ClientViewController: UIViewController, UITextViewDelegate, ContextMenuDel
     @IBOutlet weak var priorNeuroStack: UIStackView!
     @IBOutlet weak var priorFillerStack: UIStackView!
     @IBOutlet weak var editClientButton: UIButton!
+    @IBOutlet weak var saveNotesButton: UIButton!
     
     var delegate: ClientViewControllerDelegate?
     var client: Client? {
@@ -44,10 +48,14 @@ class ClientViewController: UIViewController, UITextViewDelegate, ContextMenuDel
         }
     }
     private var namePriorToEdit = ""
-    
+}
+
+// MARK: - Public Functions
+
+extension ClientViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         notesTextView.delegate = self
         
@@ -55,18 +63,53 @@ class ClientViewController: UIViewController, UITextViewDelegate, ContextMenuDel
         tapGesture.addTarget(self, action: #selector(ClientViewController.viewTapped(sender:)))
         view.addGestureRecognizer(tapGesture)
     }
-    @objc func viewTapped(sender: UITapGestureRecognizer) {
-        if !notesTextView.frame.contains(sender.location(in: view)) {
-            notesTextView.resignFirstResponder()
-        }
-    }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Private Functions
+    // MARK: - Actions
+    
+    @objc func viewTapped(sender: UITapGestureRecognizer) {
+        if !notesTextView.frame.contains(sender.location(in: view)) {
+            notesTextView.resignFirstResponder()
+        }
+    }
+    
+    @IBAction func editClientPressed(_ sender: UIButton) {
+        guard let client = client else { return }
+        self.namePriorToEdit = client.formattedName()
+        let clientController = ClientController(nibName: "ClientController", bundle: nil)
+        clientController.delegate = self
+        clientController.client = self.client
+        showContextualMenu(
+            clientController,
+            options: ContextMenu.Options(
+                allowTapDismiss: false),
+            delegate: self)
+    }
+    
+    @IBAction func showConsentButtonPressed(_ sender: UIButton) {
+        guard let client = client, let signatureData = client.signature as Data?, let signatureDate = client.formattedSignatureDate() else {
+            Application.onError("No signature image or date when trying to show consent overlay!")
+            return
+        }
+        let clientConsentController = ClientConsentController(nibName: "ClientConsentController", bundle: nil)
+        clientConsentController.signatureImage = UIImage(data: signatureData)
+        clientConsentController.signatureDate = signatureDate
+        showContextualMenu(clientConsentController)
+    }
+    
+    @IBAction func saveNotesButtonPressed(_ sender: UIButton) {
+        saveNotes()
+    }
+}
+
+// MARK: - Private Functions
+
+private extension ClientViewController {
+
     private func loadClientData() {
         guard let client = client else { return }
         nameLabel.text = client.formattedName()
@@ -112,6 +155,7 @@ class ClientViewController: UIViewController, UITextViewDelegate, ContextMenuDel
             priorFillerStack.isHidden = true
         }
     }
+    
     private func setStyling() {
         let color = ViewHelper.defaultBorderColor
         ViewHelper.setBorderOnView(medicationsTextView, withColor: color)
@@ -119,45 +163,49 @@ class ClientViewController: UIViewController, UITextViewDelegate, ContextMenuDel
         ViewHelper.setBorderOnView(notesTextView, withColor: color)
     }
     
-    // MARK: - UITextViewDelegate
-    func textViewDidEndEditing(_ textView: UITextView) {
+    private func saveNotes() {
         guard let client = client else { return }
         client.notes = notesTextView.text
         appDelegate().saveContext()
+        saveNotesButton.isHidden = true
+        
+        Application.logInfo("Saved notes for Client with id: \(client.id.uuidString)")
     }
     
-    // MARK: - Actions
-    @IBAction func editClientPressed(_ sender: UIButton) {
-        guard let client = client else { return }
-        self.namePriorToEdit = client.formattedName()
-        let clientController = ClientController(nibName: "ClientController", bundle: nil)
-        clientController.delegate = self
-        clientController.client = self.client
-        showContextualMenu(
-            clientController,
-            options: ContextMenu.Options(
-                allowTapDismiss: false),
-            delegate: self)
+    private func isNotesDifferentThanSaved() -> Bool {
+        let clientNotes = client?.notes ?? ""
+        return notesTextView.text != clientNotes
     }
-    @IBAction func showConsentButtonPressed(_ sender: UIButton) {
-        guard let client = client, let signatureData = client.signature as Data?, let signatureDate = client.formattedSignatureDate() else {
-            return
-//            fatalError("Couldn't find signature image or date when trying to show consent overlay!")
-        }
-        let clientConsentController = ClientConsentController(nibName: "ClientConsentController", bundle: nil)
-        clientConsentController.signatureImage = UIImage(data: signatureData)
-        clientConsentController.signatureDate = signatureDate
-        showContextualMenu(clientConsentController)
+}
+
+// MARK: - UITextViewDelegate
+
+extension ClientViewController: UITextViewDelegate {
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        saveNotes()
     }
     
-    // MARK: - ContextMenuDelegate
+    func textViewDidChange(_ textView: UITextView) {
+        saveNotesButton.isHidden = !isNotesDifferentThanSaved()
+    }
+}
+
+// MARK: - ContextMenuDelegate
+
+extension ClientViewController: ContextMenuDelegate {
+    
     func contextMenuWillDismiss(viewController: UIViewController, animated: Bool) {
     }
     
     func contextMenuDidDismiss(viewController: UIViewController, animated: Bool) {
     }
-    
-    // MARK: - ClientControllerDelegate
+}
+
+// MARK: - ClientControllerDelegate
+
+extension ClientViewController: ClientControllerDelegate {
+
     func clientControllerDidSave(client: Client) {
         let nameDidChange = self.namePriorToEdit != client.formattedName()
         self.client = client
@@ -167,17 +215,9 @@ class ClientViewController: UIViewController, UITextViewDelegate, ContextMenuDel
             delegate?.clientNameWasEdited(client: client)
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
+
+// MARK: - ClientViewControllerDelegate
 
 protocol ClientViewControllerDelegate {
     func clientNameWasEdited(client: Client)

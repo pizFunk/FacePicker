@@ -11,10 +11,12 @@ import Foundation
 import CoreData
 
 public class InjectionSite: NSManagedObject {
-    func setIdAndPosition(x: Double, y: Double, uuid: UUID) {
+    public static let entityName = "InjectionSite"
+    
+    func setIdAndPosition(x: Double, y: Double, id: UUID) {
         self.xPos = x
         self.yPos = y
-        self.uuid = uuid
+        self.id = id
     }
     
     func setUnits(_ units: Float, ofType type: InjectionType) {

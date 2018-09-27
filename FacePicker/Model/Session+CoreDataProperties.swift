@@ -14,13 +14,13 @@ import CoreData
 extension Session {
     
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Session> {
-        return NSFetchRequest<Session>(entityName: "Session")
+        return NSFetchRequest<Session>(entityName: Session.entityName)
     }
     
-    @NSManaged public var date: NSDate?
-    @NSManaged public var id: UUID?
+    @NSManaged public var date: NSDate
+    @NSManaged public var id: UUID
     @NSManaged public var notes: String?
-    @NSManaged public var client: Client?
+    @NSManaged public var client: Client
     @NSManaged public var injections: Set<InjectionSite>?
     @NSManaged public var labels: Set<ProductLabel>?
     

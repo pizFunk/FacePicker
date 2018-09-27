@@ -120,7 +120,8 @@ private extension SessionDetailController {
     private func setDescriptionLabel() {
         nameLabel.text = ""
         dateLabel.text = ""
-        if let session = session, let client = session.client {
+        if let session = session {
+            let client = session.client
             nameLabel.text = client.formattedName()
             dateLabel.text = session.formattedDate()
         }
@@ -195,10 +196,15 @@ private extension SessionDetailController {
     }
     
     private func saveNotes() {
+        guard let session = session else {
+            Application.onError("Trying to save notes to a nil Session!")
+            return
+        }
         if isNotesDifferentThanSaved() {
-            session?.notes = notesTextView.text
+            session.notes = notesTextView.text
             appDelegate().saveContext()
-            print("session notes saved")
+            
+            Application.logInfo("Notes saved for Session with id: \(session.id.uuidString) of Client \(session.client.id.uuidString)")
         }
         saveNotesButton.isHidden = true
         notesTextView.resignFirstResponder()
@@ -206,22 +212,25 @@ private extension SessionDetailController {
     
     private func addNewLabel(_ image: UIImage) {
         guard let session = session else {
-            fatalError("Attempting to add new ProductLabel to nonexistent Session!")
+            Application.onError("Attempting to add new ProductLabel to nonexistent Session!")
+            return
         }
         guard let imageData = UIImagePNGRepresentation(image) as NSData? else {
-//            fatalError("Couldnt get image as NSData from UIImagePNGRepresentation!")
-            // log this instead ^
+            Application.onError("Couldnt get image as NSData from UIImagePNGRepresentation!")
             return
         }
         let context = managedContext()
         guard let entity = NSEntityDescription.entity(forEntityName: ProductLabel.entityName, in: context) else {
-            fatalError("Couldn't get entity description for name: \(ProductLabel.entityName)!")
+            Application.onError("Couldn't get entity description for name: \(ProductLabel.entityName)!")
+            return		
         }
         let newLabel = ProductLabel(entity: entity, insertInto: context)
         newLabel.image = imageData
         session.addToLabels(newLabel)
         appDelegate().saveContext()
         images.append(image)
+        
+        Application.logInfo("Added ProductLabel for Session with id: \(session.id.uuidString)")
     }
 }
 
@@ -277,9 +286,12 @@ extension SessionDetailController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ProductLabelCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ProductLabelCell else {
+            Application.onError("Dequeued cell with id \"\(reuseIdentifier)\" was not type ProductLabelCell!")
+            return UICollectionViewCell()
+        }
         
-        cell.setImage(images[indexPath.item])
+        cell.productLabelImageView.image = images[indexPath.item]
         
         return cell
     }

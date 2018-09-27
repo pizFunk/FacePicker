@@ -16,7 +16,8 @@ public class SessionHelper {
     public static var defaultFaceImage: UIImage {
         if _cachedDefaultFaceImage == nil {
             guard let faceImage = UIImage(named: "face") else {
-                fatalError("Couldn't load image \"face\" from Bundle!")
+                Application.onError("Couldn't load image \"face\" from Bundle!")
+                return UIImage()
             }
             _cachedDefaultFaceImage = faceImage
         }

@@ -12,8 +12,12 @@ import DropDown
 import ContextMenu
 import SwiftSignatureView
 
-class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegate, SignatureControllerDelegate {
-    //MARK: - Properties
+//MARK: - Properties
+
+class ClientController: UIViewController {
+    
+    static let nibName = "ClientController"
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var mainStackView: UIStackView!
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -66,6 +70,11 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
     var delegate: ClientControllerDelegate?
     
     var client: Client?
+}
+
+//MARK: - Public Functions
+
+extension ClientController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,8 +83,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(ClientController.onCancel(sender:)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(ClientController.onSave(sender:)))
         
-        preferredContentSize = CGSize(width: UIScreen.main.bounds.size.width * 0.75, height: UIScreen.main.bounds.size.height * 0.75)
-//        preferredContentSize = CGSize(width: 400, height: UIScreen.main.bounds.size.height * 0.75)
+        preferredContentSize = CGSize(width: UIScreen.main.bounds.size.width * 0.8, height: UIScreen.main.bounds.size.height * 0.8)
         
         setBorders()
         setupDatePickers()
@@ -95,19 +103,6 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
             firstNameTextField.becomeFirstResponder()
         }
         navigationItem.title = titleString
-        
-        // testing persistent data
-//        let request:NSFetchRequest<Client> = Client.fetchRequest()
-//        let context = managedContext()
-//        do {
-//            let clients = try context.fetch(request)
-//            if clients.count > 0 {
-//                self.client = clients.first
-//                bindClientToForm(client: self.client!)
-//            }
-//        } catch {
-//            fatalError("Couldn't fetch Client from CoreData")
-//        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -115,7 +110,85 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: - Private Functions
+    //MARK: - Actions
+    
+    @objc
+    func onSave(sender: UIBarButtonItem) {
+        if !isFormValid() {
+            let alert = UIAlertController(title: "Please complete the fields highlighted in red.", message: "", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+        if let client = bindFormToClientAndSave() {
+            delegate?.clientControllerDidSave(client: client)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc
+    func onCancel(sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc
+    func stateTextFieldTouched(sender: UITextField) {
+        stateDropDown.show()
+    }
+    
+    @objc
+    func dobDatePickerValueChanged(sender: UIDatePicker) {
+        setTextFieldValue(for: dobTextField, withDate: sender.date)
+    }
+    
+    @objc
+    func lastNeuroDatePickerValueChanged(sender: UIDatePicker) {
+        setTextFieldValue(for: lastNeuroDateTextField, withDate: sender.date)
+    }
+    
+    @objc
+    func lastFillerDatePickerValueChanged(sender: UIDatePicker) {
+        setTextFieldValue(for: lastFillerDateTextField, withDate: sender.date)
+    }
+    
+    @objc
+    func todaysDatePickerValueChanged(sender: UIDatePicker) {
+        setTextFieldValue(for: dateTextField, withDate: sender.date)
+    }
+    
+    @objc func dismissDatePicker() {
+        if dobTextField.isFirstResponder {
+            addressTextField.becomeFirstResponder()
+        } else if lastNeuroDateTextField.isFirstResponder {
+            lastNeuroProductTextField.becomeFirstResponder()
+        } else if lastFillerDateTextField.isFirstResponder {
+            lastFillerProductTextField.becomeFirstResponder()
+        } else {
+            view.endEditing(true)
+        }
+    }
+    
+    @IBAction func smokeDropDownButtonTouched(_ sender: UIButton) {
+        smokeDropDown.show()
+    }
+    
+    @IBAction func priorTreatmentDropDownButtonPressed(_ sender: UIButton) {
+        priorTreatmentDropDown.show()
+    }
+    
+    @objc
+    func signatureImageViewTapped(sender: UIImageView) {
+        view.endEditing(true)
+        let localContextMenu = ContextMenu(), signatureController = SignatureController()
+        signatureController.delegate = self
+        localContextMenu.show(sourceViewController: self, viewController: signatureController)
+    }
+}
+
+//MARK: - Private Functions
+
+private extension ClientController {
+    
     private func setBorders() {
         let color = ViewHelper.defaultBorderColor
         ViewHelper.setBorderOnView(medicationsTextView, withColor: color)
@@ -124,6 +197,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         ViewHelper.setBorderOnView(priorTreatmentDropDownButton, withColor: color)
         ViewHelper.setBorderOnView(signatureImageView, withColor: color)
     }
+    
     private func setupDatePickers() {
         let today = Date.init()
         dobDatePicker.datePickerMode = .date
@@ -159,9 +233,11 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         dateTextField.inputView = todaysDatePicker
         dateTextField.inputAccessoryView = doneToolbar
     }
+    
     private func setTextFieldValue(for textField: UITextField, withDate date: Date) {
         textField.text = Client.formatDate(date)
     }
+    
     private func setupTextControls() {
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
@@ -181,6 +257,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         conditionsTextView.delegate = self
         conditionsTextView.text = placeholderText
     }
+    
     private func setupDropDowns() {
         stateDropDown.anchorView = stateTextField
         stateDropDown.dataSource = USStates.states.values.sorted()
@@ -206,6 +283,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         }
         togglePriorTreatmentControls(0)
     }
+    
     private func togglePriorTreatmentControls(_ index: Int) {
         var hideNeuro = true, hideFiller = true
         switch index {
@@ -222,6 +300,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         self.priorNeuroStackView.isHidden = hideNeuro
         self.priorFillerStackView.isHidden = hideFiller
     }
+    
     private func toggleSmokeControls(_ index: Int) {
         var hideHowMuch = true
         switch index {
@@ -232,6 +311,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         }
         self.smokeHowMuchStackView.isHidden = hideHowMuch
     }
+    
     private func setupSignature() {
         let tapGesutre = UITapGestureRecognizer(target: self, action: #selector(ClientController.signatureImageViewTapped(sender:)))
         signatureImageView.addGestureRecognizer(tapGesutre)
@@ -247,9 +327,11 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
             }
         }
     }
+    
     private func setInvalidBorder(_ view: UIView) {
         ViewHelper.setBorderOnView(view, withColor: ViewHelper.validationColor)
     }
+    
     private func validateTextFieldNotEmpty(_ textField: UITextField, setFieldInvalid: Bool = true) -> Bool {
         if textField.text == nil || textField.text!.isEmpty {
             if setFieldInvalid {
@@ -259,6 +341,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         }
         return true
     }
+    
     private func validateDropDown(dropDown: DropDown, withButton button: UIButton) -> Bool {
         if dropDown.selectedItem == nil {
             setInvalidBorder(button)
@@ -266,6 +349,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         }
         return true
     }
+    
     private func validateSignature(_ signature: UIImageView) -> Bool {
         if signature.image == nil || signature.image!.cgImage == nil || signature.image == defaultSignatureImage {
             setInvalidBorder(signature)
@@ -273,6 +357,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         }
         return true
     }
+    
     private func isFormValid() -> Bool {
         recursivelyResetBorders(inView: self.view)
         invalidePhoneLabel.isHidden = true
@@ -282,17 +367,17 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         formIsValid = validateTextFieldNotEmpty(firstNameTextField)
         formIsValid = validateTextFieldNotEmpty(lastNameTextField) && formIsValid
         
-        if Settings.validateClient {
-            if Settings.validateDOB {
+        if Application.Settings.validateClient {
+            if Application.Settings.validateDOB {
                 formIsValid = validateTextFieldNotEmpty(dobTextField) && formIsValid
             }
-            if Settings.validateAddress {
+            if Application.Settings.validateAddress {
                 formIsValid = validateTextFieldNotEmpty(addressTextField) && formIsValid
                 formIsValid = validateTextFieldNotEmpty(cityTextField) && formIsValid
                 formIsValid = validateTextFieldNotEmpty(stateTextField) && formIsValid
                 formIsValid = validateTextFieldNotEmpty(zipTextField) && formIsValid
             }
-            if Settings.validatePhone {
+            if Application.Settings.validatePhone {
                 var cellPhoneValid = true
                 cellPhoneValid = validateTextFieldNotEmpty(cellAreaTextField, setFieldInvalid: false)
                 cellPhoneValid = validateTextFieldNotEmpty(cellPrefixTextField, setFieldInvalid: false) && cellPhoneValid
@@ -316,7 +401,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
                 
                 formIsValid = atLeastOnePhone && formIsValid
             }
-            if Settings.validateEmail {
+            if Application.Settings.validateEmail {
                 formIsValid = validateTextFieldNotEmpty(emailTextField) && formIsValid
             }
             
@@ -324,7 +409,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
             formIsValid = validateDropDown(dropDown: smokeDropDown, withButton: smokeDropDownButton) && formIsValid
             formIsValid = validateDropDown(dropDown: priorTreatmentDropDown, withButton: priorTreatmentDropDownButton) && formIsValid
             
-            if Settings.validateSignature {
+            if Application.Settings.validateSignature {
                 formIsValid = validateSignature(signatureImageView) && formIsValid
                 formIsValid = validateTextFieldNotEmpty(dateTextField) && formIsValid
             }
@@ -332,15 +417,19 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         
         return formIsValid
     }
+    
     private func bindFormToClientAndSave() -> Client? {
         let context = managedContext()
-        guard let entity = NSEntityDescription.entity(forEntityName: "Client", in: context) else {
-            fatalError("Failed to get entity for Client.")
-        }
         if client == nil {
             // if we aren't editing create new and give id
+            
+            guard let entity = NSEntityDescription.entity(forEntityName: Client.entityName, in: context) else {
+                Application.onError("Failed to get entity for \(Client.entityName) from ManagedContext.")
+                return nil
+            }
             client = Client(entity: entity, insertInto: context)
             client?.id = UUID()
+            Application.logInfo("Client created with uuid: \(client?.id.uuidString ?? "")")
         }
         client?.firstName = firstNameTextField.text ?? ""
         client?.lastName = lastNameTextField.text ?? ""
@@ -392,9 +481,11 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
             client?.signatureDate = nil
         }
         appDelegate().saveContext()
+        Application.logInfo("Saved Client with uuid: \(client?.id.uuidString ?? "")")
         
         return client
     }
+    
     private func bindClientToForm(client: Client) {
         var showNeuro = false
         var showFiller = false
@@ -466,14 +557,17 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
             setTextFieldValue(for: dateTextField, withDate: sigDate as Date)
         }
     }
+}
+
+//MARK: - UITextFieldDelegate
+
+extension ClientController: UITextFieldDelegate {
     
-    //MARK: - UITextFieldDelegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case stateTextField:
             stateDropDown.show()
         case dateTextField:
-//            todaysDatePicker.setDate(Date.init(), animated: false)
             setTextFieldValue(for: dateTextField, withDate: Date.init())
         case cellAreaTextField, cellPrefixTextField, cellSuffixTextField, homeAreaTextField, homePrefixTextField, homeSuffixTextField:
             textField.selectAll(nil)
@@ -481,17 +575,21 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
             break
         }
     }
+    
     private func checkString(string: String, conformsToCharacterSet allowedCharacters: CharacterSet) -> Bool {
         let characterSet = CharacterSet.init(charactersIn: string)
         return allowedCharacters.isSuperset(of: characterSet)
     }
+    
     private func checkIsDecimalDigits(string: String) -> Bool {
         return checkString(string: string, conformsToCharacterSet: CharacterSet.decimalDigits)
     }
+    
     private func checkIsLetters(string: String) -> Bool {
         let lettersAndSpaces = CharacterSet.letters.union(CharacterSet.whitespaces)
         return checkString(string: string, conformsToCharacterSet: lettersAndSpaces)
     }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var moveNext:UITextField? = nil
         switch textField {
@@ -551,6 +649,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         }
         return true
     }
+    
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
         switch textField {
         case stateTextField:
@@ -559,8 +658,12 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
             break
         }
     }
+}
+
+//MARK: - UITextViewDelegate
+
+extension ClientController: UITextViewDelegate {
     
-    //MARK: - UITextViewDelegate
     func textViewDidBeginEditing(_ textView: UITextView) {
         switch textView {
         case medicationsTextView, conditionsTextView:
@@ -572,6 +675,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
             return
         }
     }
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         switch textView {
         case medicationsTextView:
@@ -597,6 +701,7 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
         }
         return true
     }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         switch textView {
         case medicationsTextView, conditionsTextView:
@@ -608,137 +713,19 @@ class ClientController: UIViewController, UITextFieldDelegate, UITextViewDelegat
             return
         }
     }
+}
 
-    //MARK: - SignatureControllerDelegate
+// MARK: - SignatureControllerDelegate
+
+extension ClientController: SignatureControllerDelegate {
+    
     func signatureDidFinish(signature: UIImage) {
         signatureImageView.image = signature
     }
-    
-    //MARK: - Actions
-    @objc
-    func onSave(sender: UIBarButtonItem) {
-        if !isFormValid() {
-            let alert = UIAlertController(title: "Please complete the fields highlighted in red.", message: "", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
-            return
-        }
-        if let client = bindFormToClientAndSave() {
-            delegate?.clientControllerDidSave(client: client)
-        }
-        dismiss(animated: true, completion: nil)
-    }
-    @objc
-    func onCancel(sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
-    }
-    @objc
-    func stateTextFieldTouched(sender: UITextField) {
-        stateDropDown.show()
-    }
-    @objc
-    func dobDatePickerValueChanged(sender: UIDatePicker) {
-        setTextFieldValue(for: dobTextField, withDate: sender.date)
-    }
-    @objc
-    func lastNeuroDatePickerValueChanged(sender: UIDatePicker) {
-        setTextFieldValue(for: lastNeuroDateTextField, withDate: sender.date)
-    }
-    @objc
-    func lastFillerDatePickerValueChanged(sender: UIDatePicker) {
-        setTextFieldValue(for: lastFillerDateTextField, withDate: sender.date)
-    }
-    @objc
-    func todaysDatePickerValueChanged(sender: UIDatePicker) {
-        setTextFieldValue(for: dateTextField, withDate: sender.date)
-    }
-    @objc func dismissDatePicker() {
-        if dobTextField.isFirstResponder {
-            addressTextField.becomeFirstResponder()
-        } else if lastNeuroDateTextField.isFirstResponder {
-            lastNeuroProductTextField.becomeFirstResponder()
-        } else if lastFillerDateTextField.isFirstResponder {
-            lastFillerProductTextField.becomeFirstResponder()
-        } else {
-            view.endEditing(true)
-        }
-    }
-    @IBAction func smokeDropDownButtonTouched(_ sender: UIButton) {
-        smokeDropDown.show()
-    }
-    @IBAction func priorTreatmentDropDownButtonPressed(_ sender: UIButton) {
-        priorTreatmentDropDown.show()
-    }
-    @objc
-    func signatureImageViewTapped(sender: UIImageView) {
-        view.endEditing(true)
-        let localContextMenu = ContextMenu(), signatureController = SignatureController()
-        signatureController.delegate = self
-        localContextMenu.show(sourceViewController: self, viewController: signatureController)
-    }
 }
+
+// MARK: - ClientControllerDelegate
 
 protocol ClientControllerDelegate {
     func clientControllerDidSave(client: Client) -> Void
-}
-
-public class USStates {
-    public static var states: [String : String] {
-        return [
-        "AK" : "Alaska",
-        "AL" : "Alabama",
-        "AR" : "Arkansas",
-//        "AS" : "American Samoa",
-        "AZ" : "Arizona",
-        "CA" : "California",
-        "CO" : "Colorado",
-        "CT" : "Connecticut",
-        "DC" : "District of Columbia",
-        "DE" : "Delaware",
-        "FL" : "Florida",
-        "GA" : "Georgia",
-//        "GU" : "Guam",
-        "HI" : "Hawaii",
-        "IA" : "Iowa",
-        "ID" : "Idaho",
-        "IL" : "Illinois",
-        "IN" : "Indiana",
-        "KS" : "Kansas",
-        "KY" : "Kentucky",
-        "LA" : "Louisiana",
-        "MA" : "Massachusetts",
-        "MD" : "Maryland",
-        "ME" : "Maine",
-        "MI" : "Michigan",
-        "MN" : "Minnesota",
-        "MO" : "Missouri",
-        "MS" : "Mississippi",
-        "MT" : "Montana",
-        "NC" : "North Carolina",
-        "ND" : "North Dakota",
-        "NE" : "Nebraska",
-        "NH" : "New Hampshire",
-        "NJ" : "New Jersey",
-        "NM" : "New Mexico",
-        "NV" : "Nevada",
-        "NY" : "New York",
-        "OH" : "Ohio",
-        "OK" : "Oklahoma",
-        "OR" : "Oregon",
-        "PA" : "Pennsylvania",
-        "PR" : "Puerto Rico",
-        "RI" : "Rhode Island",
-        "SC" : "South Carolina",
-        "SD" : "South Dakota",
-        "TN" : "Tennessee",
-        "TX" : "Texas",
-        "UT" : "Utah",
-        "VA" : "Virginia",
-        "VI" : "Virgin Islands",
-        "VT" : "Vermont",
-        "WA" : "Washington",
-        "WI" : "Wisconsin",
-        "WV" : "West Virginia",
-        "WY" : "Wyoming"]
-    }
 }

@@ -18,7 +18,7 @@ class SiteMenuController: UIViewController {
     // button from SessionController menu is shown for:
     var siteButton: UIButton!
     
-    public let sliderStepInterval = Settings.unitSelectionIncrement
+    public let sliderStepInterval = Application.Settings.unitSelectionIncrement
     public var editMode: Bool = false
     public var delegate: SiteMenuControllerDelegate?
     public var site: InjectionSite!
@@ -231,8 +231,8 @@ class SiteMenuController: UIViewController {
 }
 
 protocol SiteMenuControllerDelegate {
-    func siteMenuDidSave(savedSite: InjectionSite?) -> ()
-    func siteMenuDidDelete(deletedSite: InjectionSite?) -> ()
+    func siteMenuDidSave(savedSite: InjectionSite) -> ()
+    func siteMenuDidDelete(deletedSite: InjectionSite) -> ()
 }
 
 enum SiteMenuControllerState {

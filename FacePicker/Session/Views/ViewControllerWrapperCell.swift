@@ -8,20 +8,23 @@
 
 import UIKit
 
-class SessionListCell: UICollectionViewCell {
+class ViewControllerWrapperCell: UICollectionViewCell {
     
-    static let reuseIdentifier = "SessionListCell"
+    static let reuseIdentifier = "ViewControllerWrapperCell"
     
-    var viewController: SessionListController? {
+    var viewController: UIViewController? {
         didSet {
             setupViewController()
         }
     }    
 }
 
-private extension SessionListCell {
+private extension ViewControllerWrapperCell {
     func setupViewController() {
-        guard let viewController = viewController else { fatalError() }
+        guard let viewController = viewController else {
+            Application.onError("Tried to set up a nil ViewController!")
+            return
+        }
         
         contentView.addSubview(viewController.view)
         

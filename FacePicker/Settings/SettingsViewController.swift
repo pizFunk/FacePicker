@@ -52,22 +52,22 @@ class SettingsViewController: UIViewController {
     }
     
     private func setupControls() {
-        listAllClientsSwitch.isOn = Settings.listAllClients
+        listAllClientsSwitch.isOn = Application.Settings.listAllClients
         
-        let validateClient = Settings.validateClient
+        let validateClient = Application.Settings.validateClient
         validateClientSwitch.isOn = validateClient
         setValidationControlVisibility(!validateClient)
-        requireDOBSwitch.isOn = Settings.validateDOB
-        requireAddressSwitch.isOn = Settings.validateAddress
-        requirePhoneSwitch.isOn = Settings.validatePhone
-        requireEmailSwitch.isOn = Settings.validateEmail
-        requireSignatureSwitch.isOn = Settings.validateSignature
+        requireDOBSwitch.isOn = Application.Settings.validateDOB
+        requireAddressSwitch.isOn = Application.Settings.validateAddress
+        requirePhoneSwitch.isOn = Application.Settings.validatePhone
+        requireEmailSwitch.isOn = Application.Settings.validateEmail
+        requireSignatureSwitch.isOn = Application.Settings.validateSignature
         
-        editOldSessionSwitch.isOn = Settings.editOldSessionsAllowed
-        let settingsIncrement = Settings.unitSelectionIncrement
+        editOldSessionSwitch.isOn = Application.Settings.editOldSessionsAllowed
+        let settingsIncrement = Application.Settings.unitSelectionIncrement
         selectionIncrementLabel.text = settingsIncrement.description
         selectionIncrementSlider.value = settingsIncrement
-        dateForNewSessionsSwitch.isOn = Settings.promptDateForNewSession
+        dateForNewSessionsSwitch.isOn = Application.Settings.promptDateForNewSession
     }
     
     private func setValidationControlVisibility(_ visible: Bool) {
@@ -84,37 +84,37 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func listAllClientsSwitchValueChanged(_ sender: UISwitch) {
-        Settings.listAllClients = sender.isOn
+        Application.Settings.listAllClients = sender.isOn
         NotificationCenter.default.post(name: .listAllClientsSettingDidChange, object: nil)
     }
     
     @IBAction func validateClientSwitchValueChanged(_ sender: UISwitch) {
-        Settings.validateClient = sender.isOn
+        Application.Settings.validateClient = sender.isOn
         setValidationControlVisibility(!sender.isOn)
     }
     
     @IBAction func requireDOBSwitchValueChanged(_ sender: UISwitch) {
-        Settings.validateDOB = sender.isOn
+        Application.Settings.validateDOB = sender.isOn
     }
     
     @IBAction func requireAddressSwitchValueChanged(_ sender: UISwitch) {
-        Settings.validateAddress = sender.isOn
+        Application.Settings.validateAddress = sender.isOn
     }
     
     @IBAction func requirePhoneSwitchValueChanged(_ sender: UISwitch) {
-        Settings.validatePhone = sender.isOn
+        Application.Settings.validatePhone = sender.isOn
     }
     
     @IBAction func requireEmailSwitchValueChanged(_ sender: UISwitch) {
-        Settings.validateEmail = sender.isOn
+        Application.Settings.validateEmail = sender.isOn
     }
     
     @IBAction func requireSignatureSwitchValueChanged(_ sender: UISwitch) {
-        Settings.validateSignature = sender.isOn
+        Application.Settings.validateSignature = sender.isOn
     }
  
     @IBAction func editOldSessionSwitchValueChanged(_ sender: UISwitch) {
-        Settings.editOldSessionsAllowed = sender.isOn
+        Application.Settings.editOldSessionsAllowed = sender.isOn
     }
     
     @IBAction func selectionIncrementSliderValueChanged(_ sender: UISlider) {
@@ -136,10 +136,10 @@ class SettingsViewController: UIViewController {
         
         sender.value = currentValue
         selectionIncrementLabel.text = currentValue.description // String.init(format: "%.2f", currentValue)
-        Settings.unitSelectionIncrement = currentValue
+        Application.Settings.unitSelectionIncrement = currentValue
     }
     
     @IBAction func dateForNewSessionsSwitchValueChanged(_ sender: UISwitch) {
-        Settings.promptDateForNewSession = sender.isOn
+        Application.Settings.promptDateForNewSession = sender.isOn
     }
 }

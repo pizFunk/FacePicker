@@ -14,6 +14,8 @@ import UIKit
 @objc(Session)
 public class Session: NSManagedObject {
     // static
+    public static let entityName = "Session"
+    
     public static var dateFormat: String {
         return "MMMM d, yyyy"
     }

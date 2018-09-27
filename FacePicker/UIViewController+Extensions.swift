@@ -11,7 +11,11 @@ import CoreData
 
 extension UIViewController {
     func appDelegate() -> AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            Application.onError("Couldn't get AppDelegate!")
+            return AppDelegate()
+        }
+        return appDelegate
     }
     
     func managedContext() -> NSManagedObjectContext {

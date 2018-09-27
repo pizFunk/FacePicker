@@ -5,7 +5,7 @@
 //  Created by matthew on 9/5/18.
 //  Copyright © 2018 matthew. All rights reserved.
 //
-	
+
 import UIKit
 import CoreData
 import DropDown
@@ -14,7 +14,6 @@ import DropDown
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -29,7 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let clientDetailNavController = splitViewController.viewControllers.last as? UINavigationController,
             let clientDetailController = clientDetailNavController.topViewController as? ClientDetailController
             else {
-                fatalError("AppDelegate.application: Unexpected view controller configuration at application startup!")
+                Application.onError("AppDelegate.application: Unexpected view controller configuration at application startup!")
+                return false
         }
 //        splitViewController.delegate = clientDetailController
         clientListController.delegate = clientDetailController
@@ -89,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                  * The store could not be migrated to the current model version.
                  Check the error message to determine what the actual problem was.
                  */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                Application.onError("Unresolved error \(error), \(error.userInfo)")
             }
         })
         return container
@@ -106,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                Application.onError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
     }

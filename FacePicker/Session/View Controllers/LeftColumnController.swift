@@ -131,8 +131,7 @@ class LeftColumnController: UIViewController {
 
 private extension LeftColumnController {
     private func setupCollectionViewCells() {
-        self.collectionView.register(SessionListCell.classForCoder(), forCellWithReuseIdentifier: SessionListCell.reuseIdentifier)
-        self.collectionView.register(SessionDetailCell.classForCoder(), forCellWithReuseIdentifier: SessionDetailCell.reuseIdentifier)
+        self.collectionView.register(ViewControllerWrapperCell.classForCoder(), forCellWithReuseIdentifier: ViewControllerWrapperCell.reuseIdentifier)
     }
     
     private func setPage(_ page: Int) {
@@ -193,23 +192,20 @@ extension LeftColumnController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let viewType = ViewType(rawValue: indexPath.item) else {
-            fatalError()
+            Application.onError("Left column cell index of \(indexPath.item) greater than ViewType.count of \(ViewType.count)!")
+            return UICollectionViewCell()
         }
-        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ViewControllerWrapperCell.reuseIdentifier, for: indexPath) as? ViewControllerWrapperCell else {
+            Application.onError("Dequeued cell wasn't of type ViewControllerWrapperCell!")
+            return UICollectionViewCell()
+        }
         switch viewType {
         case .SessionList:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SessionListCell.reuseIdentifier, for: indexPath) as? SessionListCell else {
-                fatalError()
-            }
             cell.viewController = sessionListViewController
-            return cell
         case .SessionDetail:
-            guard let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: SessionDetailCell.reuseIdentifier, for: indexPath) as? SessionDetailCell else {
-                fatalError()
-            }
             cell.viewController = sessionDetailViewController
-            return cell
         }
+        return cell
     }
 }
 

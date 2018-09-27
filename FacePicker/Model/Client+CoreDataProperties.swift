@@ -14,7 +14,7 @@ import CoreData
 extension Client {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Client> {
-        return NSFetchRequest<Client>(entityName: "Client")
+        return NSFetchRequest<Client>(entityName: Client.entityName)
     }
 
     @NSManaged public var cellArea: String?
@@ -27,7 +27,7 @@ extension Client {
     @NSManaged public var homeArea: String?
     @NSManaged public var homePrefix: String?
     @NSManaged public var homeSuffix: String?
-    @NSManaged public var id: UUID?
+    @NSManaged public var id: UUID
     @NSManaged public var lastFillerDate: NSDate?
     @NSManaged public var lastFillerProduct: String?
     @NSManaged public var lastName: String

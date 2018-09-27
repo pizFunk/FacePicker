@@ -113,7 +113,8 @@ extension SessionController {
     func siteTapped(site: UIButton) {
 //        print("--- FacePicker.siteTapped(site:) ---")
         guard let uuid = site.restorationIdentifier else {
-            fatalError("The tapped button did not have a set uuid!!!")
+            Application.onError("The tapped button did not have a set uuid!!!")
+            return
         }
         let siteMenuController = SiteMenuController()
         siteMenuController.site = sites[uuid]
@@ -158,7 +159,7 @@ private extension SessionController {
         let siteEntity = NSEntityDescription.entity(forEntityName: "InjectionSite", in: context)!
         let site = InjectionSite(entity: siteEntity, insertInto: context)
         session?.addToInjections(site)
-        site.setIdAndPosition(x: x, y: y, uuid: uuid)
+        site.setIdAndPosition(x: x, y: y, id: uuid)
         sites[uuid.uuidString] = site
         
         let siteButton = createAndAddSiteButton(withSite: site)
@@ -176,7 +177,7 @@ private extension SessionController {
     }
     func createAndAddSiteButton(withSite site: InjectionSite) -> UIButton {
         let siteButton = UIButton()
-        siteButton.restorationIdentifier = site.uuid.uuidString
+        siteButton.restorationIdentifier = site.id.uuidString
         siteButton.setTitle(site.formattedUnits(), for: .normal)
         siteButton.setTitleColor(view.tintColor, for: UIControlState.normal)
         siteButton.addTarget(self, action: #selector(SessionController.siteTapped(site:)), for: UIControlEvents.touchUpInside)
@@ -200,7 +201,8 @@ private extension SessionController {
     func positionButtons() {
         for (uuid, site) in sites {
             guard let siteButton = siteButtons[uuid] else {
-                fatalError("Did not find siteButton with uuid: \(uuid) as expected.")
+                Application.onError("Did not find siteButton with uuid: \(uuid) as expected. Sites and Buttons array out of sync!")
+                continue
             }
             let point = ViewHelper.resolvePixelsFromProportions(size: faceImageView.frame.size, x: site.xPos, y: site.yPos)
             ViewHelper.positionView(siteButton, at: point)
@@ -208,29 +210,28 @@ private extension SessionController {
     }
     func removeSite(_ site: InjectionSite) {
         //        print("--- FaceController.removeSite(_:) ---")
-        let uuid = site.uuid.uuidString
+        let uuid = site.id.uuidString
         guard let removedSite = sites.removeValue(forKey: uuid) else {
-            fatalError("Unable to find site with uuid = \(uuid) in the sites array.")
+            Application.onError("Unable to find site with uuid = \(uuid) in the sites array while deleting.")
+            return
         }
-        // TODO: verify we need to remove from parent or not:
-        //session?.removeFromInjections(removedSite)
         let context = managedContext()
         context.delete(removedSite)
         saveContext()
-        //        print("Removed site with uuid = \(uuid) from sites array.")
+        Application.logInfo("Deleted InjectionSite with id: \(uuid)")
         guard let siteButton = siteButtons.removeValue(forKey: uuid)  else {
-            fatalError("Unable to find button with uuid = \(uuid) in the siteButtons array.")
+            Application.onError("Unable to find button with uuid = \(uuid) in the siteButtons array while deleting. Arrays out of sync!")
+            return
         }
         siteButton.removeFromSuperview()
-        //        print("Removed button with uuid = \(uuid) from siteButtons array.")
     }
     func saveContext() {
         guard let session = session else {
-            fatalError("SessionController: No session when saving context!")
+            Application.onError("No session when saving context!")
+            return
         }
         appDelegate().saveContext()
         session.updateSessionImage()
-        //        delegate?.sessionDidChange(session: session)
         NotificationCenter.default.post(name: .sessionDidChange, object: nil, userInfo: ["": session])
     }
     func clientSet() {
@@ -247,7 +248,7 @@ private extension SessionController {
             faceImageView.isHidden = false
             let sites = Array(injections)
             for site in sites {
-                self.sites[site.uuid.uuidString] = site
+                self.sites[site.id.uuidString] = site
                 let button = createAndAddSiteButton(withSite: site)
                 SessionHelper.setTitleAndColor(forButton: button, withSite: site)
             }
@@ -274,7 +275,8 @@ extension SessionController : ContextMenuDelegate {
     func contextMenuDidDismiss(viewController: UIViewController, animated: Bool) {
         //        print("--- FaceController.contextMenuDidDismiss(viewController:animated:) ---")
         guard let controller = viewController as? SiteMenuController else {
-            fatalError("Controller was not expected type of SiteMenuController")
+            Application.onError("Controller was not expected type of SiteMenuController")
+            return
         }
         // ignore dismiss if we were editing
         if controller.editMode {
@@ -287,7 +289,8 @@ extension SessionController : ContextMenuDelegate {
         default:
             // need to clean up button that was orphaned
             guard let site = controller.site else {
-                fatalError("Couldn't get the site object from SiteMenuController")
+                Application.onError("Couldn't get the site object from SiteMenuController")
+                return
             }
             removeSite(site)
         }
@@ -297,28 +300,13 @@ extension SessionController : ContextMenuDelegate {
 //MARK: - SiteMenuControllerDelegate
 
 extension SessionController : SiteMenuControllerDelegate {
-    func siteMenuDidSave(savedSite: InjectionSite?) {
-        //        print("--- FaceController.contextMenuDidSave(savedSite:) ---")
-        guard savedSite != nil else {
-            fatalError("Attempting to save a nil site!")
-        }
-        // update or store new site in our dictionary
-        // SiteMenuController handling now...
-//        let uuid = site.uuid.uuidString
-        //        guard let siteButton = siteButtons[uuid] else {
-        //            fatalError("Couldn't find corresponding siteButton with uuid = \(uuid)")
-        //        }
-        //        SessionHelper.setTitleAndColor(forButton: siteButton, withSite: site)
+    func siteMenuDidSave(savedSite: InjectionSite) {
         saveContext()
-//        print("Saved site with uuid = \(uuid)")
+        Application.logInfo("Saved InjectionSite with id: \(savedSite.id.uuidString) for Session with id: \(savedSite.session.id.uuidString)")
     }
     
-    func siteMenuDidDelete(deletedSite: InjectionSite?) {
-        //        print("--- FaceController.contextMenuDidDelete(deletedSite:) ---")
-        guard let site = deletedSite else {
-            return
-        }
-        removeSite(site)
+    func siteMenuDidDelete(deletedSite: InjectionSite) {
+        removeSite(deletedSite)
     }
 }
 

@@ -10,8 +10,12 @@ import UIKit
 import SwiftSignatureView
 
 class SignatureController: UIViewController {
+    
     var signatureView = SwiftSignatureView()
     var delegate: SignatureControllerDelegate?
+}
+
+extension SignatureController {
     
     override func viewDidLoad() {
         let screenSize = UIScreen.main.bounds.size
@@ -24,7 +28,6 @@ class SignatureController: UIViewController {
         view.backgroundColor = UIColor.red
         
         view.addSubview(signatureView)
-//        signatureView.strokeColor = UIColor.green
         signatureView.backgroundColor = UIColor.white
         signatureView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -39,12 +42,14 @@ class SignatureController: UIViewController {
     func onClear(sender: UIBarButtonItem) {
         signatureView.clear()
     }
+    
     @objc
     func onDone(sender: UIBarButtonItem) {
         delegate?.signatureDidFinish(signature: signatureView.signature ?? UIImage())
         dismiss(animated: true, completion: nil)
     }
 }
+
 protocol SignatureControllerDelegate {
     func signatureDidFinish(signature: UIImage) -> ()
 }

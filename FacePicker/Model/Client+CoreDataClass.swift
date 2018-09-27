@@ -12,6 +12,8 @@ import CoreData
 
 @objc(Client)
 public class Client: NSManagedObject {
+    public static let entityName = "Client"
+    
     public static var dateFormat: String {
         return "MMMM d, yyyy"
     }

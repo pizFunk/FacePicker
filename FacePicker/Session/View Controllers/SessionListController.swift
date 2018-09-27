@@ -116,7 +116,8 @@ extension SessionListController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? SessionCell else {
-            fatalError("SessionListController: Cell wasn't of type SessionCell!")
+            Application.onError("SessionListController: Cell wasn't of type SessionCell!")
+            return UICollectionViewCell()
         }
         
         cell.session = sessions[indexPath.item]
@@ -138,9 +139,8 @@ extension SessionListController : UICollectionViewDelegate {
     }
     
 }
+
 protocol SessionListParentDelegate {
-    func sessionListDidRequestDismiss(controller: SessionListController)
-//    func sessionDidChange(session: Session)
     func sessionSelected(indexPath: IndexPath)
 }
 

@@ -13,7 +13,7 @@
         <!--ClientDetailController-->
         <scene sceneID="mft-lb-iZZ">
             <objects>
-                <viewController id="swC-Zb-MfT" userLabel="ClientDetailController" customClass="ClientDetailController" customModule="FacePicker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="swC-Zb-MfT" userLabel="ClientDetailController" customClass="ClientDetailController" customModule="Ostapowicz__MD" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Smm-BW-pAO">
                         <rect key="frame" x="0.0" y="0.0" width="990.5" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,20 +22,20 @@
                         </userGuides>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dHd-c8-XHC">
-                                <rect key="frame" x="15" y="79" width="960.5" height="886"/>
+                                <rect key="frame" x="15" y="79" width="961" height="886"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yLm-ve-cx5">
-                                        <rect key="frame" x="0.0" y="0.0" width="960.5" height="289"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="961" height="289"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Sessions:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WhY-qj-UHj">
-                                        <rect key="frame" x="0.0" y="297" width="960.5" height="23"/>
+                                        <rect key="frame" x="0.0" y="297" width="961" height="23"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iBl-Pm-J25">
-                                        <rect key="frame" x="0.0" y="328" width="960.5" height="558"/>
+                                        <rect key="frame" x="0.0" y="328" width="961" height="558"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="geP-up-924">
                                             <size key="itemSize" width="50" height="50"/>
@@ -95,7 +95,7 @@
         <!--SessionController-->
         <scene sceneID="tF8-Kj-JJF">
             <objects>
-                <viewController id="7SF-uU-9vs" userLabel="SessionController" customClass="SessionController" customModule="FacePicker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7SF-uU-9vs" userLabel="SessionController" customClass="SessionController" customModule="Ostapowicz__MD" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zr0-9x-Knj">
                         <rect key="frame" x="0.0" y="0.0" width="990.5" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -133,7 +133,7 @@
         <!--Left Column Controller-->
         <scene sceneID="gMv-GU-Sak">
             <objects>
-                <viewController id="wKu-Lz-npv" customClass="LeftColumnController" customModule="FacePicker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="wKu-Lz-npv" customClass="LeftColumnController" customModule="Ostapowicz__MD" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tfF-XJ-pcN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -208,14 +208,14 @@
         <!--ClientListController-->
         <scene sceneID="qgR-0P-2L0">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="b8p-Bg-eGX" userLabel="ClientListController" customClass="ClientListController" customModule="FacePicker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="b8p-Bg-eGX" userLabel="ClientListController" customClass="ClientListController" customModule="Ostapowicz__MD" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kHf-Hr-686">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ClientTableViewCell" id="Qfg-Mb-NDQ" customClass="ClientTableViewCell" customModule="FacePicker" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ClientTableViewCell" id="Qfg-Mb-NDQ" customClass="ClientTableViewCell" customModule="Ostapowicz__MD" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qfg-Mb-NDQ" id="CHc-CN-UNm">

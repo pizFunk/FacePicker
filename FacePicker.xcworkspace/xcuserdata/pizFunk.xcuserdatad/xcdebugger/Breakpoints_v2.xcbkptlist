@@ -201,24 +201,8 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FacePicker/Session/View Controllers/LeftColumnController.swift"
-            timestampString = "559628085.094"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionListController.swift"
-            timestampString = "559628085.094088"
+            timestampString = "559763859.603104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "29"
@@ -234,7 +218,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionListController.swift"
-            timestampString = "559628085.094138"
+            timestampString = "559763859.603177"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "114"
@@ -271,24 +255,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "210"
             endingLineNumber = "210"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FacePicker/Session/View Controllers/LeftColumnController.swift"
-            timestampString = "559628085.094287"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
-            landmarkName = "setupCollectionViewCells()"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -330,7 +298,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionListController.swift"
-            timestampString = "559628085.094443"
+            timestampString = "559763859.603321"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "70"
@@ -346,7 +314,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionListController.swift"
-            timestampString = "559628085.094485"
+            timestampString = "559763859.603369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "98"
@@ -362,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionListController.swift"
-            timestampString = "559628085.094525"
+            timestampString = "559763859.6034141"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -426,7 +394,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionDetailController.swift"
-            timestampString = "559628085.094705"
+            timestampString = "559763859.6035171"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "55"
@@ -474,12 +442,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionDetailController.swift"
-            timestampString = "559628085.094926"
+            timestampString = "559763859.603609"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
-            landmarkName = "cropViewController(_:didCropToImage:withRect:angle:)"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -490,13 +458,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionDetailController.swift"
-            timestampString = "559628085.095013"
+            timestampString = "559763859.603657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
-            landmarkName = "SessionDetailController"
-            landmarkType = "21">
+            startingLineNumber = "292"
+            endingLineNumber = "292"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -506,7 +474,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionDetailController.swift"
-            timestampString = "559628085.095091"
+            timestampString = "559763859.603704"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "161"
@@ -522,12 +490,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionDetailController.swift"
-            timestampString = "559628085.09517"
+            timestampString = "559763859.60375"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
+            landmarkName = "numberOfSections(in:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -538,12 +506,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionDetailController.swift"
-            timestampString = "559628085.09525"
+            timestampString = "559763859.603793"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
-            landmarkName = "collectionView(_:layout:sizeForItemAt:)"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
+            landmarkName = "collectionView(_:layout:minimumLineSpacingForSectionAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -554,27 +522,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionDetailController.swift"
-            timestampString = "559628085.095327"
+            timestampString = "559763859.603837"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
-            landmarkName = "collectionView(_:numberOfItemsInSection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FacePicker/Session/View Controllers/SessionDetailController.swift"
-            timestampString = "559628085.095403"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
             landmarkName = "cropViewController(_:didCropToImage:withRect:angle:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -586,28 +538,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionDetailController.swift"
-            timestampString = "559628085.0954781"
+            timestampString = "559763859.603881"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FacePicker/Session/Views/ProductLabelCell.swift"
-            timestampString = "559628085.095551"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "setImage(_:)"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -618,12 +554,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionDetailController.swift"
-            timestampString = "559628085.095601"
+            timestampString = "559763859.603925"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FacePicker/Session/View Controllers/SessionDetailController.swift"
+            timestampString = "559763859.6039931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "208"
             endingLineNumber = "208"
-            landmarkName = "addNewLabel(_:)"
+            landmarkName = "saveNotes()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -634,7 +586,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionDetailController.swift"
-            timestampString = "559628085.095664"
+            timestampString = "559763859.60404"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "182"
@@ -650,7 +602,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Session/View Controllers/SessionDetailController.swift"
-            timestampString = "559628085.0957251"
+            timestampString = "559763859.604084"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "194"
@@ -666,12 +618,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Client/ViewControllers/ClientListController.swift"
-            timestampString = "559628085.095862"
+            timestampString = "559771163.935531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "tableView(_:didSelectRowAt:)"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "clientNameWasEdited(client:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -682,61 +634,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FacePicker/Client/ViewControllers/ClientListController.swift"
-            timestampString = "559628085.095912"
+            timestampString = "559771163.935716"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FacePicker/Client/ViewControllers/ClientDetailController.swift"
-            timestampString = "559628085.095958"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "client"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FacePicker/Client/ViewControllers/ClientDetailController.swift"
-            timestampString = "559628085.0960031"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "client"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FacePicker/Client/ViewControllers/ClientDetailController.swift"
-            timestampString = "559628085.096046"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "client"
-            landmarkType = "24">
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "ClientListController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
