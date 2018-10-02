@@ -15,10 +15,16 @@ class ProductLabelCell: UICollectionViewCell {
     @IBOutlet weak var wrapperView: UIView!
     @IBOutlet weak var productLabelImageView: UIImageView!
     
+    var cornerRadius:CGFloat = 10 {
+        didSet {
+            ViewHelper.roundCornersOnView(contentView, withRadius: cornerRadius)
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
-        ViewHelper.roundCornersOnView(contentView, withRadius: 10)
+        ViewHelper.roundCornersOnView(contentView, withRadius: cornerRadius)
     }
 }

@@ -28,6 +28,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "SessionCell.showDetail.didset:SessionCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "showDetail">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ClientViewController.viewTapped(sender:):ClientViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -77,10 +85,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SessionDetailController.collectionView(_:layout:sizeForItemAt:):SessionDetailController.swift">
+         contextName = "ProductLabelCollectionViewController.productCellWidth.getter:SessionDetailController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "productCellSize">
+               value = "collectionView.frame.width">
+            </PersistentString>
+            <PersistentString
+               value = "collectionView.contentSize.width">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -89,6 +100,39 @@
          <PersistentStrings>
             <PersistentString
                value = "view.topAnchor">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SessionDetailController.collectionView(_:layout:sizeForItemAt:):SessionDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "productCellSize">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #3 in SettingsViewController.getLowInfoClients():SettingsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "lowInfoClient.firstName + &quot; &quot; + lowInfoClient.lastName">
+            </PersistentString>
+            <PersistentString
+               value = "name.lastName">
+            </PersistentString>
+            <PersistentString
+               value = "name.lastName[charAfterHyphenIndex] == lowInfoClient.lastName.first">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientMerger.removeCurrentMatch():ClientMerger.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentMatches.count">
+            </PersistentString>
+            <PersistentString
+               value = "lowInfoClients[current]!.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -119,7 +163,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ClientDetailController.viewDidLoad():ClientDetailController.swift">
+         contextName = "ClientMerger.currentMatch.getter:ClientMerger.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "lowInfoClients[currentClient!]!">
+            </PersistentString>
+            <PersistentString
+               value = "currentMatchIndex">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ProductLabelCell.setImage(_:):ProductLabelCell.swift">
@@ -130,10 +182,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ClientDetailController.viewDidLoad():ClientDetailController.swift">
+      </ContextState>
+      <ContextState
          contextName = "EqualSpacedCollectionViewFlowLayout.prepare():EqualSpacedCollectionViewFlowLayout.swift">
          <PersistentStrings>
             <PersistentString
                value = "collectionView?.cellForItem(at: IndexPath(row: 0, section: 0))?.contentView.frame.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProductLabelCollectionViewController.images.didset:SessionDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "images">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -155,18 +218,35 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ClientController.recursivelyResetBorders(inView:):ClientController.swift">
+         contextName = "ProductLabelCollectionViewController.viewWillLayoutSubviews():SessionDetailController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "view.subviews">
+               value = "collectionView?.contentSize">
+            </PersistentString>
+            <PersistentString
+               value = "collectionView?.frame.size">
+            </PersistentString>
+            <PersistentString
+               value = "collectionView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "sizeCollectionView #1 () in SessionDetailController.cropViewController(_:didCropToImage:withRect:angle:):SessionDetailController.swift">
+         contextName = "ClientDetailController.viewWillLayoutSubviews():ClientDetailController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "productLabelCollectionView.frame">
+               value = "collectionView.frame.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in ClientMerger.reconcileClients():ClientMerger.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentClientIndex">
+            </PersistentString>
+            <PersistentString
+               value = "currentMatchIndex">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -179,10 +259,54 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "SettingsViewController.reconcileClients():SettingsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "allClients[lowInfoName]">
+            </PersistentString>
+            <PersistentString
+               value = "allClients[possibleMatch]">
+            </PersistentString>
+            <PersistentString
+               value = "lowInfoName.description">
+            </PersistentString>
+            <PersistentString
+               value = "possibleMatch.description">
+            </PersistentString>
+            <PersistentString
+               value = "lowInfoClients">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "sizeCollectionView #1 () in SessionDetailController.cropViewController(_:didCropToImage:withRect:angle:):SessionDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "productLabelCollectionView.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "SessionListController.collectionView(_:layout:sizeForItemAt:):SessionListController.swift">
          <PersistentStrings>
             <PersistentString
                value = "collectionView.frame.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientController.recursivelyResetBorders(inView:):ClientController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "view.subviews">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #3 in ClientMerger.findLowInfoClients():ClientMerger.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "name.lastName[charAfterHyphenIndex] == lowInfoClient.lastName.first">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -266,6 +390,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ProductLabelCollectionViewController.collectionView(_:numberOfItemsInSection:):SessionDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "collectionView.frame.size">
+            </PersistentString>
+            <PersistentString
+               value = "images.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "DropDown.show(beforeTransform:anchorPoint:):DropDown.swift">
          <PersistentStrings>
             <PersistentString
@@ -290,6 +425,30 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "MergeClientController.noButtonPressed(_:):MergeClientController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "negativeSelectionHandler">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SettingsViewController.makeCleanFullName(name:):SettingsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ClientMerger.reconcileClients():ClientMerger.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.clients[lowInfoName]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ClientViewController.clientControllerDidSave(client:):ClientViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -306,6 +465,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ProductLabelCollectionViewController.collectionView(_:layout:sizeForItemAt:):SessionDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "images">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "SessionCell.session.didset:SessionCell.swift">
          <PersistentStrings>
             <PersistentString
@@ -313,6 +480,20 @@
             </PersistentString>
             <PersistentString
                value = "session.id?.uuidString">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientMerger.reconcileClients():ClientMerger.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentMatch">
+            </PersistentString>
+            <PersistentString
+               value = "currentClient">
+            </PersistentString>
+            <PersistentString
+               value = "mergeController.clientDifference">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -352,6 +533,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ClientMerger.beginMerge(completion:):ClientMerger.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "clients">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "FaceController.addSite(atPoint:):FaceController.swift">
          <PersistentStrings>
             <PersistentString
@@ -371,6 +560,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ClientDetailController.splitViewController(_:willChangeTo:):ClientDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shouldShowDetailedSessionCells()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "FaceController.siteTapped(button:):FaceController.swift">
          <PersistentStrings>
             <PersistentString
@@ -383,6 +580,20 @@
          <PersistentStrings>
             <PersistentString
                value = "split.viewControllers.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientMerger.removeCurrentClient():ClientMerger.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentClientIndex!">
+            </PersistentString>
+            <PersistentString
+               value = "lowInfoClientNames[0]">
+            </PersistentString>
+            <PersistentString
+               value = "currentMatchIndex">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

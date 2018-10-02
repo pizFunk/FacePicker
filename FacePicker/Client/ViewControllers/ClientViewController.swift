@@ -140,14 +140,14 @@ private extension ClientViewController {
         } else {
             smokeAmountStack.isHidden = true
         }
-        if let neuroDate = client.formattedLastNeuroDate() {
+        if let neuroDate = client.lastNeuroDate, !neuroDate.isEmpty { //} client.formattedLastNeuroDate() {
             priorNeuroDateLabel.text = neuroDate
             priorNeuroProductLabel.text = client.lastNeuroProduct
             priorNeuroStack.isHidden = false
         } else {
             priorNeuroStack.isHidden = true
         }
-        if let fillerDate = client.formattedLastFillerDate() {
+        if let fillerDate = client.lastFillerDate, !fillerDate.isEmpty { //} client.formattedLastFillerDate() {
             priorFillerDateLabel.text = fillerDate
             priorFillerProductLabel.text = client.lastFillerProduct
             priorFillerStack.isHidden = false
@@ -166,7 +166,6 @@ private extension ClientViewController {
     private func saveNotes() {
         guard let client = client else { return }
         client.notes = notesTextView.text
-        appDelegate().saveContext()
         saveNotesButton.isHidden = true
         
         Application.logInfo("Saved notes for Client with id: \(client.id.uuidString)")

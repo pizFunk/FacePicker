@@ -88,58 +88,94 @@ public class ViewHelper {
         appearance.textColor = .darkGray
         appearance.textFont = UIFont.systemFont(ofSize: UILabel().font.pointSize)
     }
+    
     // constraints
-    public static func setOrigin(for child: UIView, equalTo parent: UIView, withConstant constant: CGFloat = 0) {
+    
+    @discardableResult
+    public static func setOrigin(for child: UIView, equalTo parent: UIView, withConstant constant: CGFloat = 0) -> (top: NSLayoutConstraint, left: NSLayoutConstraint) {
         child.translatesAutoresizingMaskIntoConstraints = false
-        child.topAnchor.constraint(equalTo: parent.topAnchor, constant: constant).isActive = true
-        child.leftAnchor.constraint(equalTo: parent.leftAnchor, constant: constant).isActive = true
+        let topAnchor = child.topAnchor.constraint(equalTo: parent.topAnchor, constant: constant)
+        topAnchor.isActive = true
+        let leftAnchor = child.leftAnchor.constraint(equalTo: parent.leftAnchor, constant: constant)
+        leftAnchor.isActive = true
+        
+        return (topAnchor, leftAnchor)
     }
+    
     public static func setTrailingAndBottom(for child: UIView, equalTo parent: UIView, withConstant constant: CGFloat = 0) {
         child.translatesAutoresizingMaskIntoConstraints = false
         child.trailingAnchor.constraint(equalTo: parent.trailingAnchor, constant: constant).isActive = true
         child.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: constant).isActive = true
     }
+    
     public static func setLeadingAndTrailing(for child: UIView, equalTo parent: UIView, withConstant constant: CGFloat = 0) {
         child.translatesAutoresizingMaskIntoConstraints = false
         child.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: constant).isActive = true
         child.trailingAnchor.constraint(equalTo: parent.trailingAnchor, constant: -constant).isActive = true
     }
+    
     public static func setTop(for child: UIView, equalTo parent: UIView, withConstant constant: CGFloat = 0) {
         child.translatesAutoresizingMaskIntoConstraints = false
         child.topAnchor.constraint(equalTo: parent.topAnchor, constant: constant).isActive = true
     }
+    
     public static func setBottom(for child: UIView, equalTo parent: UIView, withConstant constant: CGFloat = 0) {
         child.translatesAutoresizingMaskIntoConstraints = false
         child.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: -constant).isActive = true
     }
-    public static func setViewEdges(for child: UIView, equalTo parent: UIView, withConstant constant: CGFloat = 0, excludingBottom: Bool = false) {
-        self.setOrigin(for: child, equalTo: parent, withConstant: constant)
-        child.rightAnchor.constraint(equalTo: parent.rightAnchor, constant: -constant).isActive = true
+    
+    @discardableResult
+    public static func setViewEdges(for child: UIView, equalTo parent: UIView, withConstant constant: CGFloat = 0, excludingBottom: Bool = false) -> (top: NSLayoutConstraint, left: NSLayoutConstraint, right: NSLayoutConstraint, bottom: NSLayoutConstraint) {
+        let topLeft = self.setOrigin(for: child, equalTo: parent, withConstant: constant)
+        let rightAnchor = child.rightAnchor.constraint(equalTo: parent.rightAnchor, constant: -constant)
+        rightAnchor.isActive = true
+        var bottomAnchor:NSLayoutConstraint?
         if !excludingBottom {
-            child.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: -constant).isActive = true
+            bottomAnchor = child.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: -constant)
+            bottomAnchor?.isActive = true
         }
+        
+        return (topLeft.top, topLeft.left, rightAnchor, bottomAnchor ?? NSLayoutConstraint())
     }
-    public static func setWidth(for child: UIView, equalTo parent: UIView) {
+    
+    @discardableResult
+    public static func setWidth(for child: UIView, equalTo parent: UIView, withMultiplier multiplier: CGFloat = 1.0) -> NSLayoutConstraint {
         child.translatesAutoresizingMaskIntoConstraints = false
-        child.widthAnchor.constraint(equalTo: parent.widthAnchor).isActive = true
+        let widthConstraint = child.widthAnchor.constraint(equalTo: parent.widthAnchor, multiplier: multiplier)
+        widthConstraint.isActive = true
+        
+        return widthConstraint
     }
-    public static func setHeight(for child: UIView, equalTo parent: UIView) {
+    
+    @discardableResult
+    public static func setHeight(for child: UIView, equalTo parent: UIView, withMultiplier multiplier: CGFloat = 1.0) -> NSLayoutConstraint {
         child.translatesAutoresizingMaskIntoConstraints = false
-        child.heightAnchor.constraint(equalTo: parent.heightAnchor).isActive = true
+        let heightConstraint = child.heightAnchor.constraint(equalTo: parent.heightAnchor, multiplier: multiplier)
+        heightConstraint.isActive = true
+        
+        return heightConstraint
     }
-    public static func setSize(for child: UIView, equalTo parent: UIView) {
-        self.setWidth(for: child, equalTo: parent)
-        self.setHeight(for: child, equalTo: parent)
+    
+    @discardableResult
+    public static func setSize(for child: UIView, equalTo parent: UIView, withMultiplier multiplier: CGFloat = 1.0) -> (width: NSLayoutConstraint, height: NSLayoutConstraint) {
+        let widthConstraint = self.setWidth(for: child, equalTo: parent, withMultiplier: multiplier)
+        let heightConstraint = self.setHeight(for: child, equalTo: parent, withMultiplier: multiplier)
+        
+        return (widthConstraint, heightConstraint)
     }
+    
     public static func setLeadingOf(_ second: UIView, equalToTrailingOf first: UIView, withConstant constant: CGFloat = 0) {
         second.translatesAutoresizingMaskIntoConstraints = false
         second.leadingAnchor.constraint(equalTo: first.trailingAnchor, constant: constant).isActive = true
     }
+    
     public static func centerVerically(_ second: UIView, to first: UIView, withConstant constant: CGFloat = 0) {
         second.translatesAutoresizingMaskIntoConstraints = false
         second.centerYAnchor.constraint(equalTo: first.centerYAnchor, constant: constant).isActive = true
     }
+    
     // device
+    
     public static func isDeviceLandscape() -> Bool {
         return UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight
     }

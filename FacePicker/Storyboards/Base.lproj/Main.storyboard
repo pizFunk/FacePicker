@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vVu-Ui-GHF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vVu-Ui-GHF">
     <device id="ipad12_9" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,21 +20,16 @@
                             <userLayoutGuide location="493" affinity="minX"/>
                         </userGuides>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dHd-c8-XHC">
-                                <rect key="frame" x="15" y="79" width="961" height="886"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="dHd-c8-XHC" userLabel="Client Detail Main Stack">
+                                <rect key="frame" x="15" y="85" width="960.5" height="874"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yLm-ve-cx5">
-                                        <rect key="frame" x="0.0" y="0.0" width="961" height="289"/>
+                                    <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yLm-ve-cx5">
+                                        <rect key="frame" x="0.0" y="0.0" width="960.5" height="224"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="Client View Container"/>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Sessions:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WhY-qj-UHj">
-                                        <rect key="frame" x="0.0" y="297" width="961" height="23"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iBl-Pm-J25">
-                                        <rect key="frame" x="0.0" y="328" width="961" height="558"/>
+                                        <rect key="frame" x="0.0" y="239" width="960.5" height="635"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="geP-up-924">
                                             <size key="itemSize" width="50" height="50"/>
@@ -66,10 +60,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="dHd-c8-XHC" firstAttribute="top" secondItem="u9x-ib-8Sb" secondAttribute="top" constant="15" id="A3o-mH-JaV"/>
-                            <constraint firstItem="u9x-ib-8Sb" firstAttribute="trailing" secondItem="dHd-c8-XHC" secondAttribute="trailing" constant="15" id="Hk8-Hx-p1P"/>
-                            <constraint firstItem="u9x-ib-8Sb" firstAttribute="bottom" secondItem="dHd-c8-XHC" secondAttribute="bottom" constant="15" id="lWe-rg-Fse"/>
-                            <constraint firstItem="dHd-c8-XHC" firstAttribute="leading" secondItem="u9x-ib-8Sb" secondAttribute="leading" constant="15" id="nhx-mg-e6f"/>
+                            <constraint firstItem="dHd-c8-XHC" firstAttribute="top" secondItem="u9x-ib-8Sb" secondAttribute="top" constant="15" identifier="Detail Stack Top" id="A3o-mH-JaV"/>
+                            <constraint firstItem="u9x-ib-8Sb" firstAttribute="trailing" secondItem="dHd-c8-XHC" secondAttribute="trailing" constant="15" identifier="Detail Stack Trailing" id="Hk8-Hx-p1P"/>
+                            <constraint firstItem="u9x-ib-8Sb" firstAttribute="bottom" secondItem="dHd-c8-XHC" secondAttribute="bottom" constant="15" identifier="Detail Stack Bottom" id="lWe-rg-Fse"/>
+                            <constraint firstItem="dHd-c8-XHC" firstAttribute="leading" secondItem="u9x-ib-8Sb" secondAttribute="leading" constant="15" identifier="Detail Stack Leading" id="nhx-mg-e6f"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="u9x-ib-8Sb"/>
                     </view>
@@ -119,7 +113,7 @@
             <objects>
                 <navigationController id="4DE-nf-cud" userLabel="SessionListNavigation" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3AR-uF-zz5">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -139,7 +133,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mDz-3t-dvA">
-                                <rect key="frame" x="0.0" y="101" width="375" height="923"/>
+                                <rect key="frame" x="0.0" y="107" width="375" height="917"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bUJ-ZW-yef">
                                     <size key="itemSize" width="50" height="50"/>
@@ -154,7 +148,7 @@
                                 </connections>
                             </collectionView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="v1H-IL-1pY">
-                                <rect key="frame" x="0.0" y="64" width="375" height="37"/>
+                                <rect key="frame" x="0.0" y="70" width="375" height="37"/>
                                 <color key="pageIndicatorTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <color key="currentPageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </pageControl>
@@ -259,7 +253,7 @@
             <objects>
                 <navigationController id="SK8-Sq-d70" userLabel="ClientListControllerNavigation" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rV2-Or-8Vj">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -289,7 +283,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XIk-3t-SL2" userLabel="ClientDetailNavigation" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="34V-ap-R2y">
-                        <rect key="frame" x="0.0" y="20" width="990.5" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="990.5" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -307,7 +301,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="udt-Xh-dt7" userLabel="SessionNavigation" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6O1-tM-Ba4">
-                        <rect key="frame" x="0.0" y="20" width="990.5" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="990.5" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -321,6 +315,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gear-icon" width="150" height="150"/>
+        <image name="gear-icon" width="72" height="72"/>
     </resources>
 </document>

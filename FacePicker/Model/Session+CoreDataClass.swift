@@ -55,4 +55,14 @@ public class Session: NSManagedObject {
         }
         return Array(labels)
     }
+    
+    func labelsImageArray() -> Array<UIImage> {
+        var images = [UIImage]()
+        let labelsArray = self.labelsArray()
+        for label in labelsArray {
+            guard let data = label.image as Data?, let image = UIImage(data: data) else { continue }
+            images.append(image)
+        }
+        return images
+    }
 }

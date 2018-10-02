@@ -28,10 +28,10 @@ extension Client {
     @NSManaged public var homePrefix: String?
     @NSManaged public var homeSuffix: String?
     @NSManaged public var id: UUID
-    @NSManaged public var lastFillerDate: NSDate?
+    @NSManaged public var lastFillerDate: String?
     @NSManaged public var lastFillerProduct: String?
     @NSManaged public var lastName: String
-    @NSManaged public var lastNeuroDate: NSDate?
+    @NSManaged public var lastNeuroDate: String?
     @NSManaged public var lastNeuroProduct: String?
     @NSManaged public var medicalConditions: String?
     @NSManaged public var medications: String?

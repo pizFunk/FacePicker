@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import UIKit
 import CoreData
 
 @objc(Client)
@@ -31,12 +32,12 @@ public class Client: NSManagedObject {
     public func formattedDOB() -> String? {
         return formattedDate(self.dateOfBirth)
     }
-    public func formattedLastNeuroDate() -> String? {
-        return formattedDate(self.lastNeuroDate)
-    }
-    public func formattedLastFillerDate() -> String? {
-        return formattedDate(self.lastFillerDate)
-    }
+//    public func formattedLastNeuroDate() -> String? {
+//        return formattedDate(self.lastNeuroDate)
+//    }
+//    public func formattedLastFillerDate() -> String? {
+//        return formattedDate(self.lastFillerDate)
+//    }
     public func formattedSignatureDate() -> String? {
         return formattedDate(self.signatureDate)
     }
@@ -67,5 +68,52 @@ public class Client: NSManagedObject {
     }
     public func formattedSmoker() -> String {
         return smoker ? "Yes" : "No"
+    }
+    
+    private static func fetchClients(context: NSManagedObjectContext) -> [Client]? {
+        let fetchRequest:NSFetchRequest<Client> = Client.fetchRequest()
+        var existingClients:[Client]?
+        do {
+            existingClients = try context.fetch(fetchRequest)
+        } catch {
+            Application.onError("Error when trying to fetch existing clients. error = \(error)")
+        }
+        return existingClients
+    }
+    
+    public static func createClientsFromImport(clients: [FullName:[Date]]) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let context = appDelegate.persistentContainer.viewContext
+        
+        var existingClients = fetchClients(context: context)
+        if let eC = existingClients {
+            for client in eC {
+                if client.lastName != "Pisoni" {
+                    context.delete(client)
+                }
+            }
+        }
+        existingClients = fetchClients(context: context)
+        
+        for (client, dates) in clients {
+            let clientExists = existingClients?.contains(where: { existing in
+                return existing.firstName == client.firstName && existing.lastName == client.lastName
+            })
+            if clientExists != nil && clientExists! {
+                continue
+            }
+            let newClient = Client(context: context)
+            newClient.firstName = client.firstName
+            newClient.lastName = client.lastName
+            newClient.id = UUID()
+            for date in dates {
+                let newSession = Session(context: context)
+                newSession.date = date as NSDate
+                newSession.id = UUID()
+                newClient.addToSessions(newSession)
+            }
+        }
     }
 }

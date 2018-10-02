@@ -217,7 +217,7 @@ private extension SessionController {
         }
         let context = managedContext()
         context.delete(removedSite)
-        saveContext()
+        updateSessionAndNotify()
         Application.logInfo("Deleted InjectionSite with id: \(uuid)")
         guard let siteButton = siteButtons.removeValue(forKey: uuid)  else {
             Application.onError("Unable to find button with uuid = \(uuid) in the siteButtons array while deleting. Arrays out of sync!")
@@ -225,12 +225,11 @@ private extension SessionController {
         }
         siteButton.removeFromSuperview()
     }
-    func saveContext() {
+    func updateSessionAndNotify() {
         guard let session = session else {
-            Application.onError("No session when saving context!")
+            Application.onError("No session when updating!")
             return
         }
-        appDelegate().saveContext()
         session.updateSessionImage()
         NotificationCenter.default.post(name: .sessionDidChange, object: nil, userInfo: ["": session])
     }
@@ -301,7 +300,7 @@ extension SessionController : ContextMenuDelegate {
 
 extension SessionController : SiteMenuControllerDelegate {
     func siteMenuDidSave(savedSite: InjectionSite) {
-        saveContext()
+        updateSessionAndNotify()
         Application.logInfo("Saved InjectionSite with id: \(savedSite.id.uuidString) for Session with id: \(savedSite.session.id.uuidString)")
     }
     

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		31025783215D913D00AD82BC /* USStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31025782215D913D00AD82BC /* USStates.swift */; };
+		310882482162F7D100226940 /* ClientMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310882472162F7D100226940 /* ClientMerger.swift */; };
+		3108824A2162F7E800226940 /* ClientImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310882492162F7E800226940 /* ClientImporter.swift */; };
+		3132293B215EBF6400088331 /* DetailedSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31322939215EBF6400088331 /* DetailedSessionCell.swift */; };
+		3132293C215EBF6400088331 /* DetailedSessionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3132293A215EBF6400088331 /* DetailedSessionCell.xib */; };
 		31501B0D215AB892003D29B7 /* ProductLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31501B0B215AB892003D29B7 /* ProductLabelCell.swift */; };
 		31501B0E215AB892003D29B7 /* ProductLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31501B0C215AB892003D29B7 /* ProductLabelCell.xib */; };
 		31501B11215ACA5F003D29B7 /* ProductLabel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31501B0F215ACA5F003D29B7 /* ProductLabel+CoreDataClass.swift */; };
@@ -15,6 +19,9 @@
 		31501B1F215B0E2A003D29B7 /* Application+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31501B1E215B0E2A003D29B7 /* Application+Settings.swift */; };
 		31501B26215B12D0003D29B7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31501B24215B12D0003D29B7 /* SettingsViewController.swift */; };
 		31501B27215B12D0003D29B7 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31501B25215B12D0003D29B7 /* SettingsViewController.xib */; };
+		3151361B215EDDED003E93DE /* ProductLabelCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151361A215EDDED003E93DE /* ProductLabelCollectionViewController.swift */; };
+		3151361E215F0997003E93DE /* SessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151361C215F0997003E93DE /* SessionCell.swift */; };
+		3151361F215F0997003E93DE /* SessionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3151361D215F0997003E93DE /* SessionCell.xib */; };
 		315D7F2E214C25DD009149B9 /* InjectionSite+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315D7F2C214C25DD009149B9 /* InjectionSite+CoreDataProperties.swift */; };
 		315D7F31214C4096009149B9 /* ClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315D7F2F214C4096009149B9 /* ClientViewController.swift */; };
 		315D7F34214C5510009149B9 /* ClientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315D7F33214C5510009149B9 /* ClientViewController.xib */; };
@@ -33,6 +40,9 @@
 		31613DC52155366300146DF4 /* ViewControllerWrapperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31613DC42155366300146DF4 /* ViewControllerWrapperCell.swift */; };
 		31613DCA2155375B00146DF4 /* LeftColumnController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31613DC92155375B00146DF4 /* LeftColumnController.swift */; };
 		31613DCD21553AD000146DF4 /* SessionDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31613DCB21553AD000146DF4 /* SessionDetailController.swift */; };
+		316B74012162B817005077C0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316B74002162B817005077C0 /* String+Extensions.swift */; };
+		316B74042162B909005077C0 /* MergeClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316B74022162B909005077C0 /* MergeClientController.swift */; };
+		316B74052162B909005077C0 /* MergeClientController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 316B74032162B909005077C0 /* MergeClientController.xib */; };
 		3175A110214012F500E89C29 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3175A10F214012F500E89C29 /* SessionController.swift */; };
 		31A0FA112149C55600F96845 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA102149C55600F96845 /* UIViewController+Extensions.swift */; };
 		31A0FA1A2149EDFC00F96845 /* Session+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA162149EDFC00F96845 /* Session+CoreDataClass.swift */; };
@@ -42,7 +52,7 @@
 		31A0FA212149FBC700F96845 /* ClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA202149FBC700F96845 /* ClientTableViewCell.swift */; };
 		31A0FA23214A033300F96845 /* SignatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA22214A033300F96845 /* SignatureViewController.swift */; };
 		31A0FA25214A09EB00F96845 /* ClientDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA24214A09EB00F96845 /* ClientDetailController.swift */; };
-		31A0FA27214A179D00F96845 /* SessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA26214A179D00F96845 /* SessionCell.swift */; };
+		31A0FA27214A179D00F96845 /* SimpleSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA26214A179D00F96845 /* SimpleSessionCell.swift */; };
 		31AC2461214ACE4B003B6C5C /* ClientController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31AC2460214ACE4B003B6C5C /* ClientController.xib */; };
 		31AC2463214ADB39003B6C5C /* SessionListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC2462214ADB39003B6C5C /* SessionListController.swift */; };
 		31AC2467214B3A55003B6C5C /* SessionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC2466214B3A55003B6C5C /* SessionHelper.swift */; };
@@ -54,7 +64,7 @@
 		31D8953121599A3D003C4DB1 /* UnderlinedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D8953021599A3D003C4DB1 /* UnderlinedLabel.swift */; };
 		31F78E25214698FB00418B6D /* SiteMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F78E23214698FB00418B6D /* SiteMenuController.swift */; };
 		31F78E452147402E00418B6D /* InjectionSite+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F78E432147402E00418B6D /* InjectionSite+CoreDataClass.swift */; };
-		31FF70A12151543000D3BBC2 /* SessionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31FF70A02151543000D3BBC2 /* SessionCell.xib */; };
+		31FF70A12151543000D3BBC2 /* SimpleSessionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31FF70A02151543000D3BBC2 /* SimpleSessionCell.xib */; };
 		31FF70B321518D1900D3BBC2 /* Notification+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FF70B221518D1900D3BBC2 /* Notification+Names.swift */; };
 		8974B9F35E4F3F5B0E926AEB /* Pods_FacePickerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C70EB218CF4A0A3B91321C /* Pods_FacePickerTests.framework */; };
 		BF8D2434E1A4A300002B99DD /* Pods_FacePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75670A59ABB6A93CB61D9810 /* Pods_FacePicker.framework */; };
@@ -80,6 +90,10 @@
 
 /* Begin PBXFileReference section */
 		31025782215D913D00AD82BC /* USStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USStates.swift; sourceTree = "<group>"; };
+		310882472162F7D100226940 /* ClientMerger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMerger.swift; sourceTree = "<group>"; };
+		310882492162F7E800226940 /* ClientImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientImporter.swift; sourceTree = "<group>"; };
+		31322939215EBF6400088331 /* DetailedSessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedSessionCell.swift; sourceTree = "<group>"; };
+		3132293A215EBF6400088331 /* DetailedSessionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailedSessionCell.xib; sourceTree = "<group>"; };
 		31501B0B215AB892003D29B7 /* ProductLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductLabelCell.swift; sourceTree = "<group>"; };
 		31501B0C215AB892003D29B7 /* ProductLabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductLabelCell.xib; sourceTree = "<group>"; };
 		31501B0F215ACA5F003D29B7 /* ProductLabel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductLabel+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -87,6 +101,9 @@
 		31501B1E215B0E2A003D29B7 /* Application+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Application+Settings.swift"; sourceTree = "<group>"; };
 		31501B24215B12D0003D29B7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		31501B25215B12D0003D29B7 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		3151361A215EDDED003E93DE /* ProductLabelCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductLabelCollectionViewController.swift; sourceTree = "<group>"; };
+		3151361C215F0997003E93DE /* SessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCell.swift; sourceTree = "<group>"; };
+		3151361D215F0997003E93DE /* SessionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionCell.xib; sourceTree = "<group>"; };
 		315D7F2C214C25DD009149B9 /* InjectionSite+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InjectionSite+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		315D7F2F214C4096009149B9 /* ClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewController.swift; sourceTree = "<group>"; };
 		315D7F33214C5510009149B9 /* ClientViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientViewController.xib; sourceTree = "<group>"; };
@@ -111,6 +128,9 @@
 		31613DC42155366300146DF4 /* ViewControllerWrapperCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerWrapperCell.swift; sourceTree = "<group>"; };
 		31613DC92155375B00146DF4 /* LeftColumnController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftColumnController.swift; sourceTree = "<group>"; };
 		31613DCB21553AD000146DF4 /* SessionDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailController.swift; sourceTree = "<group>"; };
+		316B74002162B817005077C0 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		316B74022162B909005077C0 /* MergeClientController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeClientController.swift; sourceTree = "<group>"; };
+		316B74032162B909005077C0 /* MergeClientController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MergeClientController.xib; sourceTree = "<group>"; };
 		3175A10F214012F500E89C29 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		31A0FA102149C55600F96845 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		31A0FA162149EDFC00F96845 /* Session+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -120,7 +140,7 @@
 		31A0FA202149FBC700F96845 /* ClientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTableViewCell.swift; sourceTree = "<group>"; };
 		31A0FA22214A033300F96845 /* SignatureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureViewController.swift; sourceTree = "<group>"; };
 		31A0FA24214A09EB00F96845 /* ClientDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailController.swift; sourceTree = "<group>"; };
-		31A0FA26214A179D00F96845 /* SessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCell.swift; sourceTree = "<group>"; };
+		31A0FA26214A179D00F96845 /* SimpleSessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSessionCell.swift; sourceTree = "<group>"; };
 		31AC2460214ACE4B003B6C5C /* ClientController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientController.xib; sourceTree = "<group>"; };
 		31AC2462214ADB39003B6C5C /* SessionListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListController.swift; sourceTree = "<group>"; };
 		31AC2466214B3A55003B6C5C /* SessionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHelper.swift; sourceTree = "<group>"; };
@@ -132,7 +152,7 @@
 		31D8953021599A3D003C4DB1 /* UnderlinedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlinedLabel.swift; sourceTree = "<group>"; };
 		31F78E23214698FB00418B6D /* SiteMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteMenuController.swift; sourceTree = "<group>"; };
 		31F78E432147402E00418B6D /* InjectionSite+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InjectionSite+CoreDataClass.swift"; sourceTree = "<group>"; };
-		31FF70A02151543000D3BBC2 /* SessionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionCell.xib; sourceTree = "<group>"; };
+		31FF70A02151543000D3BBC2 /* SimpleSessionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleSessionCell.xib; sourceTree = "<group>"; };
 		31FF70B221518D1900D3BBC2 /* Notification+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Names.swift"; sourceTree = "<group>"; };
 		412060C673C53F5C40AC5D17 /* Pods-FacePickerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FacePickerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FacePickerUITests/Pods-FacePickerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		46F7710CCB5A809D43694713 /* Pods-FacePickerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FacePickerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FacePickerTests/Pods-FacePickerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -181,6 +201,17 @@
 				C7B865E86360A60798F568E8 /* Pods_FacePickerUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		310882462162F7B500226940 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				316B74022162B909005077C0 /* MergeClientController.swift */,
+				316B74032162B909005077C0 /* MergeClientController.xib */,
+				310882472162F7D100226940 /* ClientMerger.swift */,
+				310882492162F7E800226940 /* ClientImporter.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		31501B1B215B0D98003D29B7 /* Views */ = {
@@ -285,6 +316,8 @@
 				31501B23215B127D003D29B7 /* Settings */,
 				31501B22215B121B003D29B7 /* Resources */,
 				31501B21215B11B3003D29B7 /* Storyboards */,
+				310882462162F7B500226940 /* Utilities */,
+				316B74002162B817005077C0 /* String+Extensions.swift */,
 				31D8953021599A3D003C4DB1 /* UnderlinedLabel.swift */,
 				315D7F3D214DEA15009149B9 /* UIImage+PixelColor.swift */,
 				31A0FA102149C55600F96845 /* UIViewController+Extensions.swift */,
@@ -319,6 +352,7 @@
 				31613DCB21553AD000146DF4 /* SessionDetailController.swift */,
 				3175A10F214012F500E89C29 /* SessionController.swift */,
 				31F78E23214698FB00418B6D /* SiteMenuController.swift */,
+				3151361A215EDDED003E93DE /* ProductLabelCollectionViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -326,10 +360,12 @@
 		31613DCF2155618400146DF4 /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
-				31FF70A02151543000D3BBC2 /* SessionCell.xib */,
+				3132293A215EBF6400088331 /* DetailedSessionCell.xib */,
+				31FF70A02151543000D3BBC2 /* SimpleSessionCell.xib */,
 				31D8952E215999E1003C4DB1 /* SessionDetailController.xib */,
 				31D89529215978F4003C4DB1 /* SessionTotalsRow.xib */,
 				31501B0C215AB892003D29B7 /* ProductLabelCell.xib */,
+				3151361D215F0997003E93DE /* SessionCell.xib */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -338,9 +374,11 @@
 			isa = PBXGroup;
 			children = (
 				31613DC42155366300146DF4 /* ViewControllerWrapperCell.swift */,
-				31A0FA26214A179D00F96845 /* SessionCell.swift */,
+				31322939215EBF6400088331 /* DetailedSessionCell.swift */,
+				31A0FA26214A179D00F96845 /* SimpleSessionCell.swift */,
 				31D8952C2159985A003C4DB1 /* SessionTotalsRow.swift */,
 				31501B0B215AB892003D29B7 /* ProductLabelCell.swift */,
+				3151361C215F0997003E93DE /* SessionCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -503,15 +541,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3132293C215EBF6400088331 /* DetailedSessionCell.xib in Resources */,
 				31D8952A215978F4003C4DB1 /* SessionTotalsRow.xib in Resources */,
 				31D8952F215999E1003C4DB1 /* SessionDetailController.xib in Resources */,
 				31501B27215B12D0003D29B7 /* SettingsViewController.xib in Resources */,
 				31AC2461214ACE4B003B6C5C /* ClientController.xib in Resources */,
 				315D7F3C214DBA01009149B9 /* ClientConsentController.xib in Resources */,
+				3151361F215F0997003E93DE /* SessionCell.xib in Resources */,
 				31501B0E215AB892003D29B7 /* ProductLabelCell.xib in Resources */,
 				31602FC82140087E0023F8A2 /* LaunchScreen.storyboard in Resources */,
-				31FF70A12151543000D3BBC2 /* SessionCell.xib in Resources */,
+				31FF70A12151543000D3BBC2 /* SimpleSessionCell.xib in Resources */,
 				31602FC52140087E0023F8A2 /* Assets.xcassets in Resources */,
+				316B74052162B909005077C0 /* MergeClientController.xib in Resources */,
 				31602FC02140087C0023F8A2 /* Main.storyboard in Resources */,
 				315D7F34214C5510009149B9 /* ClientViewController.xib in Resources */,
 			);
@@ -621,12 +662,15 @@
 			files = (
 				31D7E562215C56200064CE80 /* Application.swift in Sources */,
 				31025783215D913D00AD82BC /* USStates.swift in Sources */,
+				3151361E215F0997003E93DE /* SessionCell.swift in Sources */,
 				31D8952D2159985A003C4DB1 /* SessionTotalsRow.swift in Sources */,
+				316B74042162B909005077C0 /* MergeClientController.swift in Sources */,
 				31F78E452147402E00418B6D /* InjectionSite+CoreDataClass.swift in Sources */,
 				31A0FA1F2149F85A00F96845 /* ClientListController.swift in Sources */,
 				31501B1F215B0E2A003D29B7 /* Application+Settings.swift in Sources */,
 				315D7F2E214C25DD009149B9 /* InjectionSite+CoreDataProperties.swift in Sources */,
 				31F78E25214698FB00418B6D /* SiteMenuController.swift in Sources */,
+				310882482162F7D100226940 /* ClientMerger.swift in Sources */,
 				31501B12215ACA5F003D29B7 /* ProductLabel+CoreDataProperties.swift in Sources */,
 				3175A110214012F500E89C29 /* SessionController.swift in Sources */,
 				31AC2467214B3A55003B6C5C /* SessionHelper.swift in Sources */,
@@ -638,6 +682,7 @@
 				31A0FA23214A033300F96845 /* SignatureViewController.swift in Sources */,
 				31613DC52155366300146DF4 /* ViewControllerWrapperCell.swift in Sources */,
 				31AC2469214B62AE003B6C5C /* ViewHelper.swift in Sources */,
+				316B74012162B817005077C0 /* String+Extensions.swift in Sources */,
 				315D7F3E214DEA15009149B9 /* UIImage+PixelColor.swift in Sources */,
 				31501B11215ACA5F003D29B7 /* ProductLabel+CoreDataClass.swift in Sources */,
 				31602FBD2140087C0023F8A2 /* ClientController.swift in Sources */,
@@ -645,14 +690,17 @@
 				31A0FA1C2149EDFC00F96845 /* Client+CoreDataClass.swift in Sources */,
 				31613DCD21553AD000146DF4 /* SessionDetailController.swift in Sources */,
 				31501B26215B12D0003D29B7 /* SettingsViewController.swift in Sources */,
+				3108824A2162F7E800226940 /* ClientImporter.swift in Sources */,
 				315D7F3B214DBA01009149B9 /* ClientConsentController.swift in Sources */,
 				31A0FA1A2149EDFC00F96845 /* Session+CoreDataClass.swift in Sources */,
-				31A0FA27214A179D00F96845 /* SessionCell.swift in Sources */,
+				31A0FA27214A179D00F96845 /* SimpleSessionCell.swift in Sources */,
+				3151361B215EDDED003E93DE /* ProductLabelCollectionViewController.swift in Sources */,
 				315D7F38214D9242009149B9 /* Client+CoreDataProperties.swift in Sources */,
 				31A0FA25214A09EB00F96845 /* ClientDetailController.swift in Sources */,
 				31D8953121599A3D003C4DB1 /* UnderlinedLabel.swift in Sources */,
 				31602FBB2140087C0023F8A2 /* AppDelegate.swift in Sources */,
 				31FF70B321518D1900D3BBC2 /* Notification+Names.swift in Sources */,
+				3132293B215EBF6400088331 /* DetailedSessionCell.swift in Sources */,
 				31A0FA1B2149EDFC00F96845 /* Session+CoreDataProperties.swift in Sources */,
 				31613DCA2155375B00146DF4 /* LeftColumnController.swift in Sources */,
 			);
@@ -832,6 +880,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3QR92DHDGW;
 				INFOPLIST_FILE = "$(SRCROOT)/FacePicker/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -851,6 +900,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3QR92DHDGW;
 				INFOPLIST_FILE = "$(SRCROOT)/FacePicker/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -28,14 +28,14 @@ class Application {
     private static var _infoLog: OSLog?
     private static var infoLog:OSLog {
         get {
-            if _errorLog == nil {
+            if _infoLog == nil {
                 if let bundleId = Bundle.main.bundleIdentifier {
-                    _errorLog = OSLog(subsystem: bundleId, category: "info")
+                    _infoLog = OSLog(subsystem: bundleId, category: "info")
                 } else {
-                    _errorLog = OSLog.default
+                    _infoLog = OSLog.default
                 }
             }
-            return _errorLog!
+            return _infoLog!
         }
     }
         
@@ -76,6 +76,9 @@ class Application {
                 controller = splitViewController.viewControllers.last
             }
         }
+        if controller?.presentedViewController != nil {
+            controller = controller?.presentedViewController
+        }
         controller?.present(alert, animated: true, completion: nil)
     }
     
@@ -90,6 +93,6 @@ class Application {
     
     static func logInfo(_ info: String, inFile file: String = #file, inFunction function: String = #function) {
         // log
-        os_log("%@", log: errorLog, type: OSLogType.info, info)
+        os_log("%@", log: infoLog, type: OSLogType.info, info)
     }
 }

@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SessionDetailController" customModule="FacePicker" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SessionDetailController" customModule="Ostapowicz__MD" customModuleProvider="target">
             <connections>
                 <outlet property="cameraButton" destination="kK1-t5-GXO" id="Xcb-cl-jEZ"/>
                 <outlet property="dateLabel" destination="mLB-RM-P37" id="rjx-Px-rpB"/>
                 <outlet property="nameLabel" destination="ZS9-bH-jfZ" id="q5z-Pw-7rD"/>
                 <outlet property="notesTextView" destination="dj9-Mv-NLZ" id="vyZ-a1-izg"/>
-                <outlet property="productLabelCollectionView" destination="3CZ-Uq-eSh" id="SC6-5J-tjm"/>
+                <outlet property="productLabelCollectionContainerView" destination="dtI-rZ-Rpz" id="PpJ-DZ-vc7"/>
                 <outlet property="saveNotesButton" destination="t5p-E9-N5V" id="FqG-uc-Uva"/>
                 <outlet property="sessionDescriptionView" destination="tLD-Wz-xpN" id="lhs-gy-NFc"/>
                 <outlet property="totalsStackView" destination="IMK-xl-HCJ" id="Cwu-Ck-oQl"/>
@@ -34,7 +31,7 @@
                     <rect key="frame" x="10" y="0.0" width="395" height="362"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tLD-Wz-xpN">
-                            <rect key="frame" x="0.0" y="0.0" width="395" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="395" height="64"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKn-oa-St4" userLabel="Name">
                                     <rect key="frame" x="8" y="8" width="61" height="24"/>
@@ -50,7 +47,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAq-bY-IUI" userLabel="Date">
-                                    <rect key="frame" x="8" y="40" width="61" height="2"/>
+                                    <rect key="frame" x="8" y="40" width="61" height="16"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -80,7 +77,7 @@
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Q93-YA-68b" userLabel="Notes Stack">
-                            <rect key="frame" x="0.0" y="65" width="395" height="131.5"/>
+                            <rect key="frame" x="0.0" y="79" width="395" height="131.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="rg1-9C-kwZ" userLabel="Notes Label Stack">
                                     <rect key="frame" x="0.0" y="0.0" width="395" height="26.5"/>
@@ -92,7 +89,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t5p-E9-N5V">
-                                            <rect key="frame" x="-10" y="0.0" width="0.0" height="26.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="26.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <state key="normal" title="Save"/>
                                             <connections>
@@ -117,24 +114,24 @@
                             </constraints>
                         </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Totals:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAL-60-dV6">
-                            <rect key="frame" x="0.0" y="211.5" width="395" height="26.5"/>
+                            <rect key="frame" x="0.0" y="225.5" width="395" height="26.5"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IMK-xl-HCJ">
-                            <rect key="frame" x="0.0" y="253" width="395" height="0.0"/>
+                            <rect key="frame" x="0.0" y="267" width="395" height="0.0"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="i5O-4q-mdi" userLabel="Product Label Stack">
-                            <rect key="frame" x="0.0" y="268" width="395" height="30"/>
+                            <rect key="frame" x="0.0" y="282" width="395" height="30"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" ambiguous="YES" text="Product Labels:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQF-0W-hdK">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" text="Product Labels:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQF-0W-hdK">
                                     <rect key="frame" x="0.0" y="0.0" width="161.5" height="30"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kK1-t5-GXO">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kK1-t5-GXO">
                                     <rect key="frame" x="171.5" y="0.0" width="30" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="kK1-t5-GXO" secondAttribute="height" multiplier="1:1" id="Nfd-eT-Oya"/>
@@ -146,30 +143,20 @@
                                         <action selector="cameraButtonPressed:" destination="-1" eventType="touchUpInside" id="cWz-QU-r2a"/>
                                     </connections>
                                 </button>
-                                <view contentMode="scaleToFill" verticalHuggingPriority="999" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="999" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f8s-xF-Scf">
+                                <view contentMode="scaleToFill" verticalHuggingPriority="999" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="999" translatesAutoresizingMaskIntoConstraints="NO" id="f8s-xF-Scf">
                                     <rect key="frame" x="211.5" y="0.0" width="183.5" height="30"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                             </subviews>
                         </stackView>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="3CZ-Uq-eSh">
-                            <rect key="frame" x="0.0" y="313" width="395" height="49"/>
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dtI-rZ-Rpz" userLabel="Product Label Collection Container View">
+                            <rect key="frame" x="0.0" y="327" width="395" height="35"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9yf-mn-ng2">
-                                <size key="itemSize" width="50" height="50"/>
-                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            </collectionViewFlowLayout>
-                            <connections>
-                                <outlet property="dataSource" destination="-1" id="XjN-6Y-Ab0"/>
-                                <outlet property="delegate" destination="-1" id="iFG-5Z-ZqO"/>
-                            </connections>
-                        </collectionView>
+                        </view>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="3CZ-Uq-eSh" firstAttribute="leading" secondItem="wc7-T8-7LP" secondAttribute="leading" id="cb9-aM-Fkd"/>
-                        <constraint firstAttribute="trailing" secondItem="3CZ-Uq-eSh" secondAttribute="trailing" id="grb-30-pTW"/>
+                        <constraint firstAttribute="trailing" secondItem="dtI-rZ-Rpz" secondAttribute="trailing" id="GrX-DH-mgm"/>
+                        <constraint firstItem="dtI-rZ-Rpz" firstAttribute="leading" secondItem="wc7-T8-7LP" secondAttribute="leading" id="zju-VB-fgd"/>
                     </constraints>
                 </stackView>
             </subviews>
@@ -185,6 +172,6 @@
         </view>
     </objects>
     <resources>
-        <image name="camera-icon" width="800" height="800"/>
+        <image name="camera-icon" width="1200" height="1200"/>
     </resources>
 </document>

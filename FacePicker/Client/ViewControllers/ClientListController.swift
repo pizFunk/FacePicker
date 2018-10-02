@@ -268,9 +268,8 @@ extension ClientListController {
                 removedClient = clients.remove(at: indexPath.row)
             }
             let context = managedContext()
+            Application.logInfo("Deleting Client with uuid: \(removedClient.id.uuidString)")
             context.delete(removedClient)
-            appDelegate().saveContext()
-            Application.logInfo("Deleted Client with uuid: \(removedClient.id.uuidString)")
             
             tableView.deleteRows(at: [indexPath], with: .fade)
             // if deleting current

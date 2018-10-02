@@ -18,11 +18,17 @@ class SessionDetailController: UIViewController {
     @IBOutlet weak var saveNotesButton: UIButton!
     @IBOutlet weak var totalsStackView: UIStackView!
     @IBOutlet weak var cameraButton: UIButton!
-    @IBOutlet weak var productLabelCollectionView: UICollectionView!
+    @IBOutlet weak var productLabelCollectionContainerView: UIView!
     
-    let reuseIdentifier = "ProductLabelCell"
-    var image = UIImage()
-    var images = [UIImage]()
+    lazy var productLabelCollectionViewController:ProductLabelCollectionViewController = {
+        let viewController = ProductLabelCollectionViewController()
+        addChildViewController(viewController)
+        viewController.didMove(toParentViewController: self)
+        productLabelCollectionContainerView.addSubview(viewController.view)
+        ViewHelper.setViewEdges(for: viewController.view, equalTo: productLabelCollectionContainerView)
+        
+        return viewController
+    }()
     
     var session: Session? {
         didSet {
@@ -31,17 +37,6 @@ class SessionDetailController: UIViewController {
             setNotes()
             setTotals()
             setLabelImages()
-        }
-    }
-    
-    //collectionview layout
-    let columns:CGFloat = 1
-    let minimumLineSpacing:CGFloat = 15
-    let minimumInterimSpacing:CGFloat = 15
-    let sectionInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-    var productCellWidth:CGFloat {
-        get {
-            return (productLabelCollectionView.contentSize.width - (minimumInterimSpacing * (columns - 1)) - sectionInsets.left - sectionInsets.right) / columns
         }
     }
     
@@ -69,9 +64,6 @@ extension SessionDetailController {
 //        ViewHelper.setLeadingAndTrailing(for: stackView, equalTo: view, withConstant: 15)
 //        stackView.axis = .vertical
 //        stackView.spacing = 8.0
-        productLabelCollectionView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
-        ViewHelper.setBorderOnView(productLabelCollectionView, withColor: UIColor(white: 0.6, alpha: 1).cgColor)
-        productLabelCollectionView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         
         // description
         ViewHelper.setBorderOnView(sessionDescriptionView, withColor: UIColor(white: 0.6, alpha: 1).cgColor, rounded: false)
@@ -81,13 +73,15 @@ extension SessionDetailController {
         notesTextView.delegate = self
         ViewHelper.setBorderOnView(notesTextView, withColor: ViewHelper.defaultBorderColor)
         
+        // labels
+        ViewHelper.setBorderOnView(productLabelCollectionContainerView, withColor: UIColor(white: 0.6, alpha: 1).cgColor)
+        productLabelCollectionContainerView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(SessionDetailController.onSessionDidChange(notification:)), name: .sessionDidChange, object: nil)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        productLabelCollectionView.layoutIfNeeded()
-        productLabelCollectionView.collectionViewLayout.invalidateLayout()
     }
     
     override func didReceiveMemoryWarning() {
@@ -180,14 +174,8 @@ private extension SessionDetailController {
         }
     }
     private func setLabelImages() {
-        images.removeAll()
-        if let labels = session?.labelsArray() {
-            for label in labels {
-                guard let data = label.image as Data?, let image = UIImage(data: data) else { continue }
-                images.append(image)
-            }
-        }
-        productLabelCollectionView.reloadData()
+        let images = session?.labelsImageArray() ?? [UIImage]()
+        productLabelCollectionViewController.images = images
     }
     
     private func isNotesDifferentThanSaved() -> Bool {
@@ -202,7 +190,7 @@ private extension SessionDetailController {
         }
         if isNotesDifferentThanSaved() {
             session.notes = notesTextView.text
-            appDelegate().saveContext()
+            NotificationCenter.default.post(name: .sessionDidChange, object: nil, userInfo: ["": session])
             
             Application.logInfo("Notes saved for Session with id: \(session.id.uuidString) of Client \(session.client.id.uuidString)")
         }
@@ -227,8 +215,8 @@ private extension SessionDetailController {
         let newLabel = ProductLabel(entity: entity, insertInto: context)
         newLabel.image = imageData
         session.addToLabels(newLabel)
-        appDelegate().saveContext()
-        images.append(image)
+        productLabelCollectionViewController.images.append(image)
+        NotificationCenter.default.post(name: .sessionDidChange, object: nil, userInfo: ["": session])
         
         Application.logInfo("Added ProductLabel for Session with id: \(session.id.uuidString)")
     }
@@ -271,47 +259,12 @@ extension SessionDetailController: UIImagePickerControllerDelegate, UINavigation
 extension SessionDetailController: CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         addNewLabel(image)
-        productLabelCollectionView.reloadData()
         
         cropViewController.dismiss(animated: true, completion: nil)
     }
-}
-
-extension SessionDetailController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
-    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ProductLabelCell else {
-            Application.onError("Dequeued cell with id \"\(reuseIdentifier)\" was not type ProductLabelCell!")
-            return UICollectionViewCell()
-        }
-        
-        cell.productLabelImageView.image = images[indexPath.item]
-        
-        return cell
-    }
-}
-
-extension SessionDetailController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return minimumLineSpacing
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return minimumInterimSpacing
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return sectionInsets
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = productCellWidth
-        let imageSize = images[indexPath.item].size
-        let ratio = imageSize.height / imageSize.width
-        let height = ratio * width
-        return CGSize(width: width, height: height)
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        print("cropviewcontroller cancelled")
+        cropViewController.presentingViewController?.dismiss(animated: false, completion: nil)
     }
 }

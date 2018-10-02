@@ -33,12 +33,18 @@ extension Application {
         private static let promptDateForNewSessionKey = "promptDateForNewSessionKey"
         private static var test:Bool?
         
-        private static func logSettingChanged(key: String, value: String) {
-            var setting = key
-            if let lower = key.range(of: "Key")?.lowerBound {
-                setting = String(key[..<lower])
+        private static func logSettingChanged(_ setting: String, toValue value: Bool) {
+            logSettingChanged(setting, toValue: value.description)
+        }
+        private static func logSettingChanged(_ setting: String, toValue value: Float) {
+            logSettingChanged(setting, toValue: value.description)
+        }
+        private static func logSettingChanged(_ setting: String, toValue value: String) {
+            var _setting = setting
+            if let lower = _setting.range(of: "Key")?.lowerBound {
+                _setting = String(setting[..<lower])
             }
-            Application.logInfo("Setting \(setting) changed to \(value)")
+            Application.logInfo("Setting \"\(_setting)\" changed to \"\(value)\".")
         }
         
         public static var listAllClients:Bool {
@@ -50,6 +56,7 @@ extension Application {
             }
             set {
                 UserDefaults.standard.set(newValue, forKey: listAllClientsKey)
+                logSettingChanged(listAllClientsKey, toValue: newValue)
             }
         }
         
@@ -62,6 +69,7 @@ extension Application {
             }
             set {
                 UserDefaults.standard.set(newValue, forKey: validateClientKey)
+                logSettingChanged(validateClientKey, toValue: newValue)
             }
         }
         
@@ -74,6 +82,7 @@ extension Application {
             }
             set {
                 UserDefaults.standard.set(newValue, forKey: validateDOBKey)
+                logSettingChanged(validateDOBKey, toValue: newValue)
             }
         }
         
@@ -86,6 +95,7 @@ extension Application {
             }
             set {
                 UserDefaults.standard.set(newValue, forKey: validateAddressKey)
+                logSettingChanged(validateAddressKey, toValue: newValue)
             }
         }
         
@@ -98,6 +108,7 @@ extension Application {
             }
             set {
                 UserDefaults.standard.set(newValue, forKey: validatePhoneKey)
+                logSettingChanged(validatePhoneKey, toValue: newValue)
             }
         }
         
@@ -110,6 +121,7 @@ extension Application {
             }
             set {
                 UserDefaults.standard.set(newValue, forKey: validateEmailKey)
+                logSettingChanged(validateEmailKey, toValue: newValue)
             }
         }
         
@@ -122,6 +134,7 @@ extension Application {
             }
             set {
                 UserDefaults.standard.set(newValue, forKey: validateSignatureKey)
+                logSettingChanged(validateSignatureKey, toValue: newValue)
             }
         }
         
@@ -134,6 +147,7 @@ extension Application {
             }
             set {
                 UserDefaults.standard.set(newValue, forKey: editOldSessionsAllowedKey)
+                logSettingChanged(editOldSessionsAllowedKey, toValue: newValue)
             }
         }
         
@@ -146,6 +160,7 @@ extension Application {
             }
             set {
                 UserDefaults.standard.set(newValue, forKey: unitSelectionIncrementKey)
+                logSettingChanged(unitSelectionIncrementKey, toValue: newValue)
             }
         }
         
@@ -158,6 +173,7 @@ extension Application {
             }
             set {
                 UserDefaults.standard.set(newValue, forKey: promptDateForNewSessionKey)
+                logSettingChanged(promptDateForNewSessionKey, toValue: newValue)
             }
         }
     }

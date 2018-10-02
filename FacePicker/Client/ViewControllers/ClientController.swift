@@ -51,8 +51,8 @@ class ClientController: UIViewController {
     @IBOutlet weak var invalidePhoneLabel: UILabel!
     // date pickers
     var dobDatePicker = UIDatePicker()
-    var lastNeuroDatePicker = UIDatePicker()
-    var lastFillerDatePicker = UIDatePicker()
+//    var lastNeuroDatePicker = UIDatePicker()
+//    var lastFillerDatePicker = UIDatePicker()
     var todaysDatePicker = UIDatePicker()
     // dropdowns
     var stateDropDown = DropDown()
@@ -120,7 +120,7 @@ extension ClientController {
             self.present(alert, animated: true)
             return
         }
-        if let client = bindFormToClientAndSave() {
+        if let client = bindFormToClientAndCreate() {
             delegate?.clientControllerDidSave(client: client)
         }
         dismiss(animated: true, completion: nil)
@@ -214,17 +214,17 @@ private extension ClientController {
         doneToolbar.isUserInteractionEnabled = true
         dobTextField.inputAccessoryView = doneToolbar
         
-        lastNeuroDatePicker.datePickerMode = .date
-        lastNeuroDatePicker.maximumDate = today
-        lastNeuroDatePicker.addTarget(self, action: #selector(ClientController.lastNeuroDatePickerValueChanged(sender:)), for: .valueChanged)
-        lastNeuroDateTextField.inputView = lastNeuroDatePicker
-        lastNeuroDateTextField.inputAccessoryView = doneToolbar
-        
-        lastFillerDatePicker.datePickerMode = .date
-        lastFillerDatePicker.maximumDate = today
-        lastFillerDatePicker.addTarget(self, action: #selector(ClientController.lastFillerDatePickerValueChanged(sender:)), for: .valueChanged)
-        lastFillerDateTextField.inputView = lastFillerDatePicker
-        lastFillerDateTextField.inputAccessoryView = doneToolbar
+//        lastNeuroDatePicker.datePickerMode = .date
+//        lastNeuroDatePicker.maximumDate = today
+//        lastNeuroDatePicker.addTarget(self, action: #selector(ClientController.lastNeuroDatePickerValueChanged(sender:)), for: .valueChanged)
+//        lastNeuroDateTextField.inputView = lastNeuroDatePicker
+//        lastNeuroDateTextField.inputAccessoryView = doneToolbar
+//
+//        lastFillerDatePicker.datePickerMode = .date
+//        lastFillerDatePicker.maximumDate = today
+//        lastFillerDatePicker.addTarget(self, action: #selector(ClientController.lastFillerDatePickerValueChanged(sender:)), for: .valueChanged)
+//        lastFillerDateTextField.inputView = lastFillerDatePicker
+//        lastFillerDateTextField.inputAccessoryView = doneToolbar
         
         todaysDatePicker.datePickerMode = .date
         todaysDatePicker.minimumDate = today
@@ -322,7 +322,6 @@ private extension ClientController {
         for subview in viewToSearch.subviews {
             recursivelyResetBorders(inView: subview)
             if subview is UITextField || subview is UITextView || subview is UIButton || subview is UIImageView {
-                print("recursively found text field or button, etc")
                 ViewHelper.setBorderOnView(subview, withColor: ViewHelper.defaultBorderColor)
             }
         }
@@ -418,11 +417,11 @@ private extension ClientController {
         return formIsValid
     }
     
-    private func bindFormToClientAndSave() -> Client? {
-        let context = managedContext()
+    private func bindFormToClientAndCreate() -> Client? {
         if client == nil {
             // if we aren't editing create new and give id
             
+            let context = managedContext()
             guard let entity = NSEntityDescription.entity(forEntityName: Client.entityName, in: context) else {
                 Application.onError("Failed to get entity for \(Client.entityName) from ManagedContext.")
                 return nil
@@ -456,14 +455,14 @@ private extension ClientController {
         client?.smokeHowMuch = smoker ? howMuchTextField.text : nil
         // use the dropdown value instead?
         if let lastNeuroDate = lastNeuroDateTextField.text, !lastNeuroDate.isEmpty {
-            client?.lastNeuroDate = lastNeuroDatePicker.date as NSDate
+            client?.lastNeuroDate = lastNeuroDate // lastNeuroDatePicker.date as NSDate
             client?.lastNeuroProduct = lastNeuroProductTextField.text
         } else {
             client?.lastNeuroDate = nil
             client?.lastNeuroProduct = nil
         }
         if let lastFillerDate = lastFillerDateTextField.text, !lastFillerDate.isEmpty {
-            client?.lastFillerDate = lastFillerDatePicker.date as NSDate
+            client?.lastFillerDate = lastFillerDate // lastFillerDatePicker.date as NSDate
             client?.lastFillerProduct = lastFillerProductTextField.text
         } else {
             client?.lastFillerDate = nil
@@ -480,8 +479,6 @@ private extension ClientController {
         } else {
             client?.signatureDate = nil
         }
-        appDelegate().saveContext()
-        Application.logInfo("Saved Client with uuid: \(client?.id.uuidString ?? "")")
         
         return client
     }
@@ -524,15 +521,17 @@ private extension ClientController {
             smokeDropDownButton.setTitle(smokeDropDownOptions[0], for: .normal)
             smokeDropDown.selectRow(0)
         }
-        if let neuroDate = client.lastNeuroDate {
-            lastNeuroDatePicker.setDate(neuroDate as Date, animated: false)
-            setTextFieldValue(for: lastNeuroDateTextField, withDate: neuroDate as Date)
+        if let neuroDate = client.lastNeuroDate, !neuroDate.isEmpty {
+//            lastNeuroDatePicker.setDate(neuroDate as Date, animated: false)
+//            setTextFieldValue(for: lastNeuroDateTextField, withDate: neuroDate as Date)
+            lastNeuroDateTextField.text = neuroDate
             lastNeuroProductTextField.text = client.lastNeuroProduct
             showNeuro = true
         }
-        if let fillerDate = client.lastFillerDate {
-            lastFillerDatePicker.setDate(fillerDate as Date, animated: false)
-            setTextFieldValue(for: lastFillerDateTextField, withDate: fillerDate as Date)
+        if let fillerDate = client.lastFillerDate, !fillerDate.isEmpty {
+//            lastFillerDatePicker.setDate(fillerDate as Date, animated: false)
+//            setTextFieldValue(for: lastFillerDateTextField, withDate: fillerDate as Date)
+            lastFillerDateTextField.text = fillerDate
             lastFillerProductTextField.text = client.lastFillerProduct
             showFiller = true
         }

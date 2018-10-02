@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Client" representedClassName="Client" syncable="YES">
         <attribute name="cellArea" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cellPrefix" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,16 +12,16 @@
         <attribute name="homePrefix" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="homeSuffix" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="lastFillerDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lastFillerDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastFillerProduct" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" attributeType="String" syncable="YES"/>
-        <attribute name="lastNeuroDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lastNeuroDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastNeuroProduct" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="medicalConditions" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="medications" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="referer" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="signature" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="signature" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="signatureDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="smokeHowMuch" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="smoker" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -44,14 +44,14 @@
     </entity>
     <entity name="Session" representedClassName="Session" syncable="YES">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="client" maxCount="1" deletionRule="Nullify" destinationEntity="Client" inverseName="sessions" inverseEntity="Client" syncable="YES"/>
         <relationship name="injections" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="InjectionSite" inverseName="session" inverseEntity="InjectionSite" syncable="YES"/>
         <relationship name="labels" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ProductLabel" inverseName="session" inverseEntity="ProductLabel" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Client" positionX="-63" positionY="18" width="128" height="463"/>
+        <element name="Client" positionX="-63" positionY="18" width="128" height="465"/>
         <element name="InjectionSite" positionX="475" positionY="234" width="128" height="135"/>
         <element name="ProductLabel" positionX="135" positionY="162" width="128" height="75"/>
         <element name="Session" positionX="234" positionY="183" width="128" height="135"/>

@@ -9,7 +9,7 @@
 import UIKit
 
 class SessionListController: UIViewController {
-    private let reuseIdentifier = "SessionCell"
+    private let reuseIdentifier = "SimpleSessionCell"
     
     var sessions: [Session] = [Session]()
     var initialSelectedSession: Int?
@@ -31,7 +31,6 @@ extension SessionListController {
         collectionView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
         
         view.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         ViewHelper.setViewEdges(for: collectionView, equalTo: view)
         collectionView.backgroundColor = UIColor.white
         
@@ -84,7 +83,7 @@ extension SessionListController {
         }
         let session = sessionData.value
         if let index = sessions.index(of: session),
-            let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? SessionCell {
+            let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? SimpleSessionCell {
             cell.session = session
         }
         // pass it up to the client detail controller
@@ -103,19 +102,13 @@ extension SessionListController : UICollectionViewDelegateFlowLayout {
     
 extension SessionListController : UICollectionViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-    
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return sessions.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? SessionCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? SimpleSessionCell else {
             Application.onError("SessionListController: Cell wasn't of type SessionCell!")
             return UICollectionViewCell()
         }
