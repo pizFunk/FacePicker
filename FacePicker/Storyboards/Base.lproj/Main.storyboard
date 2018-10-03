@@ -216,14 +216,18 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="51.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FirstName LastName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAa-YN-YDB">
-                                            <rect key="frame" x="16" y="15" width="161" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FirstName LastName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAa-YN-YDB">
+                                            <rect key="frame" x="24" y="15.5" width="327" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="KAa-YN-YDB" firstAttribute="centerY" secondItem="CHc-CN-UNm" secondAttribute="centerY" id="7jW-WZ-eYj"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="KAa-YN-YDB" secondAttribute="trailing" constant="8" id="eDo-MI-yiy"/>
+                                        <constraint firstItem="KAa-YN-YDB" firstAttribute="leading" secondItem="CHc-CN-UNm" secondAttribute="leadingMargin" constant="8" id="nhJ-0f-fVI"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="nameLabel" destination="KAa-YN-YDB" id="bMH-hn-LyJ"/>

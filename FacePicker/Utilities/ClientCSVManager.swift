@@ -188,8 +188,9 @@ private extension ClientCSVManager {
         while let index = fullName.lastIndex(of: " "), fullName.index(after: index) == fullName.endIndex {
             fullName = String(fullName[..<index])
         }
+        
         // stupid specific case
-        fullName = fullName.replacingOccurrences(of: "Ma", with: "Mary Ann")
+        fullName = fullName.replacingOccurrences(of: "MA", with: "Mary Ann")
         
         // split, remove trailing spaces from last name and rejoin
         var splitName = fullName.components(separatedBy: " ")

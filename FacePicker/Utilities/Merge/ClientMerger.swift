@@ -191,22 +191,27 @@ private extension ClientMerger {
             return isFullNameLowInfo(name)
         })
         for lowInfoName in lowInfoNames {
+            let lowInfoFirstName = lowInfoName.firstName.lowercased()
+            let lowInfoLastName = lowInfoName.lastName.lowercased()
             // add possible matches
-            // TODO: worry about casing here? maybe don't need to since we are upper-casing first letters in Importer
             let matches = contexts.keys.filter({ name in
                 if lowInfoName == name || isFullNameLowInfo(name) {
                     // don't match ourself or any low-info name (including those outside our array above)
                     return false
                 }
-                if lowInfoName.firstName == name.firstName {
-                    if lowInfoName.lastName.isEmpty || (name.lastName.count > 1 && name.lastName.first == lowInfoName.lastName.first) {
-                        // if last name is empty or first letter of last name matches
+                let firstName = name.firstName.lowercased()
+                let lastName = name.lastName.lowercased()
+                if lowInfoFirstName == firstName {
+                    if (lowInfoLastName.isEmpty && nameCharactersValid(lowInfoLastName)) ||
+                        (lastName.count > 1 && lastName.first == lowInfoLastName.first) {
+                        // if last name is empty or has charachtes in it, match any last name
+                        // also match first letter of last name matches
                         return true
                     }
-                    else if let hyphenIndex = name.lastName.firstIndex(of: "-"), hyphenIndex < name.lastName.endIndex {
+                    else if let hyphenIndex = lastName.firstIndex(of: "-"), hyphenIndex < lastName.endIndex {
                         // if the name has a hyphen and the second letter of the hyphenated name matches our last naem
-                        let charAfterHyphenIndex = name.lastName.index(after: hyphenIndex)
-                        return name.lastName[charAfterHyphenIndex] == lowInfoName.lastName.first
+                        let charAfterHyphenIndex = lastName.index(after: hyphenIndex)
+                        return lastName[charAfterHyphenIndex] == lastName.first
                     }
                 }
                 return false
@@ -216,7 +221,7 @@ private extension ClientMerger {
         }
     }
     
-    private func performReplace(of client: FullName, withContext firstContext: ClientContext, withUserEnteredNameOrNil fullName: FullName?) {
+    private func performMerge(of client: FullName, intoClientIn firstContext: ClientContext, withUserEnteredNameOrNil fullName: FullName?) {
         var replacementContext:ClientContext?
         // do the logic to copy
         if let datesToCpoy = clients[client] {
@@ -269,7 +274,7 @@ private extension ClientMerger {
             
             mergeController.affirmativeSelectionHandler = { fullName in
 //                self.NUMBER_OF_MERGES_COUNTER += 1
-                self.performReplace(of: client, withContext: firstContext, withUserEnteredNameOrNil: fullName)
+                self.performMerge(of: client, intoClientIn: firstContext, withUserEnteredNameOrNil: fullName)
                 // we found a match, remove the current and go again
                 self.removeCurrentClient()
                 self.reconcileClients()
