@@ -73,7 +73,7 @@ extension ClientListController {
             setEditButtonTitle()
             // if we didn't delete the current selected row, reselect it
             if let selectedRow = selectedRowBeforeEdit {
-                tableView.selectRow(at: IndexPath(row: selectedRow, section: 0), animated: false, scrollPosition: .none)
+                tableView.selectRow(at: IndexPath(row: selectedRow, section: 0), animated: true, scrollPosition: .middle)
             }
         }
     }
@@ -133,7 +133,7 @@ private extension ClientListController {
             index = clients.index(of: client)
         }
         if index != nil {
-            tableView.selectRow(at: IndexPath(row: index!, section: 0), animated: true, scrollPosition: .none)
+            tableView.selectRow(at: IndexPath(row: index!, section: 0), animated: false, scrollPosition: .middle)
             return true
         }
         return false
@@ -176,7 +176,7 @@ extension ClientListController: ClientControllerDelegate {
         sortClients()
         let index = clients.index(of: client)!
         tableView.reloadData()
-        tableView.selectRow(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: .none)
+        tableView.selectRow(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: .middle)
         tableView(tableView, didSelectRowAt: IndexPath(item: index, section: 0))
     }
 }

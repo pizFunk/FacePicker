@@ -6,16 +6,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FacePicker/Settings/SettingsViewController.swift"
-            timestampString = "560154961.879392"
+            filePath = "FacePicker/Utilities/Merge/ClientMerger.swift"
+            timestampString = "560232032.46346"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
-            landmarkName = "documentPicker(_:didPickDocumentsAt:)"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
+            landmarkName = "reconcileClients()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Ostapowicz__MD.ClientMerger.(reconcileClients in _A7E40FAA00694FC37EE30664AB9EB7DF)() -&gt; ()"
+                  moduleName = "Ostapowicz, MD"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pizFunk/Desktop/Projects/FacePicker/FacePicker/Utilities/Merge/ClientMerger.swift"
+                  timestampString = "560227871.149493"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "282"
+                  endingLineNumber = "282"
+                  offsetFromSymbolStart = "1516">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 () -&gt; () in Ostapowicz__MD.ClientMerger.(reconcileClients in _A7E40FAA00694FC37EE30664AB9EB7DF)() -&gt; ()"
+                  moduleName = "Ostapowicz, MD"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pizFunk/Desktop/Projects/FacePicker/FacePicker/Utilities/Merge/ClientMerger.swift"
+                  timestampString = "560227871.152593"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "283"
+                  endingLineNumber = "283"
+                  offsetFromSymbolStart = "40">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FacePicker/Utilities/Merge/ClientMerger.swift"
+            timestampString = "560232032.4641581"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
+            landmarkName = "reconcileClients()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,47 +73,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FacePicker/Model/Client+CoreDataClass.swift"
-            timestampString = "560154961.879727"
+            filePath = "FacePicker/Utilities/Merge/ClientMerger.swift"
+            timestampString = "560232032.4645751"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "createClientsFromImport(clients:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            condition = "name.containes(&quot;Mackenzie&quot;)"
-            continueAfterRunningActions = "No"
-            filePath = "FacePicker/Utilities/ClientImporter.swift"
-            timestampString = "560154961.879962"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "retrieveClientsFromCSV(withUrl:namesOnly:nameAndDateFieldsSwapped:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            condition = "name.contains(&quot;Mack&quot;)"
-            continueAfterRunningActions = "No"
-            filePath = "FacePicker/Utilities/ClientImporter.swift"
-            timestampString = "560154961.880585"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
-            landmarkName = "makeCleanFullName(name:)"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "reconcileClients()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -75,13 +89,93 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FacePicker/Utilities/ClientImporter.swift"
-            timestampString = "560154961.880826"
+            filePath = "FacePicker/Utilities/Merge/ClientMerger.swift"
+            timestampString = "560232032.464834"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
-            landmarkName = "makeCleanFullName(name:)"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
+            landmarkName = "reconcileClients()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FacePicker/Utilities/Merge/ClientMerger.swift"
+            timestampString = "560232032.465066"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
+            landmarkName = "reconcileClients()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FacePicker/Utilities/Merge/ClientMerger.swift"
+            timestampString = "560232032.465435"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "moveNext()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FacePicker/Utilities/Merge/ClientMerger.swift"
+            timestampString = "560232032.465973"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "removeCurrentClient()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FacePicker/Utilities/Merge/ClientMerger.swift"
+            timestampString = "560232032.466229"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "performReplace(of:withContext:withUserEnteredNameOrNil:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FacePicker/Utilities/Merge/ClientMerger.swift"
+            timestampString = "560232032.466552"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
+            landmarkName = "performReplace(of:withContext:withUserEnteredNameOrNil:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

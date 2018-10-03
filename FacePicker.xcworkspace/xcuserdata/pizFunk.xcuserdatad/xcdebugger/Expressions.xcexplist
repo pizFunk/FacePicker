@@ -118,10 +118,10 @@
                value = "lowInfoClient.firstName + &quot; &quot; + lowInfoClient.lastName">
             </PersistentString>
             <PersistentString
-               value = "name.lastName">
+               value = "name.lastName[charAfterHyphenIndex] == lowInfoClient.lastName.first">
             </PersistentString>
             <PersistentString
-               value = "name.lastName[charAfterHyphenIndex] == lowInfoClient.lastName.first">
+               value = "name.lastName">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -129,10 +129,10 @@
          contextName = "ClientMerger.removeCurrentMatch():ClientMerger.swift">
          <PersistentStrings>
             <PersistentString
-               value = "currentMatches.count">
+               value = "lowInfoClients[current]!.count">
             </PersistentString>
             <PersistentString
-               value = "lowInfoClients[current]!.count">
+               value = "currentMatches.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -221,13 +221,13 @@
          contextName = "ProductLabelCollectionViewController.viewWillLayoutSubviews():SessionDetailController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "collectionView">
+            </PersistentString>
+            <PersistentString
                value = "collectionView?.contentSize">
             </PersistentString>
             <PersistentString
                value = "collectionView?.frame.size">
-            </PersistentString>
-            <PersistentString
-               value = "collectionView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -243,10 +243,19 @@
          contextName = "closure #2 in ClientMerger.reconcileClients():ClientMerger.swift">
          <PersistentStrings>
             <PersistentString
+               value = "currentMatchIndex">
+            </PersistentString>
+            <PersistentString
+               value = "currentClient">
+            </PersistentString>
+            <PersistentString
                value = "currentClientIndex">
             </PersistentString>
             <PersistentString
-               value = "currentMatchIndex">
+               value = "contexts[currentClient!]!">
+            </PersistentString>
+            <PersistentString
+               value = "clients[currentClient!]!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -279,10 +288,16 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "sizeCollectionView #1 () in SessionDetailController.cropViewController(_:didCropToImage:withRect:angle:):SessionDetailController.swift">
+         contextName = "closure #3 in ClientMerger.findLowInfoClients():ClientMerger.swift">
          <PersistentStrings>
             <PersistentString
-               value = "productLabelCollectionView.frame">
+               value = "lowInfoName.description">
+            </PersistentString>
+            <PersistentString
+               value = "name.description">
+            </PersistentString>
+            <PersistentString
+               value = "name.lastName[charAfterHyphenIndex] == lowInfoClient.lastName.first">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -295,6 +310,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "sizeCollectionView #1 () in SessionDetailController.cropViewController(_:didCropToImage:withRect:angle:):SessionDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "productLabelCollectionView.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ClientController.recursivelyResetBorders(inView:):ClientController.swift">
          <PersistentStrings>
             <PersistentString
@@ -303,10 +326,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #3 in ClientMerger.findLowInfoClients():ClientMerger.swift">
+         contextName = "MergeClientController.viewDidLoad():MergeClientController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "name.lastName[charAfterHyphenIndex] == lowInfoClient.lastName.first">
+               value = "noMatchHiddenViews.count">
+            </PersistentString>
+            <PersistentString
+               value = "clientDifference?.secondContext">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -321,6 +347,14 @@
             </PersistentString>
             <PersistentString
                value = "signature.image?.cgImage">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientMerger.performReplace(of:withContext:withUserEnteredNameOrNil:):ClientMerger.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "clients.keys.contains(newName)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -344,13 +378,13 @@
          contextName = "SessionListController.viewDidLoad():SessionListController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "collectionView">
+               value = "selectedSession">
             </PersistentString>
             <PersistentString
                value = "reuseIdentifier">
             </PersistentString>
             <PersistentString
-               value = "selectedSession">
+               value = "collectionView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -446,6 +480,9 @@
             <PersistentString
                value = "self.clients[lowInfoName]">
             </PersistentString>
+            <PersistentString
+               value = "self.clients.keys.contains(fullName)">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -487,13 +524,19 @@
          contextName = "ClientMerger.reconcileClients():ClientMerger.swift">
          <PersistentStrings>
             <PersistentString
-               value = "currentMatch">
-            </PersistentString>
-            <PersistentString
                value = "currentClient">
             </PersistentString>
             <PersistentString
+               value = "currentMatch">
+            </PersistentString>
+            <PersistentString
                value = "mergeController.clientDifference">
+            </PersistentString>
+            <PersistentString
+               value = "lowInfoClientMatches[currentClient!]!">
+            </PersistentString>
+            <PersistentString
+               value = "currentMatchIndex">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -592,6 +635,14 @@
             <PersistentString
                value = "lowInfoClientNames[0]">
             </PersistentString>
+            <PersistentString
+               value = "currentMatchIndex">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ClientMerger.isFirstMatchOrNil():ClientMerger.swift">
+         <PersistentStrings>
             <PersistentString
                value = "currentMatchIndex">
             </PersistentString>

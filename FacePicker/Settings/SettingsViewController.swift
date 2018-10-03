@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 
 class SettingsViewController: UIViewController {
-    let clientMerger = ClientMerger()
     
     static let nibName = "SettingsViewController"
     
@@ -33,6 +32,16 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var requirePhoneStack: UIStackView!
     @IBOutlet weak var requireEmailStack: UIStackView!
     @IBOutlet weak var requireSignatureStack: UIStackView!
+    
+    // merging, importing, exporting
+    let csvManager = ClientCSVManager()
+    let clientMerger = ClientMerger()
+    enum FilePickerDirection {
+        case opening
+        case saving
+    }
+    var filePickerDirection:FilePickerDirection = .opening
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,6 +98,7 @@ class SettingsViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(SettingsViewController.onSave(sender:)))
         
+        filePickerDirection = .opening
         present(documentPicker, animated: true, completion: nil)
     }
     
@@ -96,8 +106,9 @@ class SettingsViewController: UIViewController {
     func onSave(sender: UIBarButtonItem) {
         let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.text"], in: .open)
         documentPicker.delegate = self
-        documentPicker.allowsMultipleSelection = false
-        
+        documentPicker.allowsMultipleSelection = true
+
+        filePickerDirection = .saving
         present(documentPicker, animated: true, completion: nil)
     }
     
@@ -190,8 +201,6 @@ extension SettingsViewController: UIDocumentPickerDelegate {
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         var importedCSVs = false
-        
-        let importer = ClientImporter()
         for url in urls {
             print("didPickDocumentAt: \(url)")
             let hasAccess = url.startAccessingSecurityScopedResource()
@@ -200,21 +209,26 @@ extension SettingsViewController: UIDocumentPickerDelegate {
                 Application.onError("Error accessing file: couldn't access security scoped resource for \(url)")
             }
             if url.path.contains(".csv") {
-                importedCSVs = true
-                if url.path.contains("2018") {
-                    importer.retrieveClientsFromCSV(withUrl: url)
-                } else if url.path.contains("2015") {
-                    importer.retrieveClientsFromCSV(withUrl: url, namesOnly: true, nameAndDateFieldsSwapped: true)
-                } else {
-                    importer.retrieveClientsFromCSV(withUrl: url, namesOnly: true)
+                switch filePickerDirection {
+                case .opening:
+                    importedCSVs = true
+                    if url.path.contains("2018") {
+                        csvManager.importClientsFromCSV(withUrl: url)
+                    } else {
+                        // date and name are swapped for 2015
+                        csvManager.importClientsFromCSV(withUrl: url, namesOnly: true, nameAndDateFieldsSwapped: url.path.contains("2015"))
+                    }
+                case .saving:
+                    csvManager.exportClientMergesToCSV(clientMerger.mergePairs, forUrl: url)
                 }
+                
             } else {
-                importer.saveClientsToTextFile(withUrl: url, andClients: clientMerger.clients)
+                csvManager.saveClientsToTextFile(withUrl: url, andClients: clientMerger.clients)
             }
         }
         if importedCSVs {
             clientMerger.setViewController(self)
-            clientMerger.setClientsToMerge(importer.clientsWithDates, withAssociatedClients: importer.clientsWithAssociations)
+            clientMerger.setClientsToMerge(csvManager.clientsWithDates, withContexts: csvManager.clientContexts)
             clientMerger.beginMerge(completion: { mergedClients in
                 Client.createClientsFromImport(clients: mergedClients)
             })
@@ -223,23 +237,3 @@ extension SettingsViewController: UIDocumentPickerDelegate {
         }
     }
 }
-
-public struct FullName: Hashable, Comparable, CustomStringConvertible {
-    var firstName:String = ""
-    var lastName:String = ""
-    
-    public static func < (lhs: FullName, rhs: FullName) -> Bool {
-        return (lhs.firstName + lhs.lastName) < (rhs.firstName + rhs.lastName)
-    }
-    public var description: String {
-        return "\(firstName) \(lastName)"
-    }
-}
-
-public struct ClientDifference {
-    var firstFullName: FullName
-    var firstAssociations: [FullName]
-    var secondFullName: FullName
-    var secondAssociations: [FullName]
-}
-

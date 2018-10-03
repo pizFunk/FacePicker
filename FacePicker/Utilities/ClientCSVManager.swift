@@ -10,35 +10,43 @@ import Foundation
 import CoreData
 import UIKit
 
-class ClientImporter {
-    let possibleDateFormats = ["M/d/yyyy", "M/d/yy", "MMM d, yyyy", "MMMM d, yyyy"]
+class ClientCSVManager {
+    static let shortYearCompactDateFormat = "M/d/yy"
+    static let longYearCompactDateFormat = "M/d/yyyy"
+    static let abbreviatedMonthDateFormat = "MMM d, yyyy"
+    static let fullMonthDateFormat =  "MMMM d, yyyy"
+    let possibleDateFormats = [ClientCSVManager.longYearCompactDateFormat, ClientCSVManager.shortYearCompactDateFormat, ClientCSVManager.abbreviatedMonthDateFormat, ClientCSVManager.fullMonthDateFormat]
     private var uniqueDateCounter = 0
     
-    // storage
+    // raw file storage
+    private var rawFiles = [URL:String]() // [url:contents]
+    
+    // client storage
     private var clients = [FullName:[Date]]()
     var clientsWithDates:[FullName:[Date]] {
         get {
             return clients
         }
     }
-    private var allClients = [FullName:[FullName]]()
-    var clientsWithAssociations:[FullName:[FullName]] {
+    private var contexts = [FullName:ClientContext]()
+    var clientContexts:[FullName:ClientContext] {
         get {
-            return allClients
+            return contexts
         }
     }
 }
 
-extension ClientImporter {
+extension ClientCSVManager {
     
-    func retrieveClientsFromCSV(withUrl url: URL, namesOnly: Bool = false, nameAndDateFieldsSwapped: Bool = false) {
+    func importClientsFromCSV(withUrl url: URL, namesOnly: Bool = false, nameAndDateFieldsSwapped: Bool = false) {
         do {
-            let contents = try String(contentsOf: url).replacingOccurrences(of: "\n\n", with: "\n") // doesn't work?!
+            let contents = try String(contentsOf: url).replacingOccurrences(of: "\n\n", with: "\n") // newline replacement doesn't work?!
+            rawFiles[url] = contents
             let lines = contents.components(separatedBy: .newlines)
             var currentWorkingDate = Date()
             let formatter = DateFormatter()
             formatter.locale = Locale(identifier: "en_US_POSIX")
-            formatter.dateFormat = possibleDateFormats[0]
+            formatter.dateFormat = ClientCSVManager.longYearCompactDateFormat
             var lineNumber = 0
             var currentGroup = [FullName]()
             for var line in lines {
@@ -50,13 +58,13 @@ extension ClientImporter {
                     continue
                 }
                 let name = fields[nameAndDateFieldsSwapped ? 0 : 1]
-                if name.isEmpty {
+                if name.isEmpty || name.lowercased().contains("name") {
                     continue
                 }
                 let fullName = makeCleanFullName(name: name)
                 let date = fields[nameAndDateFieldsSwapped ? 1 : 0].replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "Sept", with: "Sep")
                 if !date.isEmpty {
-                    // not sure why this matches every date!
+                    // not sure why this format matches every date!
                     if let nextDate = formatter.date(from: date) {
                         uniqueDateCounter += 1
                         currentWorkingDate = nextDate
@@ -70,15 +78,18 @@ extension ClientImporter {
                     clients[fullName]!.append(currentWorkingDate)
                 }
                 // create separate list will all names
-                if !allClients.keys.contains(fullName) {
-                    allClients[fullName] = [FullName]()
+                if !contexts.keys.contains(fullName) {
+                    let context = ClientContext(initialRawNameString: name, cleanFullName: fullName)
+                    contexts[fullName] = context
                 }
+                contexts[fullName]!.addRawNameString(name)
+                contexts[fullName]!.addDate(currentWorkingDate)
                 if foundNextDate && currentGroup.count > 0 {
                     // build associations
                     for name in currentGroup {
                         for associate in currentGroup {
-                            if name != associate && !allClients[name]!.contains(associate) {
-                                allClients[name]!.append(associate)
+                            if name != associate && !contexts[name]!.containsAssociate(associate) {
+                                contexts[name]!.addAssociate(associate)
                             }
                         }
                     }
@@ -92,10 +103,37 @@ extension ClientImporter {
         }
     }
     
+    func exportClientMergesToCSV(_ mergedPairs: [MergedPair], forUrl url: URL) {
+        guard var newContents = rawFiles[url] else {
+            return
+        }
+        for mergedPair in mergedPairs {
+            for originalNameString in mergedPair.originalNameStrings {
+                // wrap in commas so we don't replace substrings that also match by mistake
+                let original = ",\(originalNameString),"
+                let replacement = ",\(mergedPair.replacementCleanFullName),"
+                print("replacing \"\(original)\" with \"\(replacement)\"")
+                newContents = newContents.replacingOccurrences(of: original, with: replacement)
+            }
+        }
+        // attempt to save the new CSV
+        do {
+            try newContents.write(to: url, atomically: false, encoding: .utf8)
+        } catch {
+            Application.onError("Error saving file: couldn't write to file with error \(error)")
+        }
+    }
+    
+    func exportClientMergesToCSV(_ mergedPairs: [MergedPair], forUrls urls: [URL]) {
+        for url in urls {
+            exportClientMergesToCSV(mergedPairs, forUrl: url)
+        }
+    }
+    
     func saveClientsToTextFile(withUrl url: URL, andClients clientsToSave: [FullName:[Date]]) {
         var contents = ""
         let formatter = DateFormatter()
-        formatter.dateFormat = possibleDateFormats[3]
+        formatter.dateFormat = ClientCSVManager.fullMonthDateFormat
         let sortedKeys = clientsToSave.keys.sorted { $0 < $1 }
         contents.append("\(sortedKeys.count) unique clients.\n")
         
@@ -120,7 +158,7 @@ extension ClientImporter {
     }
 }
 
-private extension ClientImporter {
+private extension ClientCSVManager {
     private func replaceCommas(csvRow row: String) -> String {
         var newString = ""
         var insideQuotedField = false
@@ -150,7 +188,9 @@ private extension ClientImporter {
         while let index = fullName.lastIndex(of: " "), fullName.index(after: index) == fullName.endIndex {
             fullName = String(fullName[..<index])
         }
-
+        // stupid specific case
+        fullName = fullName.replacingOccurrences(of: "Ma", with: "Mary Ann")
+        
         // split, remove trailing spaces from last name and rejoin
         var splitName = fullName.components(separatedBy: " ")
         if splitName.count > 1 {
