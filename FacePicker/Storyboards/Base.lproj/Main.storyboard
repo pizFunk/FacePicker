@@ -20,50 +20,65 @@
                             <userLayoutGuide location="493" affinity="minX"/>
                         </userGuides>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="dHd-c8-XHC" userLabel="Client Detail Main Stack">
-                                <rect key="frame" x="15" y="85" width="960.5" height="874"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cya-Gu-70p" userLabel="Content View">
+                                <rect key="frame" x="0.0" y="70" width="990.5" height="904"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yLm-ve-cx5">
-                                        <rect key="frame" x="0.0" y="0.0" width="960.5" height="224"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <accessibility key="accessibilityConfiguration" identifier="Client View Container"/>
-                                    </view>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iBl-Pm-J25">
-                                        <rect key="frame" x="0.0" y="239" width="960.5" height="635"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="geP-up-924">
-                                            <size key="itemSize" width="50" height="50"/>
-                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
-                                        </collectionViewFlowLayout>
-                                        <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="Xqf-8f-cZ3" userLabel="SessionsSplitSeguePlaceholder">
-                                                <rect key="frame" x="10" y="10" width="50" height="50"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="dHd-c8-XHC" userLabel="Client Detail Main Stack">
+                                        <rect key="frame" x="15" y="15" width="960.5" height="874"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yLm-ve-cx5">
+                                                <rect key="frame" x="0.0" y="0.0" width="960.5" height="250"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="Client View Container"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" priority="250" constant="250" id="fgX-lB-xNG"/>
+                                                </constraints>
+                                            </view>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iBl-Pm-J25">
+                                                <rect key="frame" x="0.0" y="265" width="960.5" height="609"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="geP-up-924">
+                                                    <size key="itemSize" width="50" height="50"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                </collectionViewFlowLayout>
+                                                <cells>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="Xqf-8f-cZ3" userLabel="SessionsSplitSeguePlaceholder">
+                                                        <rect key="frame" x="10" y="10" width="50" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </view>
+                                                        <connections>
+                                                            <segue destination="G9h-cC-dhm" kind="presentation" identifier="SessionsSplitSegue" id="MvJ-x5-N77"/>
+                                                        </connections>
+                                                    </collectionViewCell>
+                                                </cells>
                                                 <connections>
-                                                    <segue destination="G9h-cC-dhm" kind="presentation" identifier="SessionsSplitSegue" id="MvJ-x5-N77"/>
+                                                    <outlet property="dataSource" destination="swC-Zb-MfT" id="430-fF-zKa"/>
+                                                    <outlet property="delegate" destination="swC-Zb-MfT" id="aiK-Mf-YCV"/>
                                                 </connections>
-                                            </collectionViewCell>
-                                        </cells>
-                                        <connections>
-                                            <outlet property="dataSource" destination="swC-Zb-MfT" id="430-fF-zKa"/>
-                                            <outlet property="delegate" destination="swC-Zb-MfT" id="aiK-Mf-YCV"/>
-                                        </connections>
-                                    </collectionView>
+                                            </collectionView>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
-                            </stackView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="dHd-c8-XHC" firstAttribute="leading" secondItem="cya-Gu-70p" secondAttribute="leading" constant="15" id="Z1d-nJ-D8C"/>
+                                    <constraint firstItem="dHd-c8-XHC" firstAttribute="top" secondItem="cya-Gu-70p" secondAttribute="top" constant="15" id="ZtG-SU-hz1"/>
+                                    <constraint firstAttribute="trailing" secondItem="dHd-c8-XHC" secondAttribute="trailing" constant="15" id="nrR-Ra-PKB"/>
+                                    <constraint firstAttribute="bottom" secondItem="dHd-c8-XHC" secondAttribute="bottom" constant="15" id="vPO-he-pcA"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="dHd-c8-XHC" firstAttribute="top" secondItem="u9x-ib-8Sb" secondAttribute="top" constant="15" identifier="Detail Stack Top" id="A3o-mH-JaV"/>
-                            <constraint firstItem="u9x-ib-8Sb" firstAttribute="trailing" secondItem="dHd-c8-XHC" secondAttribute="trailing" constant="15" identifier="Detail Stack Trailing" id="Hk8-Hx-p1P"/>
-                            <constraint firstItem="u9x-ib-8Sb" firstAttribute="bottom" secondItem="dHd-c8-XHC" secondAttribute="bottom" constant="15" identifier="Detail Stack Bottom" id="lWe-rg-Fse"/>
-                            <constraint firstItem="dHd-c8-XHC" firstAttribute="leading" secondItem="u9x-ib-8Sb" secondAttribute="leading" constant="15" identifier="Detail Stack Leading" id="nhx-mg-e6f"/>
+                            <constraint firstItem="cya-Gu-70p" firstAttribute="bottom" secondItem="u9x-ib-8Sb" secondAttribute="bottom" id="Vs4-5d-Ok8"/>
+                            <constraint firstItem="cya-Gu-70p" firstAttribute="leading" secondItem="u9x-ib-8Sb" secondAttribute="leading" id="XgF-uc-diz"/>
+                            <constraint firstItem="u9x-ib-8Sb" firstAttribute="trailing" secondItem="cya-Gu-70p" secondAttribute="trailing" id="ajz-wr-wgK"/>
+                            <constraint firstItem="u9x-ib-8Sb" firstAttribute="top" secondItem="cya-Gu-70p" secondAttribute="top" id="tfr-0m-Bto"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="u9x-ib-8Sb"/>
                     </view>
@@ -79,6 +94,7 @@
                     <connections>
                         <outlet property="clientViewContainer" destination="yLm-ve-cx5" id="meR-Ae-GlN"/>
                         <outlet property="collectionView" destination="iBl-Pm-J25" id="Ks5-fv-BCK"/>
+                        <outlet property="contentView" destination="cya-Gu-70p" id="vq0-3K-dbs"/>
                         <outlet property="stackView" destination="dHd-c8-XHC" id="pSv-G8-aqD"/>
                     </connections>
                 </viewController>
@@ -166,7 +182,7 @@
                         <viewLayoutGuide key="safeArea" id="ZFB-0u-9Rn"/>
                     </view>
                     <navigationItem key="navigationItem" id="p2M-cD-wGt">
-                        <barButtonItem key="leftBarButtonItem" title="Back to Clients" id="QQI-S6-B68">
+                        <barButtonItem key="leftBarButtonItem" title="&lt; Back" id="QQI-S6-B68">
                             <connections>
                                 <action selector="backToClientsPressed:" destination="wKu-Lz-npv" id="Kbf-WB-aC1"/>
                             </connections>

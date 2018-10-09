@@ -8,12 +8,18 @@
 
 import UIKit
 
-class ProductLabelCell: UICollectionViewCell {
+protocol ProductLabelCellDelegate {
+    func productLabelCellDeleted(_ cell: ProductLabelCell)
+}
+
+class ProductLabelCell: DeletableCollectionViewCell {
     var imageViewHeightAnchor: NSLayoutConstraint?
     var imageViewWidthAnchor: NSLayoutConstraint?
     
     @IBOutlet weak var wrapperView: UIView!
     @IBOutlet weak var productLabelImageView: UIImageView!
+    
+    var delegate:ProductLabelCellDelegate?
     
     var cornerRadius:CGFloat = 10 {
         didSet {
@@ -26,5 +32,9 @@ class ProductLabelCell: UICollectionViewCell {
         // Initialization code
         
         ViewHelper.roundCornersOnView(contentView, withRadius: cornerRadius)
+    }
+    
+    @IBAction func deleteButtonPressed(_ sender: UIButton) {
+        delegate?.productLabelCellDeleted(self)
     }
 }

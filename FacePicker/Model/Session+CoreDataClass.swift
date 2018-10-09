@@ -19,18 +19,21 @@ public class Session: NSManagedObject {
     public static var dateFormat: String {
         return "MMMM d, yyyy"
     }
-    public func formattedDate() -> String {
-        if let date = self.date as Date? {
-            let now = Date.init()
-            let result = NSCalendar.current.compare(now, to: date, toGranularity: .day)
-            if result == ComparisonResult.orderedSame {
-                return "Today"
-            }
-            let formatter = DateFormatter()
-            formatter.dateFormat = Session.dateFormat
-            return formatter.string(from: date)
+    
+    public static func formatDate(_ date: Date) -> String {
+        let now = Date.init()
+        let result = NSCalendar.current.compare(now, to: date, toGranularity: .day)
+        if result == ComparisonResult.orderedSame {
+            return "Today"
         }
-        return ""
+        let formatter = DateFormatter()
+        formatter.dateFormat = dateFormat
+        
+        return formatter.string(from: date)
+    }
+    
+    public func formattedDate() -> String {
+        return Session.formatDate(self.date as Date)
     }
     
     // instance
@@ -54,15 +57,5 @@ public class Session: NSManagedObject {
             return [ProductLabel]()
         }
         return Array(labels)
-    }
-    
-    func labelsImageArray() -> Array<UIImage> {
-        var images = [UIImage]()
-        let labelsArray = self.labelsArray()
-        for label in labelsArray {
-            guard let data = label.image as Data?, let image = UIImage(data: data) else { continue }
-            images.append(image)
-        }
-        return images
     }
 }

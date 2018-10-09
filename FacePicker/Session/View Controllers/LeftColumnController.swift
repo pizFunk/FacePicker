@@ -22,6 +22,13 @@ class LeftColumnController: UIViewController {
     let showDetailLabel = "Show Detail"
     let showHistoryLabel = "Show History"
     
+    // edit button
+    lazy var navBarFixedSpace:UIBarButtonItem = {
+        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        fixedSpace.width = 50.0
+        return fixedSpace
+    }()
+    
     var session: Session? {
         didSet {
             sessionDetailViewController.session = session
@@ -64,10 +71,10 @@ class LeftColumnController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        setEditButtonVisibility(page: ViewType.SessionDetail.rawValue)
+        
         pageControl.numberOfPages = ViewType.count
-        pageControl.currentPage = 0
+        pageControl.currentPage = ViewType.SessionDetail.rawValue
         pageControl.pageIndicatorTintColor = UIColor(white: 0.8, alpha: 1)
         pageControl.currentPageIndicatorTintColor = UIColor(white: 0.5, alpha: 1)
         pageControl.addTarget(self, action: #selector(LeftColumnController.pageControlValueChanged(sender:)), for: .valueChanged)
@@ -77,6 +84,19 @@ class LeftColumnController: UIViewController {
         sessionListViewController.selectionChangedHandler = { (session) in
             self.session = session
             self.scrollToPage(1)
+        }
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        sessionDetailViewController.isEditing = editing
+        collectionView.isScrollEnabled = !editing
+        setNavBarButtonsEnabled(!editing, buttonsToIgnore: [editButtonItem])
+        
+        // set detail (sessioncontroller) enabled status
+        if let detailViewController = splitViewController?.viewControllers.last {
+            detailViewController.setEnabled(!editing)
         }
     }
 
@@ -137,6 +157,7 @@ private extension LeftColumnController {
     private func setPage(_ page: Int) {
 //        print("setPage: \(page)")
         pageControl.currentPage = page
+        setEditButtonVisibility(page: page)
         switch page {
         case 0:
             navigationItem.rightBarButtonItem?.title = showDetailLabel
@@ -151,6 +172,26 @@ private extension LeftColumnController {
 //        print("scroll to page: \(page)")
         collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .centeredHorizontally, animated: animated)
         setPage(page)
+    }
+    
+    private func setEditButtonVisibility(page: Int) {
+        guard var leftBarButtons = navigationItem.leftBarButtonItems, leftBarButtons.count > 0 else {
+            // TODO: log error
+            return
+        }
+        switch page {
+        case 0:
+            while leftBarButtons.count > 1 {
+                leftBarButtons.removeLast()
+            }
+        case 1:
+            if leftBarButtons.count == 1 {
+                leftBarButtons.append(contentsOf: [navBarFixedSpace, editButtonItem])
+            }
+        default:
+            break
+        }
+        navigationItem.leftBarButtonItems = leftBarButtons
     }
 }
 

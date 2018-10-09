@@ -32,8 +32,10 @@ class ProductLabelCollectionViewController: UIViewController {
         }
     }
     let reuseIdentifier = "ProductLabelCell"
-    var images = [UIImage]() {
+    private var _productLabels = [ProductLabel]()
+    var productLabels = [ProductLabel]() {
         didSet {
+            _productLabels = productLabels
             collectionView.reloadData()
         }
     }
@@ -56,6 +58,23 @@ class ProductLabelCollectionViewController: UIViewController {
         //        collectionView.layoutIfNeeded()
         collectionView.collectionViewLayout.invalidateLayout()
     }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        // show/hide delete button on collection view cells
+        var nonVisibleIndexPaths = [IndexPath]()
+        for index in 0..<collectionView.numberOfItems(inSection: 0) {
+            let indexPath = IndexPath(item: index, section: 0)
+            if let sessionCell = collectionView.cellForItem(at: indexPath) as? DeletableCollectionViewCell {
+                sessionCell.isEditing = editing
+            }
+            else {
+                nonVisibleIndexPaths.append(indexPath)
+            }
+        }
+        collectionView.reloadItems(at: nonVisibleIndexPaths)
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -65,7 +84,7 @@ extension ProductLabelCollectionViewController: UICollectionViewDelegate, UIColl
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return _productLabels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -75,7 +94,9 @@ extension ProductLabelCollectionViewController: UICollectionViewDelegate, UIColl
         }
         
         cell.cornerRadius = cornerRadius
-        cell.productLabelImageView.image = images[indexPath.item]
+        cell.productLabelImageView.image = _productLabels[indexPath.item].toImage()
+        cell.isEditing = isEditing
+        cell.delegate = self
         
         return cell
     }
@@ -96,9 +117,30 @@ extension ProductLabelCollectionViewController: UICollectionViewDelegateFlowLayo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = productCellWidth
         let width = cellWidth >= 0 ? cellWidth : 0
-        let imageSize = images[indexPath.item].size
+        let imageSize = _productLabels[indexPath.item].toImage()?.size ?? CGSize.zero
         let ratio = imageSize.height / imageSize.width
         let height = ratio * width
         return CGSize(width: width, height: height)
+    }
+}
+
+extension ProductLabelCollectionViewController: ProductLabelCellDelegate {
+    func productLabelCellDeleted(_ cell: ProductLabelCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else {
+            // TODO: log error
+            return
+        }
+        func performDelete(sender: UIAlertAction) {
+            // remove image
+            let removedLabel = _productLabels.remove(at: indexPath.item)
+            managedContext().delete(removedLabel)
+            
+            // remove cell
+            collectionView.deleteItems(at: [indexPath])
+        }
+        let alert = UIAlertController(title: "Confirm Delete", message: "Really delete product label?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: performDelete(sender:)))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }

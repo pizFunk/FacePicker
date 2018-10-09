@@ -74,10 +74,8 @@ class SessionCell: UICollectionViewCell {
         guard let session = session else { return }
         notesTextView.text = session.notes
         
-        let labelImages = session.labelsImageArray()
-        if labelImages.count > 0 {
-            productLabelCollectionViewController.images = labelImages
-        }
+        let labels = session.labelsArray()
+        productLabelCollectionViewController.productLabels = labels
     }
     
     private func createDetailsView() -> UIView {

@@ -94,6 +94,26 @@
                             <constraint firstAttribute="trailing" secondItem="ZFb-xY-iUn" secondAttribute="trailing" constant="8" id="t6l-Kp-ZJn"/>
                         </constraints>
                     </view>
+                    <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4O-Jj-Har">
+                        <rect key="frame" x="742" y="8" width="50" height="50"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xC-bU-hz6">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <state key="normal" image="trash-can-icon"/>
+                                <connections>
+                                    <action selector="deleteButtonPressedWithSender:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Um2-8v-3Kb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="2xC-bU-hz6" secondAttribute="trailing" id="NNd-xy-JzD"/>
+                            <constraint firstAttribute="height" constant="50" id="Odz-6Y-uRQ"/>
+                            <constraint firstAttribute="bottom" secondItem="2xC-bU-hz6" secondAttribute="bottom" id="ZPI-QB-GiB"/>
+                            <constraint firstAttribute="width" constant="50" id="e3q-3I-LAA"/>
+                            <constraint firstItem="2xC-bU-hz6" firstAttribute="top" secondItem="d4O-Jj-Har" secondAttribute="top" id="etk-Ei-YTI"/>
+                            <constraint firstItem="2xC-bU-hz6" firstAttribute="leading" secondItem="d4O-Jj-Har" secondAttribute="leading" id="ezI-a1-foP"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <constraints>
@@ -105,11 +125,14 @@
                 <constraint firstItem="6Xs-jw-XVV" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" id="Uvq-BJ-ogg"/>
                 <constraint firstItem="ADe-D2-ChV" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" id="dUM-D9-D5i"/>
                 <constraint firstItem="6Xs-jw-XVV" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" id="n4h-gG-alZ"/>
+                <constraint firstItem="d4O-Jj-Har" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="q8B-RW-OQI"/>
+                <constraint firstAttribute="trailing" secondItem="d4O-Jj-Har" secondAttribute="trailing" constant="8" id="tkc-A6-XLl"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="562" height="265"/>
             <connections>
                 <outlet property="dateLabel" destination="Oqg-fc-rFs" id="dcp-rf-m9B"/>
+                <outlet property="deleteButtonBackgroundView" destination="d4O-Jj-Har" id="Gfb-QC-Lc3"/>
                 <outlet property="faceImageView" destination="0UR-H8-RMU" id="zxy-0Y-9qH"/>
                 <outlet property="notesTextView" destination="RXx-Il-EyN" id="74s-pO-NMh"/>
                 <outlet property="productLabelCollectionContainerView" destination="ZFb-xY-iUn" id="rcX-nE-kzO"/>
@@ -117,4 +140,7 @@
             <point key="canvasLocation" x="155.19999999999999" y="125.93703148425789"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="trash-can-icon" width="48" height="48"/>
+    </resources>
 </document>

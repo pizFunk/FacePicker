@@ -29,7 +29,7 @@ class DetailedSessionCell: SimpleSessionCell {
         didSet {
             if let session = session {
                 notesTextView.text = session.notes
-                productLabelCollectionViewController.images = session.labelsImageArray()
+                productLabelCollectionViewController.productLabels = session.labelsArray()
             }
         }
     }

@@ -11,6 +11,7 @@ import UIKit
 class SessionTotalsRow: UIView {
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var unitsLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
     
     let nibName = "SessionTotalsRow"

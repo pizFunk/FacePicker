@@ -103,13 +103,9 @@ extension ClientListController {
 private extension ClientListController {
     
     private func fetchClients() {
-        let context = managedContext()
-        let request:NSFetchRequest<Client> = Client.fetchRequest()
-        do {
-            self.clients = try context.fetch(request)
+        if let clients = Client.fetchClients(context: managedContext()) {
+            self.clients = clients
             sortClients()
-        } catch {
-            Application.onError("Could not load Clients in ClientsController")
         }
     }
     
@@ -140,7 +136,12 @@ private extension ClientListController {
     }
     
     private func sortClients() {
-        clients.sort(by: { return $0.firstName.lowercased() < $1.firstName.lowercased() })
+        clients.sort(by: {
+            if $0.firstName.lowercased() == $1.firstName.lowercased() {
+                return $0.lastName.lowercased() < $1.lastName.lowercased()
+            }
+            return $0.firstName.lowercased() < $1.firstName.lowercased()
+        })
     }
     
     private func setEditButtonTitle() {
@@ -199,6 +200,12 @@ extension ClientListController: ClientDetailControllerDelegate {
                 setSelectedClient(client: client)
             }
         }
+    }
+    
+    func setEditingSessions(_ editing: Bool) {
+        print("need to \(editing ? "disable" : "enable") client list view!")
+        
+        setEnabled(!editing)
     }
 }
 

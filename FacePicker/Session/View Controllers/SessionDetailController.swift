@@ -13,12 +13,17 @@ import CropViewController
 class SessionDetailController: UIViewController {
     @IBOutlet weak var sessionDescriptionView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var saveNotesButton: UIButton!
     @IBOutlet weak var totalsStackView: UIStackView!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var productLabelCollectionContainerView: UIView!
+    
+    // editing of date:
+    var datePicker = UIDatePicker()
+    
+    @IBOutlet weak var editButton: UIButton! // not installed
     
     lazy var productLabelCollectionViewController:ProductLabelCollectionViewController = {
         let viewController = ProductLabelCollectionViewController()
@@ -51,19 +56,10 @@ class SessionDetailController: UIViewController {
 extension SessionDetailController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
-        // set the height of the stackview to the view ??
-        //ViewHelper.setViewEdges(for: totalsViewController.view, equalTo: view, withConstant: 0, excludingBottom: true)
-        
-//        view.addSubview(stackView)
-//        stackView.translatesAutoresizingMaskIntoConstraints = false
-//        ViewHelper.setBottom(for: view, equalTo: stackView)
-//        ViewHelper.setTop(for: stackView, equalTo: view)
-//        ViewHelper.setLeadingAndTrailing(for: stackView, equalTo: view, withConstant: 15)
-//        stackView.axis = .vertical
-//        stackView.spacing = 8.0
+        // edit mode
+        setEditing(false, animated: false)
+        setupDatePicker()
         
         // description
         ViewHelper.setBorderOnView(sessionDescriptionView, withColor: UIColor(white: 0.6, alpha: 1).cgColor, rounded: false)
@@ -89,12 +85,30 @@ extension SessionDetailController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        ViewHelper.setTextFieldEnabled(dateTextField, isEnabled: editing)
+        let title = editing ? "Done" : "Edit"
+        editButton.setTitle(title, for: .normal)
+        
+        productLabelCollectionViewController.isEditing = editing
+    }
+    
     @objc
     func onSessionDidChange(notification: Notification) {
+        if notification.object is SessionDetailController {
+            // ignore notifications we sent...
+            return
+        }
         guard let userInfo = notification.userInfo as? [String : Session], let sessionData = userInfo.first else {
             return
         }
         self.session = sessionData.value
+    }
+    
+    @IBAction func editButtonPressed(_ sender: UIButton) {
+        isEditing = !isEditing
     }
     
     @IBAction func saveNotesButtonPressed(_ sender: UIButton) {
@@ -108,16 +122,39 @@ extension SessionDetailController {
         picker.delegate = self
         present(picker, animated: true, completion: nil)
     }
+    
+    @objc
+    func datePickerValueChanged(sender: UIDatePicker) {
+        guard let session = session else { return }
+        dateTextField.text = Session.formatDate(sender.date)
+        session.date = sender.date as NSDate
+        
+        NotificationCenter.default.post(name: .sessionDidChange, object: self, userInfo: ["": session])
+    }
 }
 
 private extension SessionDetailController {
+    private func setupDatePicker() {
+        guard let session = session else {
+            // TODO: log error
+            return
+        }
+        datePicker.date = session.date as Date
+        datePicker.datePickerMode = .date
+        datePicker.maximumDate = Date()
+        datePicker.minimumDate = DateFormatter().date(from: "01/01/2018")
+        datePicker.addTarget(self, action: #selector(SessionDetailController.datePickerValueChanged(sender:)), for: .valueChanged)
+        dateTextField.inputView = datePicker
+        dateTextField.inputAccessoryView = createDoneToolbarForDatePicker()
+    }
+    
     private func setDescriptionLabel() {
         nameLabel.text = ""
-        dateLabel.text = ""
+        dateTextField.text = ""
         if let session = session {
             let client = session.client
             nameLabel.text = client.formattedName()
-            dateLabel.text = session.formattedDate()
+            dateTextField.text = session.formattedDate()
         }
     }
     
@@ -140,42 +177,52 @@ private extension SessionDetailController {
         }
         
         if let injections = session.injections {
-            var totalsByType = [String: Float]()
-//            var lastRowView: UIView?
+            var totalsByType = [InjectionType: Float]()
             
             for injection in injections {
-                if var sum = totalsByType[injection.type.description] {
-                    sum += injection.units
-                    totalsByType[injection.type.description] = sum
-                } else {
-                    totalsByType[injection.type.description] = injection.units
+                var total = totalsByType[injection.type] ?? 0
+                switch injection.type {
+                case .NeuroToxin:
+                    // sum units
+                    total += injection.units
+                case .Filler:
+                    // count number of sites
+                    total += 1
+                default:
+                    break
                 }
+                totalsByType[injection.type] = total
             }
             if totalsByType.count > 0 {
                 for (key, value) in totalsByType {
+                    var valueString = ""
+                    var description = ""
+                    switch key {
+                    case .NeuroToxin:
+                        valueString = value.description
+                        description = "units of"
+                    case .Filler:
+                        valueString = String(format: "%.0f", value)
+                        description = "locations of"
+                    default:
+                        break
+                    }
                     let totalRowView = SessionTotalsRow()
-                    totalRowView.unitsLabel.text = "\(value)"
-                    SessionHelper.setColor(forLabel: totalRowView.unitsLabel, withStringType: key)
-                    totalRowView.typeLabel.text = "\(key)"
-                    SessionHelper.setColor(forLabel: totalRowView.typeLabel, withStringType: key)
+                    totalRowView.unitsLabel.text = valueString
+                    SessionHelper.setColor(forLabel: totalRowView.unitsLabel, withType: key)
+                    totalRowView.descriptionLabel.text = description
+                    totalRowView.typeLabel.text = "\(key.description)"
+                    SessionHelper.setColor(forLabel: totalRowView.typeLabel, withType: key)
                     
                     totalsStackView.addArrangedSubview(totalRowView)
-                    
-//                    lastRowView = totalRowView
                 }
             }
-//            if lastRowView != nil {
-//                totalsStackBottomAnchor?.isActive = false
-//                totalsStackBottomAnchor = totalsStackView.bottomAnchor.constraint(equalTo: lastRowView!.bottomAnchor)
-//                totalsStackBottomAnchor?.isActive = true
-//            } else {
-//                totalsStackBottomAnchor?.isActive = false
-//            }
         }
     }
+    
     private func setLabelImages() {
-        let images = session?.labelsImageArray() ?? [UIImage]()
-        productLabelCollectionViewController.images = images
+        let labels = session?.labelsArray() ?? [ProductLabel]()
+        productLabelCollectionViewController.productLabels = labels
     }
     
     private func isNotesDifferentThanSaved() -> Bool {
@@ -190,7 +237,7 @@ private extension SessionDetailController {
         }
         if isNotesDifferentThanSaved() {
             session.notes = notesTextView.text
-            NotificationCenter.default.post(name: .sessionDidChange, object: nil, userInfo: ["": session])
+            NotificationCenter.default.post(name: .sessionDidChange, object: self, userInfo: ["": session])
             
             Application.logInfo("Notes saved for Session with id: \(session.id.uuidString) of Client \(session.client.id.uuidString)")
         }
@@ -215,8 +262,8 @@ private extension SessionDetailController {
         let newLabel = ProductLabel(entity: entity, insertInto: context)
         newLabel.image = imageData
         session.addToLabels(newLabel)
-        productLabelCollectionViewController.images.append(image)
-        NotificationCenter.default.post(name: .sessionDidChange, object: nil, userInfo: ["": session])
+        productLabelCollectionViewController.productLabels.append(newLabel)
+        NotificationCenter.default.post(name: .sessionDidChange, object: self, userInfo: ["": session])
         
         Application.logInfo("Added ProductLabel for Session with id: \(session.id.uuidString)")
     }

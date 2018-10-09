@@ -9,8 +9,22 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 @objc(ProductLabel)
 public class ProductLabel: NSManagedObject {
     static let entityName = "ProductLabel"
+    
+    private var _cachedImage:UIImage?
+    
+    func toImage() -> UIImage? {
+        if _cachedImage == nil {
+            if let data = image as Data?, let uiImage = UIImage(data: data) {
+                _cachedImage = uiImage
+            } else {
+                // TODO: log error
+            }
+        }
+        return _cachedImage
+    }
 }

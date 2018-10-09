@@ -70,7 +70,7 @@ public class Client: NSManagedObject {
         return smoker ? "Yes" : "No"
     }
     
-    private static func fetchClients(context: NSManagedObjectContext) -> [Client]? {
+    static func fetchClients(context: NSManagedObjectContext) -> [Client]? {
         let fetchRequest:NSFetchRequest<Client> = Client.fetchRequest()
         var existingClients:[Client]?
         do {

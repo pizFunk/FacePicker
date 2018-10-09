@@ -12,17 +12,23 @@ import DropDown
 class SiteMenuController: UIViewController {
     //MARK: - Properties
     private var unitAmountSlider: UISlider!
+    private var sliderHeightConstraint:NSLayoutConstraint!
     private var unitLabel: UILabel!
+    private var unitDescriptionLabel: UILabel!
     private var unitTypeButton: UIButton!
     private var unitTypeDropDown: DropDown!
     // button from SessionController menu is shown for:
     var siteButton: UIButton!
     
     public let sliderStepInterval = Application.Settings.unitSelectionIncrement
+    private let sliderMaxValue:Float = 5.0
     public var editMode: Bool = false
     public var delegate: SiteMenuControllerDelegate?
     public var site: InjectionSite!
     public var state: SiteMenuControllerState = .Other
+    
+    private let sizeWithSlider = CGSize(width: 250, height: 90)
+    private let sizeWithoutSlider = CGSize(width: 250, height: 60)
     
     //MARK: - Static Properties
     private static var previousSite: InjectionSite? //Values: (units: Float, type: InjectionType)?
@@ -32,7 +38,7 @@ class SiteMenuController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        preferredContentSize = CGSize(width: 250, height: 90)
+        preferredContentSize = sizeWithSlider
         
         //
         // Save Button
@@ -62,7 +68,7 @@ class SiteMenuController: UIViewController {
         let slider = UISlider()
         slider.addTarget(self, action: #selector(sliderDidChange(sender:)), for: UIControlEvents.valueChanged)
         slider.minimumValue = sliderStepInterval
-        slider.maximumValue = 5.0
+        slider.maximumValue = sliderMaxValue
         view.addSubview(slider)
         
         slider.translatesAutoresizingMaskIntoConstraints = false
@@ -72,6 +78,7 @@ class SiteMenuController: UIViewController {
             ])
         
         unitAmountSlider = slider
+        sliderHeightConstraint = slider.heightAnchor.constraint(equalToConstant: 0.0)
         
         //
         // labels
@@ -84,7 +91,6 @@ class SiteMenuController: UIViewController {
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15.0)
             ])
         unitLabel = label
-        setUnitLabel(slider.value)
         
         let label2 = UILabel()
         label2.text = " units of "
@@ -95,7 +101,7 @@ class SiteMenuController: UIViewController {
             label2.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: 20.0),
             label2.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 0.0)
             ])
-        
+        unitDescriptionLabel = label2
         
         //
         // dropdown to select product type
@@ -109,11 +115,7 @@ class SiteMenuController: UIViewController {
         let dropdown = DropDown()
         dropdown.anchorView = button
         dropdown.dataSource = InjectionType.toArray
-        dropdown.selectionAction = { (index, item) in
-            button.setTitle(item, for: .normal)
-            self.site.type = InjectionType(rawValue: index)!
-            SessionHelper.setTitleAndColor(forButton: self.siteButton, withSite: self.site)
-        }
+        dropdown.selectionAction = onTypeDropDownValueChange
         // set default
         dropdown.selectRow(0)
         button.setTitle(InjectionType(rawValue: 0)?.description, for: .normal)
@@ -129,6 +131,42 @@ class SiteMenuController: UIViewController {
             ])
         unitTypeButton = button
     }
+    
+    private func onTypeDropDownValueChange(index: Int, item: String) {
+        unitTypeButton.setTitle(item, for: .normal)
+        guard let selectedType = InjectionType(rawValue: index) else {
+            // TODO: log error
+            return
+        }
+        setSliderForType(selectedType)
+        site.type = selectedType
+        switch selectedType {
+        case .NeuroToxin:
+            site.units = sliderStepInterval
+        case .Filler:
+            site.units = 0
+        default:
+            break
+        }
+        setUnitLabel()
+        SessionHelper.setTitleAndColor(forButton: self.siteButton, withSite: self.site)
+    }
+    
+    private func setSliderForType(_ type: InjectionType) {
+        switch type {
+        case .NeuroToxin:
+            unitAmountSlider.isHidden = false
+            sliderHeightConstraint.isActive = false
+            preferredContentSize = sizeWithSlider
+        case .Filler:
+            unitAmountSlider.isHidden = true
+            sliderHeightConstraint.isActive = true
+            preferredContentSize = sizeWithoutSlider
+        default:
+            break
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -151,9 +189,10 @@ class SiteMenuController: UIViewController {
             return
         }
         let units = site.units
-        unitAmountSlider.setValue(units, animated: false)
-        setUnitLabel(units)
         let type = site.type
+        setSliderForType(type)
+        unitAmountSlider.setValue(units, animated: false)
+        setUnitLabel()
         unitTypeDropDown.clearSelection()
         unitTypeDropDown.selectRow(type.rawValue)
         setTypeButton(type.description)
@@ -161,18 +200,29 @@ class SiteMenuController: UIViewController {
     private func setDefaultValues() {
         site.units = unitAmountSlider.minimumValue
         site.type = InjectionType.NeuroToxin
-        if SiteMenuController.usePreviousValues, let previous = SiteMenuController.previousSite, previous.units > 0 {
-            unitAmountSlider.setValue(previous.units, animated: false)
-            setUnitLabel(previous.units)
+        if SiteMenuController.usePreviousValues, let previous = SiteMenuController.previousSite/*, previous.units > 0*/ {
             site.units = previous.units
             site.type = previous.type
+            setSliderForType(site.type)
+            unitAmountSlider.setValue(previous.units, animated: false)
+            setUnitLabel()
         }
         unitTypeDropDown.clearSelection()
         unitTypeDropDown.selectRow(site.type.rawValue)
         setTypeButton(site.type.description)
     }
-    private func setUnitLabel(_ units: Float) {
-        unitLabel.text = units.description // String(format: "%.1f", units)
+    private func setUnitLabel() {
+        var description = ""
+        switch site.type {
+        case .NeuroToxin:
+            description = " units of "
+        case .Filler:
+            description = " location of "
+        default:
+            break
+        }
+        unitDescriptionLabel.text = description
+        unitLabel.text = site.formattedUnits() // String(format: "%.1f", units)
     }
     private func setTypeButton(_ type: String) {
         unitTypeButton.setTitle(type, for: .normal)
@@ -181,13 +231,13 @@ class SiteMenuController: UIViewController {
     //MARK: - Actions
     @objc func onSave() {
 //        print("--- SiteMenuController.onSave() ---")
-        guard let selectedType = unitTypeDropDown.indexPathForSelectedRow else {
-            site = nil
-            return
-        }
-        let value = unitAmountSlider.value
-        let type = InjectionType(rawValue: selectedType.row)!
-        site?.setUnits(value, ofType: type)
+//        guard let selectedType = unitTypeDropDown.indexPathForSelectedRow else {
+//            site = nil
+//            return
+//        }
+//        let value = unitAmountSlider.value
+//        let type = InjectionType(rawValue: selectedType.row)!
+//        site?.setUnits(value, ofType: type)
         SiteMenuController.previousSite = site
         state = .Saving
         delegate?.siteMenuDidSave(savedSite: site)
@@ -212,22 +262,11 @@ class SiteMenuController: UIViewController {
         let newValue = Int(roundf(sender.value / sliderStepInterval))
         sender.value = sliderStepInterval * Float(newValue)
 
-        setUnitLabel(sender.value)
-        
         site.units = sender.value
+        setUnitLabel()
+        
         SessionHelper.setTitleAndColor(forButton: siteButton, withSite: site)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 protocol SiteMenuControllerDelegate {

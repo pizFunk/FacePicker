@@ -34,7 +34,7 @@ public class InjectionSite: NSManagedObject {
 //    }
     
     func formattedUnits() -> String {
-        return self.units.description // String(format: "%.1f", self.units)
+        return self.units > 0 ? self.units.description : "\u{2718}" // String(format: "%.1f", self.units)
     }
 }
 
@@ -44,7 +44,7 @@ public enum InjectionType: Int, CustomStringConvertible {
     case Latisse = 2
     
     static var toArray: [String] {
-        return [InjectionType.NeuroToxin.description, InjectionType.Filler.description, InjectionType.Latisse.description]
+        return [InjectionType.NeuroToxin.description, InjectionType.Filler.description]
     }
     
     static func fromString(_ type: String) -> InjectionType? {

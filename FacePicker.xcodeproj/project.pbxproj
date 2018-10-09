@@ -48,6 +48,7 @@
 		316B74042162B909005077C0 /* MergeClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316B74022162B909005077C0 /* MergeClientController.swift */; };
 		316B74052162B909005077C0 /* MergeClientController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 316B74032162B909005077C0 /* MergeClientController.xib */; };
 		3175A110214012F500E89C29 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3175A10F214012F500E89C29 /* SessionController.swift */; };
+		319E6A66216C003600FCD73C /* DeletableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319E6A65216C003600FCD73C /* DeletableCollectionViewCell.swift */; };
 		31A0FA112149C55600F96845 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA102149C55600F96845 /* UIViewController+Extensions.swift */; };
 		31A0FA1A2149EDFC00F96845 /* Session+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA162149EDFC00F96845 /* Session+CoreDataClass.swift */; };
 		31A0FA1B2149EDFC00F96845 /* Session+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA172149EDFC00F96845 /* Session+CoreDataProperties.swift */; };
@@ -140,6 +141,7 @@
 		316B74022162B909005077C0 /* MergeClientController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeClientController.swift; sourceTree = "<group>"; };
 		316B74032162B909005077C0 /* MergeClientController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MergeClientController.xib; sourceTree = "<group>"; };
 		3175A10F214012F500E89C29 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
+		319E6A65216C003600FCD73C /* DeletableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletableCollectionViewCell.swift; sourceTree = "<group>"; };
 		31A0FA102149C55600F96845 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		31A0FA162149EDFC00F96845 /* Session+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+CoreDataClass.swift"; sourceTree = "<group>"; };
 		31A0FA172149EDFC00F96845 /* Session+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 			isa = PBXGroup;
 			children = (
 				31613DC42155366300146DF4 /* ViewControllerWrapperCell.swift */,
+				319E6A65216C003600FCD73C /* DeletableCollectionViewCell.swift */,
 				31322939215EBF6400088331 /* DetailedSessionCell.swift */,
 				31A0FA26214A179D00F96845 /* SimpleSessionCell.swift */,
 				31D8952C2159985A003C4DB1 /* SessionTotalsRow.swift */,
@@ -719,6 +722,7 @@
 				31602FBD2140087C0023F8A2 /* ClientController.swift in Sources */,
 				31501B0D215AB892003D29B7 /* ProductLabelCell.swift in Sources */,
 				31A0FA1C2149EDFC00F96845 /* Client+CoreDataClass.swift in Sources */,
+				319E6A66216C003600FCD73C /* DeletableCollectionViewCell.swift in Sources */,
 				31613DCD21553AD000146DF4 /* SessionDetailController.swift in Sources */,
 				31501B26215B12D0003D29B7 /* SettingsViewController.swift in Sources */,
 				3108824A2162F7E800226940 /* ClientCSVManager.swift in Sources */,

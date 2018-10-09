@@ -10,12 +10,19 @@ import UIKit
 
 protocol FlexibleSessionCell where Self: UICollectionViewCell {
     var session:Session? { get set }
+    var isEditing:Bool { get set }
+    var delegate:FlexibleSessionCellDelegate? { get set }
 }
 
-class SimpleSessionCell: UICollectionViewCell, FlexibleSessionCell {
+protocol FlexibleSessionCellDelegate {
+    func deleteSession(_ session: Session?)
+}
+
+class SimpleSessionCell: DeletableCollectionViewCell, FlexibleSessionCell {
     @IBOutlet weak var faceImageView: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
     fileprivate let borderColor = UIColor(white: 0.8, alpha: 1).cgColor //ViewHelper.defaultBorderColor
+    var delegate: FlexibleSessionCellDelegate?
     
     override var isSelected: Bool {
         didSet {
@@ -44,5 +51,9 @@ class SimpleSessionCell: UICollectionViewCell, FlexibleSessionCell {
     
     private func setDefaultStyle() {
         ViewHelper.setBorderOnView(self.contentView, withColor: borderColor, rounded: false)
+    }
+    
+    @IBAction func deleteButtonPressed(sender: UIButton) {
+        delegate?.deleteSession(session)
     }
 }

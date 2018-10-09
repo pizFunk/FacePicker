@@ -156,7 +156,8 @@ extension ClientController {
         setTextFieldValue(for: dateTextField, withDate: sender.date)
     }
     
-    @objc func dismissDatePicker() {
+    @objc
+    override func dismissDatePicker() {
         if dobTextField.isFirstResponder {
             addressTextField.becomeFirstResponder()
         } else if lastNeuroDateTextField.isFirstResponder {
@@ -204,14 +205,7 @@ private extension ClientController {
         dobDatePicker.maximumDate = today
         dobDatePicker.addTarget(self, action: #selector(ClientController.dobDatePickerValueChanged(sender:)), for: .valueChanged)
         dobTextField.inputView = dobDatePicker
-        let doneToolbar = UIToolbar()
-        doneToolbar.sizeToFit()
-        doneToolbar.setItems([
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(ClientController.dismissDatePicker)),
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-            ], animated: false)
-        doneToolbar.isUserInteractionEnabled = true
+        let doneToolbar = createDoneToolbarForDatePicker()
         dobTextField.inputAccessoryView = doneToolbar
         
 //        lastNeuroDatePicker.datePickerMode = .date

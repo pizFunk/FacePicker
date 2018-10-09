@@ -33,6 +33,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="baW-1D-xJ8">
+                                <rect key="frame" x="242" y="8" width="50" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHv-di-CCV">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <state key="normal" image="trash-can-icon"/>
+                                        <connections>
+                                            <action selector="deleteButtonPressedWithSender:" destination="cTh-Qw-Lo1" eventType="touchUpInside" id="FS8-vH-VNt"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="FHv-di-CCV" secondAttribute="trailing" id="Drm-uv-1YO"/>
+                                    <constraint firstAttribute="bottom" secondItem="FHv-di-CCV" secondAttribute="bottom" id="EKe-wB-hUz"/>
+                                    <constraint firstItem="FHv-di-CCV" firstAttribute="top" secondItem="baW-1D-xJ8" secondAttribute="top" id="c7N-tx-0sz"/>
+                                    <constraint firstAttribute="width" constant="50" id="kfN-2J-nK3"/>
+                                    <constraint firstItem="FHv-di-CCV" firstAttribute="leading" secondItem="baW-1D-xJ8" secondAttribute="leading" id="lRl-6h-eLQ"/>
+                                    <constraint firstAttribute="height" constant="50" id="qWS-h7-eyE"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -40,7 +60,9 @@
                             <constraint firstItem="jwJ-0r-Erv" firstAttribute="top" secondItem="YIb-xu-o3G" secondAttribute="bottom" constant="8" id="GeQ-Wd-Qe7"/>
                             <constraint firstItem="YIb-xu-o3G" firstAttribute="top" secondItem="Yex-48-hcl" secondAttribute="top" constant="8" id="WKy-ZC-fZx"/>
                             <constraint firstItem="YIb-xu-o3G" firstAttribute="centerX" secondItem="Yex-48-hcl" secondAttribute="centerX" id="Wsv-B3-VxM"/>
+                            <constraint firstAttribute="trailing" secondItem="baW-1D-xJ8" secondAttribute="trailing" constant="8" id="lcM-VP-6B9"/>
                             <constraint firstAttribute="bottom" secondItem="jwJ-0r-Erv" secondAttribute="bottom" constant="8" id="slc-a2-Hvo"/>
+                            <constraint firstItem="baW-1D-xJ8" firstAttribute="top" secondItem="Yex-48-hcl" secondAttribute="top" constant="8" id="v7K-p2-U9w"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -54,8 +76,13 @@
             <viewLayoutGuide key="safeArea" id="5f2-zf-kaJ"/>
             <connections>
                 <outlet property="dateLabel" destination="jwJ-0r-Erv" id="YVQ-1X-tdr"/>
+                <outlet property="deleteButtonBackgroundView" destination="baW-1D-xJ8" id="4Yu-jP-QhI"/>
                 <outlet property="faceImageView" destination="YIb-xu-o3G" id="e2y-E7-KLm"/>
             </connections>
+            <point key="canvasLocation" x="40" y="46.776611694152926"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="trash-can-icon" width="48" height="48"/>
+    </resources>
 </document>

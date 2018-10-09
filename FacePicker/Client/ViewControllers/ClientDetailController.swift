@@ -18,13 +18,17 @@ class ClientDetailController: UIViewController {
     private let detailedCellReuseIdentifier = "DetailedSessionCell"
     private let reuseIndentifier = "SessionCell"
     
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     private let sessionSplitSegueIdentifier = "SessionsSplitSegue"
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var clientViewContainer: UIView!
     
+//    lazy var editSessionsButton = {
+//        return UIBarButtonItem(title: "Edit Treatments", style: .plain, target: self, action: #selector(ClientDetailController.newSessionButtonPressed(_:)))
+//    }()
     lazy var newSessionButton = {
-        return UIBarButtonItem(title: "New Session", style: .plain, target: self, action: #selector(ClientDetailController.newSessionButtonPressed(_:)))
+        return UIBarButtonItem(title: "New Treatment", style: .plain, target: self, action: #selector(ClientDetailController.newSessionButtonPressed(_:)))
     }()
     
     var widthAnchor:NSLayoutConstraint?
@@ -51,7 +55,12 @@ class ClientDetailController: UIViewController {
             setupClient()
         }
     }
-    var sessions: [Session] = [Session]()
+    var sessions: [Session] = [Session]() {
+        didSet {
+            // set edit button visibility
+            setupNavigationBarButtons(clientExists: true, clientHasSessions: sessions.count > 0)
+        }
+    }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -147,12 +156,39 @@ extension ClientDetailController {
         }
     }
     
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+    
+        if !editing {
+            setEditButtonTitle()
+        }
+        
+        // disable other nav bar buttons, disable client list, disable client view controller
+        setNavBarButtonsEnabled(!editing, buttonsToIgnore: [editButtonItem])  // buttons
+        delegate?.setEditingSessions(editing)  // client list
+        clientViewController.setEnabled(!editing, includingNavigationController: false) // client view controller
+        contentView.backgroundColor = editing ? ViewHelper.blockingViewBackgroundColor : UIColor.clear
+        
+        // show/hide delete button on collection view cells
+        var nonVisibleIndexPaths = [IndexPath]()
+        for index in 0..<collectionView.numberOfItems(inSection: 0) {
+            let indexPath = IndexPath(item: index, section: 0)
+            if let sessionCell = collectionView.cellForItem(at: indexPath) as? DeletableCollectionViewCell {
+                sessionCell.isEditing = editing
+            }
+            else {
+                nonVisibleIndexPaths.append(indexPath)
+            }
+        }
+        collectionView.reloadItems(at: nonVisibleIndexPaths)
+    }
+    
     // MARK: - Actions
     
     @IBAction func newSessionButtonPressed(_ sender: UIBarButtonItem) {
         guard let newSession = addNewSession() else { return }
         collectionView.reloadData()
-        collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .top)
+        collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .centeredVertically)
         performSegue(withIdentifier: sessionSplitSegueIdentifier, sender: newSession)
     }
     
@@ -233,19 +269,14 @@ private extension ClientDetailController {
     
     private func setupClient() {
         self.clientViewController.client = self.client
-        var showNewSessionButton = false
         if let client = client {
-            showNewSessionButton = true
             self.stackView.isHidden = false
             
             if let sessions = client.sessions {
-                self.sessions = [Session].init(sessions)
-                self.sessions.sort(by: { (a, b) in
-                    if let aDate = a.date as Date?, let bDate = b.date as Date? {
-                        return aDate > bDate
-                    }
-                    return false
-                })
+                self.sessions = [Session](sessions)
+                self.sessions.sort {
+                    ($0.date as Date) < ($1.date as Date)
+                }
             } else {
                 self.sessions = [Session]()
             }
@@ -253,17 +284,37 @@ private extension ClientDetailController {
         } else {
             // no client
             self.stackView.isHidden = true
-        }
-        if navigationItem.rightBarButtonItems != nil {
-            let buttonExists = navigationItem.rightBarButtonItems!.contains(newSessionButton)
-            if showNewSessionButton && !buttonExists  {
-                self.navigationItem.rightBarButtonItems!.append(newSessionButton)
-            } else if !showNewSessionButton && buttonExists {
-                navigationItem.rightBarButtonItems!.removeLast()
-            }
+            setupNavigationBarButtons(clientExists: false, clientHasSessions: false) // alternatively runs in the didSet of self.sessions
         }
         // reload collection view
         collectionView.reloadData()
+    }
+
+    private func setupNavigationBarButtons(clientExists: Bool, clientHasSessions: Bool) {
+        if navigationItem.rightBarButtonItems != nil {
+            if clientExists  {
+                if !navigationItem.rightBarButtonItems!.contains(newSessionButton) {
+                    self.navigationItem.rightBarButtonItems!.append(newSessionButton)
+                }
+                let editSessionsButtonExists = navigationItem.rightBarButtonItems!.contains(editButtonItem)
+                if clientHasSessions && !editSessionsButtonExists {
+                    let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+                    fixedSpace.width = 50
+                    self.navigationItem.rightBarButtonItems!.append(fixedSpace)
+                    self.navigationItem.rightBarButtonItems!.append(editButtonItem)
+                    setEditButtonTitle()
+                    
+                } else if !clientHasSessions && editSessionsButtonExists {
+                    navigationItem.rightBarButtonItems?.removeLast(2)
+                }
+            } else {
+                navigationItem.rightBarButtonItems = [navigationItem.rightBarButtonItems!.first!]
+            }
+        }
+    }
+    
+    private func setEditButtonTitle() {
+        editButtonItem.title = "Edit Treatments"
     }
     
     private func addNewSession() -> Session? {
@@ -316,7 +367,7 @@ extension ClientDetailController: UICollectionViewDelegateFlowLayout {
 extension ClientDetailController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return client?.sessions?.count ?? 0
+        return sessions.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -327,7 +378,7 @@ extension ClientDetailController: UICollectionViewDataSource {
             }
             print("cellForItemAt: \(shouldShowDetailedSessionCells())")
             sessionCell.showDetail = shouldShowDetailedSessionCells()
-            sessionCell.session = sessions[indexPath.row]
+            sessionCell.session = sessions[indexPath.item]
             return sessionCell
         } else {
         if shouldShowDetailedSessionCells() {
@@ -335,14 +386,18 @@ extension ClientDetailController: UICollectionViewDataSource {
                 Application.onError("Cell with identifier \(detailedCellReuseIdentifier) wasn't of type DetailedSessionCell!")
                 return UICollectionViewCell()
             }
-            sessionCell.session = sessions[indexPath.row]
+            sessionCell.session = sessions[indexPath.item]
+            sessionCell.delegate = self
+            sessionCell.isEditing = isEditing
             return sessionCell
         } else {
             guard let sessionCell = collectionView.dequeueReusableCell(withReuseIdentifier: simpleCellReuseIdentifier, for: indexPath) as? SimpleSessionCell else {
                 Application.onError("Cell with identifier \(simpleCellReuseIdentifier) wasn't of type SessionCell!")
                 return UICollectionViewCell()
             }
-            sessionCell.session = sessions[indexPath.row]
+            sessionCell.session = sessions[indexPath.item]
+            sessionCell.delegate = self
+            sessionCell.isEditing = isEditing
             return sessionCell
         }
         }
@@ -354,9 +409,42 @@ extension ClientDetailController: UICollectionViewDataSource {
 extension ClientDetailController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isEditing {
+            // don't do anything when editing
+            return
+        }
         let selectedSession = sessions[indexPath.row]
         collectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
         performSegue(withIdentifier: sessionSplitSegueIdentifier, sender: selectedSession)
+    }
+}
+
+// MARK: - FlexibleSessionCellDelegate
+
+extension ClientDetailController: FlexibleSessionCellDelegate {
+    
+    func deleteSession(_ session: Session?) {
+        guard let session = session, let index = sessions.firstIndex(of: session) else {
+            return
+        }
+        
+        func performDelete(sender: Any) {
+            // remove session from array and ManagedObjectContext
+            sessions.remove(at: index)
+            managedContext().delete(session)
+            
+            // remove cell from collection view
+            collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
+            
+            // check if we're out of sessions
+            if sessions.count == 0 {
+                isEditing = false
+            }
+        }
+        let alert = UIAlertController(title: "Confirm Delete", message: "Really delete treatment for \(session.formattedDate())?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: performDelete(sender:)))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -390,14 +478,14 @@ extension ClientDetailController: ClientSelectionChangedDelegate {
 extension ClientDetailController: UISplitViewControllerDelegate {
     func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewControllerDisplayMode) {
         if USE_SESSION_CELL {
-        let shouldShowDetail = shouldShowDetailedSessionCells(displayMode: displayMode)
-        for visibleCell in collectionView.visibleCells {
-            if let sessionCell = visibleCell as? SessionCell {
-                sessionCell.showDetail = shouldShowDetail
+            let shouldShowDetail = shouldShowDetailedSessionCells(displayMode: displayMode)
+            for visibleCell in collectionView.visibleCells {
+                if let sessionCell = visibleCell as? SessionCell {
+                    sessionCell.showDetail = shouldShowDetail
+                }
             }
-        }
         } else {
-        collectionView.reloadData()
+            collectionView.reloadData()
         }
     }
 }
@@ -406,4 +494,5 @@ extension ClientDetailController: UISplitViewControllerDelegate {
 
 protocol ClientDetailControllerDelegate {
     func clientNameWasEdited(client: Client)
+    func setEditingSessions(_ editing: Bool)
 }

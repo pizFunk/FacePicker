@@ -12,9 +12,13 @@ import DropDown
 
 public class ViewHelper {
     // colors
+    
     public static let defaultBorderColor = UIColor(white: 0.9, alpha: 1.0).cgColor
+    public static let blockingViewBackgroundColor = UIColor(white: 0, alpha: 0.4)
     public static let validationColor = UIColor.red.cgColor
+    
     // other named colors
+    
     public class Colors {
         public static let deepBlue = UIColor(red: 11/255, green: 8/255, blue: 76/255, alpha: 1)
         public static let deepBlueGreen = UIColor(red: 8/255, green: 70/255, blue: 70/255, alpha: 1)
@@ -42,37 +46,55 @@ public class ViewHelper {
             public static let three = ViewHelper.colorFromRGB(red: 166, green: 1, blue: 255)
         }
     }
+    
     // styling
+    
     public static func colorFromRGB(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
         return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
     }
+    
     public static func positionView(_ view: UIView, at point: CGPoint) {
         view.center.x = point.x
         view.center.y = point.y
     }
+    
     public static func resolvePixelsFromProportions(size: CGSize, x: Double, y: Double) -> CGPoint {
         let pixelX = Double(size.width) * x
         let pixelY = Double(size.height) * y
         
         return CGPoint(x: pixelX, y: pixelY)
     }
+    
     public static func roundCornersOnView(_ view: UIView, withRadius radius: CGFloat = 8) {
         view.layer.cornerRadius = radius
         view.layer.masksToBounds = radius > 0
     }
-    public static func setBorderOnView(_ view: UIView, withColor color: CGColor, andWidth width: CGFloat = 1.0, rounded: Bool = true) {
+    
+    public static func setBorderOnView(_ view: UIView, withColor color: CGColor = defaultBorderColor, andWidth width: CGFloat = 1.0, rounded: Bool = true) {
         view.layer.borderWidth = width
         view.layer.borderColor = color
         if rounded {
             ViewHelper.roundCornersOnView(view)
         }
     }
+    
     public static func clearBorderOnView(_ view: UIView) {
         view.layer.borderWidth = 0
         view.layer.borderColor = UIColor.clear.cgColor
         ViewHelper.roundCornersOnView(view, withRadius: 0)
     }
+    
+    // text field
+    
+    public static func setTextFieldEnabled(_ textField: UITextField, isEnabled: Bool) {
+        textField.isUserInteractionEnabled = isEnabled
+        textField.backgroundColor = isEnabled ? UIColor.white : UIColor.clear
+        textField.borderStyle = isEnabled ? .roundedRect : .none
+//        setBorderOnView(textField, withColor: UIColor.clear.cgColor, andWidth: width)
+    }
+    
     // dropdown
+    
     public static func setDropDownAppearance() {
         DropDown.startListeningToKeyboard()
         let appearance = DropDown.appearance()

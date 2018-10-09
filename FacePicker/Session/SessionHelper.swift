@@ -50,10 +50,10 @@ public class SessionHelper {
             color = UIColor.purple
         case InjectionType.Filler:
 //            color = SessionHelper.fillerColor
-            color = UIColor.orange
+            color = UIColor.magenta
         case InjectionType.Latisse:
 //            color = SessionHelper.latisseColor
-            color = UIColor.magenta
+            color = UIColor.orange
         }
         return color
     }
