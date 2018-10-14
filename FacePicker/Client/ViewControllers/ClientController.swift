@@ -414,13 +414,7 @@ private extension ClientController {
     private func bindFormToClientAndCreate() -> Client? {
         if client == nil {
             // if we aren't editing create new and give id
-            
-            let context = managedContext()
-            guard let entity = NSEntityDescription.entity(forEntityName: Client.entityName, in: context) else {
-                Application.onError("Failed to get entity for \(Client.entityName) from ManagedContext.")
-                return nil
-            }
-            client = Client(entity: entity, insertInto: context)
+            client = Client.create()
             client?.id = UUID()
             Application.logInfo("Client created with uuid: \(client?.id.uuidString ?? "")")
         }

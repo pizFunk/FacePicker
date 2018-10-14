@@ -26,6 +26,9 @@
 		3151361B215EDDED003E93DE /* ProductLabelCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151361A215EDDED003E93DE /* ProductLabelCollectionViewController.swift */; };
 		3151361E215F0997003E93DE /* SessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151361C215F0997003E93DE /* SessionCell.swift */; };
 		3151361F215F0997003E93DE /* SessionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3151361D215F0997003E93DE /* SessionCell.xib */; };
+		315803DA217120EE00349F90 /* AddProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315803D8217120EE00349F90 /* AddProductController.swift */; };
+		315803DB217120EE00349F90 /* AddProductController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315803D9217120EE00349F90 /* AddProductController.xib */; };
+		315803DD2171241E00349F90 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315803DC2171241E00349F90 /* Enums.swift */; };
 		315D7F2E214C25DD009149B9 /* InjectionSite+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315D7F2C214C25DD009149B9 /* InjectionSite+CoreDataProperties.swift */; };
 		315D7F31214C4096009149B9 /* ClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315D7F2F214C4096009149B9 /* ClientViewController.swift */; };
 		315D7F34214C5510009149B9 /* ClientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315D7F33214C5510009149B9 /* ClientViewController.xib */; };
@@ -48,16 +51,27 @@
 		316B74042162B909005077C0 /* MergeClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316B74022162B909005077C0 /* MergeClientController.swift */; };
 		316B74052162B909005077C0 /* MergeClientController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 316B74032162B909005077C0 /* MergeClientController.xib */; };
 		3175A110214012F500E89C29 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3175A10F214012F500E89C29 /* SessionController.swift */; };
+		3197D52B217293F800E553DD /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3197D52A217293F800E553DD /* PaymentView.swift */; };
+		3197D52D2172941800E553DD /* PaymentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3197D52C2172941800E553DD /* PaymentView.xib */; };
+		3197D5332172A3B500E553DD /* Invoice+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3197D52F2172A3B500E553DD /* Invoice+CoreDataProperties.swift */; };
+		3197D5342172A3B500E553DD /* Payment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3197D5302172A3B500E553DD /* Payment+CoreDataClass.swift */; };
+		3197D5352172A3B500E553DD /* Payment+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3197D5312172A3B500E553DD /* Payment+CoreDataProperties.swift */; };
+		3197D5372172A69500E553DD /* InvoiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3197D5362172A69500E553DD /* InvoiceHelper.swift */; };
 		319E6A66216C003600FCD73C /* DeletableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319E6A65216C003600FCD73C /* DeletableCollectionViewCell.swift */; };
 		31A0FA112149C55600F96845 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA102149C55600F96845 /* UIViewController+Extensions.swift */; };
 		31A0FA1A2149EDFC00F96845 /* Session+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA162149EDFC00F96845 /* Session+CoreDataClass.swift */; };
-		31A0FA1B2149EDFC00F96845 /* Session+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA172149EDFC00F96845 /* Session+CoreDataProperties.swift */; };
 		31A0FA1C2149EDFC00F96845 /* Client+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA182149EDFC00F96845 /* Client+CoreDataClass.swift */; };
 		31A0FA1F2149F85A00F96845 /* ClientListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA1E2149F85A00F96845 /* ClientListController.swift */; };
 		31A0FA212149FBC700F96845 /* ClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA202149FBC700F96845 /* ClientTableViewCell.swift */; };
 		31A0FA23214A033300F96845 /* SignatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA22214A033300F96845 /* SignatureViewController.swift */; };
 		31A0FA25214A09EB00F96845 /* ClientDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA24214A09EB00F96845 /* ClientDetailController.swift */; };
 		31A0FA27214A179D00F96845 /* SimpleSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A0FA26214A179D00F96845 /* SimpleSessionCell.swift */; };
+		31A13AC621700043000F07D5 /* InvoiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A13AC421700043000F07D5 /* InvoiceController.swift */; };
+		31A13AC721700043000F07D5 /* InvoiceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31A13AC521700043000F07D5 /* InvoiceController.xib */; };
+		31A13ACB217020E8000F07D5 /* Invoice+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A13AC9217020E7000F07D5 /* Invoice+CoreDataClass.swift */; };
+		31A13ACD217022C4000F07D5 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A13ACC217022C4000F07D5 /* CoreDataManager.swift */; };
+		31A13AD1217032D8000F07D5 /* Session+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A13ACF217032D8000F07D5 /* Session+CoreDataProperties.swift */; };
+		31A13AD321704F4B000F07D5 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A13AD221704F4B000F07D5 /* UIButton.swift */; };
 		31AC2461214ACE4B003B6C5C /* ClientController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31AC2460214ACE4B003B6C5C /* ClientController.xib */; };
 		31AC2463214ADB39003B6C5C /* SessionListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC2462214ADB39003B6C5C /* SessionListController.swift */; };
 		31AC2467214B3A55003B6C5C /* SessionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AC2466214B3A55003B6C5C /* SessionHelper.swift */; };
@@ -113,6 +127,9 @@
 		3151361A215EDDED003E93DE /* ProductLabelCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductLabelCollectionViewController.swift; sourceTree = "<group>"; };
 		3151361C215F0997003E93DE /* SessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCell.swift; sourceTree = "<group>"; };
 		3151361D215F0997003E93DE /* SessionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionCell.xib; sourceTree = "<group>"; };
+		315803D8217120EE00349F90 /* AddProductController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductController.swift; sourceTree = "<group>"; };
+		315803D9217120EE00349F90 /* AddProductController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddProductController.xib; sourceTree = "<group>"; };
+		315803DC2171241E00349F90 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		315D7F2C214C25DD009149B9 /* InjectionSite+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InjectionSite+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		315D7F2F214C4096009149B9 /* ClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewController.swift; sourceTree = "<group>"; };
 		315D7F33214C5510009149B9 /* ClientViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientViewController.xib; sourceTree = "<group>"; };
@@ -141,16 +158,27 @@
 		316B74022162B909005077C0 /* MergeClientController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeClientController.swift; sourceTree = "<group>"; };
 		316B74032162B909005077C0 /* MergeClientController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MergeClientController.xib; sourceTree = "<group>"; };
 		3175A10F214012F500E89C29 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
+		3197D52A217293F800E553DD /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PaymentView.swift; path = FacePicker/Session/Views/PaymentView.swift; sourceTree = SOURCE_ROOT; };
+		3197D52C2172941800E553DD /* PaymentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentView.xib; sourceTree = "<group>"; };
+		3197D52F2172A3B500E553DD /* Invoice+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Invoice+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3197D5302172A3B500E553DD /* Payment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Payment+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3197D5312172A3B500E553DD /* Payment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Payment+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3197D5362172A69500E553DD /* InvoiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceHelper.swift; sourceTree = "<group>"; };
 		319E6A65216C003600FCD73C /* DeletableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletableCollectionViewCell.swift; sourceTree = "<group>"; };
 		31A0FA102149C55600F96845 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		31A0FA162149EDFC00F96845 /* Session+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+CoreDataClass.swift"; sourceTree = "<group>"; };
-		31A0FA172149EDFC00F96845 /* Session+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		31A0FA182149EDFC00F96845 /* Client+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+CoreDataClass.swift"; sourceTree = "<group>"; };
 		31A0FA1E2149F85A00F96845 /* ClientListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListController.swift; sourceTree = "<group>"; };
 		31A0FA202149FBC700F96845 /* ClientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTableViewCell.swift; sourceTree = "<group>"; };
 		31A0FA22214A033300F96845 /* SignatureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureViewController.swift; sourceTree = "<group>"; };
 		31A0FA24214A09EB00F96845 /* ClientDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailController.swift; sourceTree = "<group>"; };
 		31A0FA26214A179D00F96845 /* SimpleSessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSessionCell.swift; sourceTree = "<group>"; };
+		31A13AC421700043000F07D5 /* InvoiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceController.swift; sourceTree = "<group>"; };
+		31A13AC521700043000F07D5 /* InvoiceController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InvoiceController.xib; sourceTree = "<group>"; };
+		31A13AC9217020E7000F07D5 /* Invoice+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Invoice+CoreDataClass.swift"; path = "/Users/pizFunk/Desktop/Projects/FacePicker/FacePicker/Model/Invoice+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		31A13ACC217022C4000F07D5 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		31A13ACF217032D8000F07D5 /* Session+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Session+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		31A13AD221704F4B000F07D5 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		31AC2460214ACE4B003B6C5C /* ClientController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientController.xib; sourceTree = "<group>"; };
 		31AC2462214ADB39003B6C5C /* SessionListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListController.swift; sourceTree = "<group>"; };
 		31AC2466214B3A55003B6C5C /* SessionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionHelper.swift; sourceTree = "<group>"; };
@@ -278,12 +306,14 @@
 		31501B20215B1189003D29B7 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				3197D5382172A6A500E553DD /* Helpers */,
 				31602FBA2140087C0023F8A2 /* AppDelegate.swift */,
 				31FF70B221518D1900D3BBC2 /* Notification+Names.swift */,
 				31D7E561215C56200064CE80 /* Application.swift */,
 				31501B1E215B0E2A003D29B7 /* Application+Settings.swift */,
 				31025782215D913D00AD82BC /* USStates.swift */,
-				31AC2468214B62AE003B6C5C /* ViewHelper.swift */,
+				31A13ACC217022C4000F07D5 /* CoreDataManager.swift */,
+				315803DC2171241E00349F90 /* Enums.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -349,6 +379,7 @@
 				310882462162F7B500226940 /* Utilities */,
 				316B74002162B817005077C0 /* String+Extensions.swift */,
 				31D8953021599A3D003C4DB1 /* UnderlinedLabel.swift */,
+				31A13AD221704F4B000F07D5 /* UIButton.swift */,
 				315D7F3D214DEA15009149B9 /* UIImage+PixelColor.swift */,
 				31A0FA102149C55600F96845 /* UIViewController+Extensions.swift */,
 				31602FC42140087E0023F8A2 /* Assets.xcassets */,
@@ -383,6 +414,8 @@
 				3175A10F214012F500E89C29 /* SessionController.swift */,
 				31F78E23214698FB00418B6D /* SiteMenuController.swift */,
 				3151361A215EDDED003E93DE /* ProductLabelCollectionViewController.swift */,
+				31A13AC421700043000F07D5 /* InvoiceController.swift */,
+				315803D8217120EE00349F90 /* AddProductController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -396,8 +429,21 @@
 				31D89529215978F4003C4DB1 /* SessionTotalsRow.xib */,
 				31501B0C215AB892003D29B7 /* ProductLabelCell.xib */,
 				3151361D215F0997003E93DE /* SessionCell.xib */,
+				31A13AC521700043000F07D5 /* InvoiceController.xib */,
+				315803D9217120EE00349F90 /* AddProductController.xib */,
+				3197D52C2172941800E553DD /* PaymentView.xib */,
 			);
 			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		3197D5382172A6A500E553DD /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3197D5362172A69500E553DD /* InvoiceHelper.swift */,
+				31AC2466214B3A55003B6C5C /* SessionHelper.swift */,
+				31AC2468214B62AE003B6C5C /* ViewHelper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		31D8952B2159983C003C4DB1 /* Views */ = {
@@ -410,6 +456,7 @@
 				31D8952C2159985A003C4DB1 /* SessionTotalsRow.swift */,
 				31501B0B215AB892003D29B7 /* ProductLabelCell.swift */,
 				3151361C215F0997003E93DE /* SessionCell.swift */,
+				3197D52A217293F800E553DD /* PaymentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -417,14 +464,18 @@
 		31F78E51214807CE00418B6D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				31501B0F215ACA5F003D29B7 /* ProductLabel+CoreDataClass.swift */,
-				31501B10215ACA5F003D29B7 /* ProductLabel+CoreDataProperties.swift */,
 				31A0FA182149EDFC00F96845 /* Client+CoreDataClass.swift */,
 				315D7F36214D9242009149B9 /* Client+CoreDataProperties.swift */,
 				31F78E432147402E00418B6D /* InjectionSite+CoreDataClass.swift */,
 				315D7F2C214C25DD009149B9 /* InjectionSite+CoreDataProperties.swift */,
+				31A13AC9217020E7000F07D5 /* Invoice+CoreDataClass.swift */,
+				3197D52F2172A3B500E553DD /* Invoice+CoreDataProperties.swift */,
+				3197D5302172A3B500E553DD /* Payment+CoreDataClass.swift */,
+				3197D5312172A3B500E553DD /* Payment+CoreDataProperties.swift */,
+				31501B0F215ACA5F003D29B7 /* ProductLabel+CoreDataClass.swift */,
+				31501B10215ACA5F003D29B7 /* ProductLabel+CoreDataProperties.swift */,
 				31A0FA162149EDFC00F96845 /* Session+CoreDataClass.swift */,
-				31A0FA172149EDFC00F96845 /* Session+CoreDataProperties.swift */,
+				31A13ACF217032D8000F07D5 /* Session+CoreDataProperties.swift */,
 				31602FC12140087C0023F8A2 /* FacePicker.xcdatamodeld */,
 			);
 			path = Model;
@@ -446,7 +497,6 @@
 				31D8952B2159983C003C4DB1 /* Views */,
 				31613DCF2155618400146DF4 /* Interfaces */,
 				31613DC8215536A900146DF4 /* View Controllers */,
-				31AC2466214B3A55003B6C5C /* SessionHelper.swift */,
 			);
 			path = Session;
 			sourceTree = "<group>";
@@ -573,16 +623,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				3132293C215EBF6400088331 /* DetailedSessionCell.xib in Resources */,
+				3197D52D2172941800E553DD /* PaymentView.xib in Resources */,
 				31D8952A215978F4003C4DB1 /* SessionTotalsRow.xib in Resources */,
 				31D8952F215999E1003C4DB1 /* SessionDetailController.xib in Resources */,
 				31501B27215B12D0003D29B7 /* SettingsViewController.xib in Resources */,
 				31AC2461214ACE4B003B6C5C /* ClientController.xib in Resources */,
 				315D7F3C214DBA01009149B9 /* ClientConsentController.xib in Resources */,
 				3151361F215F0997003E93DE /* SessionCell.xib in Resources */,
+				315803DB217120EE00349F90 /* AddProductController.xib in Resources */,
 				31501B0E215AB892003D29B7 /* ProductLabelCell.xib in Resources */,
 				31602FC82140087E0023F8A2 /* LaunchScreen.storyboard in Resources */,
 				31FF70A12151543000D3BBC2 /* SimpleSessionCell.xib in Resources */,
 				31602FC52140087E0023F8A2 /* Assets.xcassets in Resources */,
+				31A13AC721700043000F07D5 /* InvoiceController.xib in Resources */,
 				316B74052162B909005077C0 /* MergeClientController.xib in Resources */,
 				31602FC02140087C0023F8A2 /* Main.storyboard in Resources */,
 				315D7F34214C5510009149B9 /* ClientViewController.xib in Resources */,
@@ -694,6 +747,7 @@
 				31D7E562215C56200064CE80 /* Application.swift in Sources */,
 				31025783215D913D00AD82BC /* USStates.swift in Sources */,
 				3151361E215F0997003E93DE /* SessionCell.swift in Sources */,
+				31A13AD1217032D8000F07D5 /* Session+CoreDataProperties.swift in Sources */,
 				31D8952D2159985A003C4DB1 /* SessionTotalsRow.swift in Sources */,
 				316B74042162B909005077C0 /* MergeClientController.swift in Sources */,
 				31F78E452147402E00418B6D /* InjectionSite+CoreDataClass.swift in Sources */,
@@ -705,11 +759,14 @@
 				31501B12215ACA5F003D29B7 /* ProductLabel+CoreDataProperties.swift in Sources */,
 				3175A110214012F500E89C29 /* SessionController.swift in Sources */,
 				31AC2467214B3A55003B6C5C /* SessionHelper.swift in Sources */,
+				3197D5372172A69500E553DD /* InvoiceHelper.swift in Sources */,
 				31602FC32140087C0023F8A2 /* FacePicker.xcdatamodeld in Sources */,
 				315D7F31214C4096009149B9 /* ClientViewController.swift in Sources */,
+				315803DA217120EE00349F90 /* AddProductController.swift in Sources */,
 				31A0FA112149C55600F96845 /* UIViewController+Extensions.swift in Sources */,
 				31A0FA212149FBC700F96845 /* ClientTableViewCell.swift in Sources */,
 				31AC2463214ADB39003B6C5C /* SessionListController.swift in Sources */,
+				31A13ACB217020E8000F07D5 /* Invoice+CoreDataClass.swift in Sources */,
 				310882502163DED400226940 /* ClientContext.swift in Sources */,
 				3108824E2163DEC900226940 /* ClientDifference.swift in Sources */,
 				310882522163DEEB00226940 /* FullName.swift in Sources */,
@@ -718,26 +775,33 @@
 				31AC2469214B62AE003B6C5C /* ViewHelper.swift in Sources */,
 				316B74012162B817005077C0 /* String+Extensions.swift in Sources */,
 				315D7F3E214DEA15009149B9 /* UIImage+PixelColor.swift in Sources */,
+				3197D52B217293F800E553DD /* PaymentView.swift in Sources */,
 				31501B11215ACA5F003D29B7 /* ProductLabel+CoreDataClass.swift in Sources */,
+				315803DD2171241E00349F90 /* Enums.swift in Sources */,
+				3197D5332172A3B500E553DD /* Invoice+CoreDataProperties.swift in Sources */,
 				31602FBD2140087C0023F8A2 /* ClientController.swift in Sources */,
 				31501B0D215AB892003D29B7 /* ProductLabelCell.swift in Sources */,
 				31A0FA1C2149EDFC00F96845 /* Client+CoreDataClass.swift in Sources */,
 				319E6A66216C003600FCD73C /* DeletableCollectionViewCell.swift in Sources */,
 				31613DCD21553AD000146DF4 /* SessionDetailController.swift in Sources */,
+				3197D5352172A3B500E553DD /* Payment+CoreDataProperties.swift in Sources */,
 				31501B26215B12D0003D29B7 /* SettingsViewController.swift in Sources */,
 				3108824A2162F7E800226940 /* ClientCSVManager.swift in Sources */,
 				315D7F3B214DBA01009149B9 /* ClientConsentController.swift in Sources */,
 				31A0FA1A2149EDFC00F96845 /* Session+CoreDataClass.swift in Sources */,
 				31A0FA27214A179D00F96845 /* SimpleSessionCell.swift in Sources */,
+				31A13AC621700043000F07D5 /* InvoiceController.swift in Sources */,
 				3151361B215EDDED003E93DE /* ProductLabelCollectionViewController.swift in Sources */,
+				31A13AD321704F4B000F07D5 /* UIButton.swift in Sources */,
 				315D7F38214D9242009149B9 /* Client+CoreDataProperties.swift in Sources */,
 				31A0FA25214A09EB00F96845 /* ClientDetailController.swift in Sources */,
 				31D8953121599A3D003C4DB1 /* UnderlinedLabel.swift in Sources */,
 				31602FBB2140087C0023F8A2 /* AppDelegate.swift in Sources */,
+				31A13ACD217022C4000F07D5 /* CoreDataManager.swift in Sources */,
+				3197D5342172A3B500E553DD /* Payment+CoreDataClass.swift in Sources */,
 				31FF70B321518D1900D3BBC2 /* Notification+Names.swift in Sources */,
 				3129B8E52164157000CCB39A /* MergedPair.swift in Sources */,
 				3132293B215EBF6400088331 /* DetailedSessionCell.swift in Sources */,
-				31A0FA1B2149EDFC00F96845 /* Session+CoreDataProperties.swift in Sources */,
 				31613DCA2155375B00146DF4 /* LeftColumnController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

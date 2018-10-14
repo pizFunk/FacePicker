@@ -13,15 +13,26 @@ class SessionTotalsRow: UIView {
     @IBOutlet weak var unitsLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var buttonHeightConstraint: NSLayoutConstraint!
     
     let nibName = "SessionTotalsRow"
     
+    var fontSize: CGFloat {
+        didSet {
+            unitsLabel.font = unitsLabel.font.withSize(fontSize)
+            descriptionLabel.font = descriptionLabel.font.withSize(fontSize)
+            typeLabel.font = typeLabel.font.withSize(fontSize)
+            buttonHeightConstraint.constant = fontSize + 4
+        }
+    }
+    
     override init(frame: CGRect) {
+        fontSize = UIFont.systemFontSize
         super.init(frame: frame)
         
         Bundle.main.loadNibNamed(nibName, owner: self, options: nil)
         addSubview(contentView)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
         ViewHelper.setViewEdges(for: contentView, equalTo: self)
     }
     

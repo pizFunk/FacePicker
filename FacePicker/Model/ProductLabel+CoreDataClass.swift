@@ -13,8 +13,14 @@ import UIKit
 
 @objc(ProductLabel)
 public class ProductLabel: NSManagedObject {
+    // static
+    static func create() -> ProductLabel {
+        return CoreDataManager.shared.create()
+    }
+    
     static let entityName = "ProductLabel"
     
+    // instance
     private var _cachedImage:UIImage?
     
     func toImage() -> UIImage? {

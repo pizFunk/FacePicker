@@ -11,7 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SessionTotalsRow" customModule="Ostapowicz__MD" customModuleProvider="target">
             <connections>
+                <outlet property="buttonHeightConstraint" destination="QbZ-Kq-u8q" id="nRt-N8-4v1"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="3X1-W0-VFa"/>
+                <outlet property="deleteButton" destination="7pe-qe-XsH" id="fkt-zl-wiL"/>
                 <outlet property="descriptionLabel" destination="mkK-kK-cOv" id="bpA-ai-cTr"/>
                 <outlet property="typeLabel" destination="GCw-xG-PNK" id="wyh-iF-aeC"/>
                 <outlet property="unitsLabel" destination="ean-H8-PVG" id="z8l-Iz-Vjb"/>
@@ -19,42 +21,54 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="225" height="25"/>
+            <rect key="frame" x="0.0" y="0.0" width="401" height="30"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" text="4.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ean-H8-PVG">
-                    <rect key="frame" x="0.0" y="0.0" width="32.5" height="24"/>
+                    <rect key="frame" x="0.0" y="3" width="32.5" height="24"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="units of" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkK-kK-cOv">
-                    <rect key="frame" x="37.5" y="0.0" width="64.5" height="24"/>
+                    <rect key="frame" x="37.5" y="3" width="64.5" height="24"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Neurotoxin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCw-xG-PNK">
-                    <rect key="frame" x="107" y="-1" width="118" height="26"/>
+                    <rect key="frame" x="107" y="3" width="104" height="24"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7pe-qe-XsH">
+                    <rect key="frame" x="363" y="0.0" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="7pe-qe-XsH" secondAttribute="height" multiplier="1:1" id="4G6-Pl-73y"/>
+                        <constraint firstAttribute="height" constant="30" id="QbZ-Kq-u8q"/>
+                    </constraints>
+                    <state key="normal" image="trash-can-icon"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="ean-H8-PVG" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="5C9-Oh-7pm"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GCw-xG-PNK" secondAttribute="trailing" id="J0Z-9E-37m"/>
+                <constraint firstItem="7pe-qe-XsH" firstAttribute="centerY" secondItem="GCw-xG-PNK" secondAttribute="centerY" id="EJT-MN-yV1"/>
+                <constraint firstAttribute="bottom" secondItem="7pe-qe-XsH" secondAttribute="bottom" id="Gdk-ba-ZvQ"/>
                 <constraint firstItem="GCw-xG-PNK" firstAttribute="centerY" secondItem="mkK-kK-cOv" secondAttribute="centerY" id="KTG-Qt-4Vb"/>
                 <constraint firstItem="ean-H8-PVG" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="U4g-Ms-Ev9"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="GCw-xG-PNK" secondAttribute="bottom" id="VXJ-jq-lhD"/>
                 <constraint firstItem="mkK-kK-cOv" firstAttribute="leading" secondItem="ean-H8-PVG" secondAttribute="trailing" constant="5" id="Xk5-m9-igT"/>
                 <constraint firstItem="mkK-kK-cOv" firstAttribute="centerY" secondItem="ean-H8-PVG" secondAttribute="centerY" id="a2q-Sf-aZx"/>
+                <constraint firstItem="7pe-qe-XsH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="e4H-zk-Xq5"/>
+                <constraint firstAttribute="trailing" secondItem="7pe-qe-XsH" secondAttribute="trailing" constant="8" id="vsM-WD-D68"/>
                 <constraint firstItem="GCw-xG-PNK" firstAttribute="leading" secondItem="mkK-kK-cOv" secondAttribute="trailing" constant="5" id="xiZ-OI-rKL"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="-50.5" y="-269.5"/>
+            <point key="canvasLocation" x="88.799999999999997" y="-268.06596701649175"/>
         </view>
     </objects>
+    <resources>
+        <image name="trash-can-icon" width="48" height="48"/>
+    </resources>
 </document>

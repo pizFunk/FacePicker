@@ -31,14 +31,12 @@ class SiteMenuController: UIViewController {
     private let sizeWithoutSlider = CGSize(width: 250, height: 60)
     
     //MARK: - Static Properties
-    private static var previousSite: InjectionSite? //Values: (units: Float, type: InjectionType)?
+    private static var previousSiteValues: (units: Float, type: InjectionType)?
     public static var usePreviousValues: Bool = false
     
     //MARK: - Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        preferredContentSize = sizeWithSlider
         
         //
         // Save Button
@@ -130,6 +128,16 @@ class SiteMenuController: UIViewController {
             button.widthAnchor.constraint(greaterThanOrEqualToConstant: 100)
             ])
         unitTypeButton = button
+        
+        
+//        preferredContentSize = sizeWithSlider
+        if editMode {
+            // update current if set
+            setCurrentValues()
+        } else {
+            setDefaultValues()
+        }
+        SessionHelper.setTitleAndColor(forButton: siteButton, withSite: site)
     }
     
     private func onTypeDropDownValueChange(index: Int, item: String) {
@@ -141,8 +149,8 @@ class SiteMenuController: UIViewController {
         setSliderForType(selectedType)
         site.type = selectedType
         switch selectedType {
-        case .NeuroToxin:
-            site.units = sliderStepInterval
+        case .Neurotoxin:
+            site.units = unitAmountSlider.value //sliderStepInterval
         case .Filler:
             site.units = 0
         default:
@@ -152,16 +160,18 @@ class SiteMenuController: UIViewController {
         SessionHelper.setTitleAndColor(forButton: self.siteButton, withSite: self.site)
     }
     
-    private func setSliderForType(_ type: InjectionType) {
+    private func setSliderForType(_ type: InjectionType, isLoading: Bool = false) {
         switch type {
-        case .NeuroToxin:
+        case .Neurotoxin:
             unitAmountSlider.isHidden = false
             sliderHeightConstraint.isActive = false
             preferredContentSize = sizeWithSlider
+            navigationController?.preferredContentSize = sizeWithSlider // b/c of the way ContextMenu is written
         case .Filler:
             unitAmountSlider.isHidden = true
             sliderHeightConstraint.isActive = true
             preferredContentSize = sizeWithoutSlider
+            navigationController?.preferredContentSize = sizeWithoutSlider // b/c of the way ContextMenu is written
         default:
             break
         }
@@ -169,15 +179,8 @@ class SiteMenuController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if editMode {
-            // update current if set
-            setCurrentValues()
-        } else {
-            setDefaultValues()
-        }
-        SessionHelper.setTitleAndColor(forButton: siteButton, withSite: site)
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -190,7 +193,7 @@ class SiteMenuController: UIViewController {
         }
         let units = site.units
         let type = site.type
-        setSliderForType(type)
+        setSliderForType(type, isLoading: true)
         unitAmountSlider.setValue(units, animated: false)
         setUnitLabel()
         unitTypeDropDown.clearSelection()
@@ -199,14 +202,14 @@ class SiteMenuController: UIViewController {
     }
     private func setDefaultValues() {
         site.units = unitAmountSlider.minimumValue
-        site.type = InjectionType.NeuroToxin
-        if SiteMenuController.usePreviousValues, let previous = SiteMenuController.previousSite/*, previous.units > 0*/ {
-            site.units = previous.units
-            site.type = previous.type
-            setSliderForType(site.type)
-            unitAmountSlider.setValue(previous.units, animated: false)
-            setUnitLabel()
+        site.type = InjectionType.Neurotoxin
+        if SiteMenuController.usePreviousValues, let previousValues = SiteMenuController.previousSiteValues/*, previous.units > 0*/ {
+            site.units = previousValues.units
+            site.type = previousValues.type
         }
+        setSliderForType(site.type, isLoading: true)
+        unitAmountSlider.setValue(site.units, animated: false)
+        setUnitLabel()
         unitTypeDropDown.clearSelection()
         unitTypeDropDown.selectRow(site.type.rawValue)
         setTypeButton(site.type.description)
@@ -214,7 +217,7 @@ class SiteMenuController: UIViewController {
     private func setUnitLabel() {
         var description = ""
         switch site.type {
-        case .NeuroToxin:
+        case .Neurotoxin:
             description = " units of "
         case .Filler:
             description = " location of "
@@ -238,7 +241,7 @@ class SiteMenuController: UIViewController {
 //        let value = unitAmountSlider.value
 //        let type = InjectionType(rawValue: selectedType.row)!
 //        site?.setUnits(value, ofType: type)
-        SiteMenuController.previousSite = site
+        SiteMenuController.previousSiteValues = (units: site.units, type: site.type)
         state = .Saving
         delegate?.siteMenuDidSave(savedSite: site)
         dismiss(animated: true, completion: nil)
@@ -259,8 +262,7 @@ class SiteMenuController: UIViewController {
         //print("--- SiteMenuController.sliderDidChange(sender:) ---")
         
         // snap to the set step interval
-        let newValue = Int(roundf(sender.value / sliderStepInterval))
-        sender.value = sliderStepInterval * Float(newValue)
+        sender.value = ViewHelper.snapSliderToIncrement(sender, increment: sliderStepInterval)
 
         site.units = sender.value
         setUnitLabel()
@@ -274,19 +276,22 @@ protocol SiteMenuControllerDelegate {
     func siteMenuDidDelete(deletedSite: InjectionSite) -> ()
 }
 
-enum SiteMenuControllerState {
-    case Saving
-    case Deleting
-    case Other
-}
-
 class NiceButton: UIButton {
+    var underlineView = UIView()
+    
+    var color:UIColor? {
+        didSet {
+            guard let color = color else { return }
+            setTitleColor(color, for: .normal)
+            underlineView.backgroundColor = color
+        }
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.6494, green: 0.8155, blue: 1.0, alpha: 1.0)
+        view.backgroundColor = color ?? tintColor //UIColor(red: 0.6494, green: 0.8155, blue: 1.0, alpha: 1.0)
         
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
@@ -334,5 +339,7 @@ class NiceButton: UIButton {
             constant: 0
             )
         )
+        
+        underlineView = view
     }
 }

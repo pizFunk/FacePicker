@@ -13,7 +13,7 @@ class SettingsViewController: UIViewController {
     
     static let nibName = "SettingsViewController"
     
-    private let possibleIncrementValues: [Float] = [0.1, 0.25, 0.5, 1.0]
+    private let unitSliderIncrements: [Float] = [0.1, 0.25, 0.5, 1.0]
     
     @IBOutlet weak var listAllClientsSwitch: UISwitch!
     @IBOutlet weak var validateClientSwitch: UISwitch!
@@ -36,11 +36,11 @@ class SettingsViewController: UIViewController {
     // merging, importing, exporting
     let csvManager = ClientCSVManager()
     let clientMerger = ClientMerger()
-    enum FilePickerDirection {
+    private enum FilePickerDirection {
         case opening
         case saving
     }
-    var filePickerDirection:FilePickerDirection = .opening
+    private var filePickerDirection:FilePickerDirection = .opening
     
     
     override func viewDidLoad() {
@@ -52,8 +52,8 @@ class SettingsViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Import", style: .plain, target: self, action: #selector(SettingsViewController.onImport(sender:)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(SettingsViewController.onDone(sender:)))
         
-        selectionIncrementSlider.minimumValue = possibleIncrementValues[0]
-        selectionIncrementSlider.maximumValue = possibleIncrementValues[possibleIncrementValues.count - 1]
+        selectionIncrementSlider.minimumValue = unitSliderIncrements[0]
+        selectionIncrementSlider.maximumValue = unitSliderIncrements[unitSliderIncrements.count - 1]
         
         setupControls()
     }
@@ -152,24 +152,8 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func selectionIncrementSliderValueChanged(_ sender: UISlider) {
-        var currentValue = sender.value
-        guard let index = possibleIncrementValues.index(where: { value in
-            return currentValue < value
-        }) else {
-           return
-        }
-        let lower = possibleIncrementValues[index - 1]
-        let upper = possibleIncrementValues[index]
-        let mid = (lower + upper) / 2
-        if currentValue <= mid {
-            currentValue = lower
-        }
-        else {
-            currentValue = upper
-        }
-        
-        sender.value = currentValue
-        selectionIncrementLabel.text = currentValue.description // String.init(format: "%.2f", currentValue)
+        sender.value = ViewHelper.snapSliderToIncrements(sender, increments: unitSliderIncrements)
+        selectionIncrementLabel.text = sender.value.description // String.init(format: "%.2f", currentValue)
     }
     
     private var sliderValueBeforeTouch:Float = 0.0

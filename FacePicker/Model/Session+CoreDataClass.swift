@@ -14,13 +14,17 @@ import UIKit
 @objc(Session)
 public class Session: NSManagedObject {
     // static
-    public static let entityName = "Session"
+    static func create() -> Session {
+        return CoreDataManager.shared.create()
+    }
     
-    public static var dateFormat: String {
+    static let entityName = "Session"
+    
+    static var dateFormat: String {
         return "MMMM d, yyyy"
     }
     
-    public static func formatDate(_ date: Date) -> String {
+    static func formatDate(_ date: Date) -> String {
         let now = Date.init()
         let result = NSCalendar.current.compare(now, to: date, toGranularity: .day)
         if result == ComparisonResult.orderedSame {
@@ -32,17 +36,49 @@ public class Session: NSManagedObject {
         return formatter.string(from: date)
     }
     
-    public func formattedDate() -> String {
-        return Session.formatDate(self.date as Date)
-    }
-    
     // instance
+    var isEditable: Bool {
+        // TODO: make this feel less icky
+        return formattedDate() == "Today" || Application.Settings.editOldSessionsAllowed
+    }
     private var _cachedSessionImage:UIImage? = nil
     var sessionImage: UIImage? {
         if _cachedSessionImage == nil {
             updateSessionImage()
         }
         return _cachedSessionImage ?? SessionHelper.defaultFaceImage
+    }
+    
+    var injectionsArray: [InjectionSite] {
+        get {
+            return Array(injections ?? Set<InjectionSite>())
+        }
+    }
+    
+    var totalNeurotoxinUnits: Float {
+        get {
+            var total:Float = 0
+            for injection in injectionsArray {
+                if injection.type == .Neurotoxin {
+                    total += injection.units
+                }
+            }
+            return total
+        }
+    }
+    
+    var nextLabelSequence: Int64 {
+        var next:Int64 = 0
+        for label in labelsArray() {
+            if label.sequence > next {
+                next = label.sequence + 1
+            }
+        }
+        return next
+    }
+    
+    func formattedDate() -> String {
+        return Session.formatDate(self.date as Date)
     }
     
     func updateSessionImage() {
@@ -56,6 +92,6 @@ public class Session: NSManagedObject {
         guard let labels = self.labels else {
             return [ProductLabel]()
         }
-        return Array(labels)
+        return Array(labels).sorted { $0.sequence < $1.sequence }
     }
 }

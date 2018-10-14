@@ -133,7 +133,7 @@ extension ProductLabelCollectionViewController: ProductLabelCellDelegate {
         func performDelete(sender: UIAlertAction) {
             // remove image
             let removedLabel = _productLabels.remove(at: indexPath.item)
-            managedContext().delete(removedLabel)
+            CoreDataManager.shared.delete(removedLabel)
             
             // remove cell
             collectionView.deleteItems(at: [indexPath])

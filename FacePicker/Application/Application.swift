@@ -85,14 +85,19 @@ class Application {
     static func onError(_ error: String, inFile file: String = #file, inFunction function: String = #function) {
         // log
         let file = String(file.split(separator: "/").last ?? "")
-        os_log("[%@ %@]: %@", log: errorLog, type: OSLogType.error, file, function, error)
+        os_log("[%{public}@ %{public}@]: %{public}@", log: errorLog, type: OSLogType.error, file, function, error)
         
         // present alert
         presentErrorAlert(error)
     }
     
-    static func logInfo(_ info: String, inFile file: String = #file, inFunction function: String = #function) {
+    static func logInfo(_ info: String, includeFileAndFunction: Bool = false, inFile file: String = #file, inFunction function: String = #function) {
         // log
-        os_log("%@", log: infoLog, type: OSLogType.info, info)
+        if includeFileAndFunction {
+            let file = String(file.split(separator: "/").last ?? "")
+            os_log("[%{public}@ %{public}@]: %{public}@", log: infoLog, type: OSLogType.error, file, function, info)
+        } else {
+            os_log("%{public}@", log: infoLog, type: OSLogType.info, info)
+        }
     }
 }

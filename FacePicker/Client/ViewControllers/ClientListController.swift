@@ -103,7 +103,7 @@ extension ClientListController {
 private extension ClientListController {
     
     private func fetchClients() {
-        if let clients = Client.fetchClients(context: managedContext()) {
+        if let clients = Client.fetchAllClients() {
             self.clients = clients
             sortClients()
         }
@@ -274,9 +274,8 @@ extension ClientListController {
             } else {
                 removedClient = clients.remove(at: indexPath.row)
             }
-            let context = managedContext()
             Application.logInfo("Deleting Client with uuid: \(removedClient.id.uuidString)")
-            context.delete(removedClient)
+            CoreDataManager.shared.delete(removedClient)
             
             tableView.deleteRows(at: [indexPath], with: .fade)
             // if deleting current
@@ -316,6 +315,9 @@ extension ClientListController {
             }
             showDetailViewController(navigationController, sender: nil)
         }
+        // hide client list
+        _ = splitViewController?.displayModeButtonItem.target?.perform(splitViewController?.displayModeButtonItem.action)
+        
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {

@@ -118,6 +118,22 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "InvoiceController.adjustHeightForContentChange(initialLoad:):InvoiceController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "view.subviews[0].frame.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Session.updateSessionImage():Session+CoreDataClass.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "_cachedSessionImage">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "SessionDetailController.isNotesDifferentThanSaved():SessionDetailController.swift">
          <PersistentStrings>
             <PersistentString
@@ -125,6 +141,14 @@
             </PersistentString>
             <PersistentString
                value = "session?.notes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InvoiceController.updateTotal():InvoiceController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "total.description">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -162,10 +186,10 @@
                value = "lowInfoClient.firstName + &quot; &quot; + lowInfoClient.lastName">
             </PersistentString>
             <PersistentString
-               value = "name.lastName">
+               value = "name.lastName[charAfterHyphenIndex] == lowInfoClient.lastName.first">
             </PersistentString>
             <PersistentString
-               value = "name.lastName[charAfterHyphenIndex] == lowInfoClient.lastName.first">
+               value = "name.lastName">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -174,6 +198,17 @@
          <PersistentStrings>
             <PersistentString
                value = "sessions">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InvoiceController.viewDidLoad():InvoiceController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "invoice">
+            </PersistentString>
+            <PersistentString
+               value = "readOnly">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -204,7 +239,7 @@
                value = "currentClient">
             </PersistentString>
             <PersistentString
-               value = "clients[currentClient!]!">
+               value = "currentMatchIndex">
             </PersistentString>
             <PersistentString
                value = "currentClientIndex">
@@ -213,7 +248,7 @@
                value = "contexts[currentClient!]!">
             </PersistentString>
             <PersistentString
-               value = "currentMatchIndex">
+               value = "clients[currentClient!]!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -256,10 +291,10 @@
          contextName = "ClientMerger.removeCurrentMatch():ClientMerger.swift">
          <PersistentStrings>
             <PersistentString
-               value = "currentMatches.count">
+               value = "lowInfoClients[current]!.count">
             </PersistentString>
             <PersistentString
-               value = "lowInfoClients[current]!.count">
+               value = "currentMatches.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -350,6 +385,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "static ViewHelper.snapSliderToIncrement(_:increment:):ViewHelper.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "slider.value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ProductLabelCollectionViewController.collectionView(_:numberOfItemsInSection:):SessionDetailController.swift">
          <PersistentStrings>
             <PersistentString
@@ -386,6 +429,14 @@
          contextName = "ClientsController.viewDidLoad():ClientsController.swift">
       </ContextState>
       <ContextState
+         contextName = "InvoiceController.updateNeurotoxinUnitsButtonTitle():InvoiceController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "invoice.neurotoxinUnitsSold.description">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "SessionListController.collectionView(_:layout:sizeForItemAt:):SessionListController.swift">
          <PersistentStrings>
             <PersistentString
@@ -406,6 +457,9 @@
          <PersistentStrings>
             <PersistentString
                value = "totalsStackView">
+            </PersistentString>
+            <PersistentString
+               value = "_totalNeurotoxinUnits.description">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -433,6 +487,17 @@
          <PersistentStrings>
             <PersistentString
                value = "view.topAnchor">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InvoiceController.snapSliderToWholeNumberOrMax(_:):InvoiceController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "slider.value">
+            </PersistentString>
+            <PersistentString
+               value = "slider.maximumValue">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -478,10 +543,34 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "InvoiceController.addPayment():InvoiceController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "newPaymentView.isHidden">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SessionDetailController.session.didset:SessionDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "session?.totalNeurotoxinUnits">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ClientDetailController.collectionView(_:cellForItemAt:):ClientDetailController.swift">
          <PersistentStrings>
             <PersistentString
                value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "performDelete #1 (sender:) in ClientDetailController.deleteSession(_:):ClientDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sessions.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -506,10 +595,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ClientDetailController.collectionView(_:numberOfItemsInSection:):ClientDetailController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "client?.sessions?.count">
+            </PersistentString>
+            <PersistentString
+               value = "sessions.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "SiteMenuController.setDefaultValues():SiteMenuController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "previous.units">
+               value = "previousValues.units">
             </PersistentString>
             <PersistentString
                value = "SiteMenuController.previousSite.units">
@@ -517,21 +617,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ClientDetailController.collectionView(_:numberOfItemsInSection:):ClientDetailController.swift">
+         contextName = "PaymentView.paymentAmountSliderValueChanged(_:):PaymentView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sessions.count">
-            </PersistentString>
-            <PersistentString
-               value = "client?.sessions?.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "performDelete #1 (sender:) in ClientDetailController.deleteSession(_:):ClientDetailController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "sessions.count">
+               value = "sender.value">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -604,6 +693,9 @@
             <PersistentString
                value = "SiteMenuController.previousSite.units">
             </PersistentString>
+            <PersistentString
+               value = "site.units">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -611,6 +703,14 @@
          <PersistentStrings>
             <PersistentString
                value = "navigationController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InvoiceController.setupPayments():InvoiceController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "invoice.paymentsArray">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -668,10 +768,10 @@
                value = "lowInfoName.description">
             </PersistentString>
             <PersistentString
-               value = "name.lastName[charAfterHyphenIndex] == lowInfoClient.lastName.first">
+               value = "name.description">
             </PersistentString>
             <PersistentString
-               value = "name.description">
+               value = "name.lastName[charAfterHyphenIndex] == lowInfoClient.lastName.first">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -683,6 +783,20 @@
             </PersistentString>
             <PersistentString
                value = "navigationItem.rightBarButtonItem">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SiteMenuController.setSliderForType(_:):SiteMenuController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sizeWithSlider">
+            </PersistentString>
+            <PersistentString
+               value = "preferredContentSize">
+            </PersistentString>
+            <PersistentString
+               value = "sizeWithoutSlider">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -718,13 +832,13 @@
          contextName = "SessionListController.viewDidLoad():SessionListController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "collectionView">
+               value = "selectedSession">
             </PersistentString>
             <PersistentString
                value = "reuseIdentifier">
             </PersistentString>
             <PersistentString
-               value = "selectedSession">
+               value = "collectionView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -841,13 +955,13 @@
          contextName = "ProductLabelCollectionViewController.viewWillLayoutSubviews():SessionDetailController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "collectionView?.frame.size">
+               value = "collectionView">
             </PersistentString>
             <PersistentString
                value = "collectionView?.contentSize">
             </PersistentString>
             <PersistentString
-               value = "collectionView">
+               value = "collectionView?.frame.size">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

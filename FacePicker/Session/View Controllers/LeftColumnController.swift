@@ -25,7 +25,7 @@ class LeftColumnController: UIViewController {
     // edit button
     lazy var navBarFixedSpace:UIBarButtonItem = {
         let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        fixedSpace.width = 50.0
+        fixedSpace.width = 80
         return fixedSpace
     }()
     
@@ -35,7 +35,7 @@ class LeftColumnController: UIViewController {
         }
     }
     
-    enum ViewType: Int {
+    private enum ViewType: Int {
         case SessionList = 0
         case SessionDetail
         
@@ -93,6 +93,7 @@ class LeftColumnController: UIViewController {
         sessionDetailViewController.isEditing = editing
         collectionView.isScrollEnabled = !editing
         setNavBarButtonsEnabled(!editing, buttonsToIgnore: [editButtonItem])
+        pageControl.isEnabled = !editing
         
         // set detail (sessioncontroller) enabled status
         if let detailViewController = splitViewController?.viewControllers.last {
@@ -117,6 +118,11 @@ class LeftColumnController: UIViewController {
             scrollToPage(1, animated: false)
             initialScrollComplete = true
         }
+        if collectionView.contentOffset.x.truncatingRemainder(dividingBy: collectionView.bounds.width) != 0 {
+            // why the fuck do i have to do this?!?!?!
+            let newOffset = collectionView.bounds.width * CGFloat(pageControl.currentPage)
+            collectionView.setContentOffset(CGPoint(x: newOffset, y: 0), animated: false)
+        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -137,7 +143,6 @@ class LeftColumnController: UIViewController {
     }
     
     @IBAction func columnTogglePressed(_ sender: UIBarButtonItem) {
-//        print("columnTogglePressed: currentPage = \(pageControl.currentPage)")
         switch pageControl.currentPage {
         case 0:
             scrollToPage(1)
@@ -155,7 +160,6 @@ private extension LeftColumnController {
     }
     
     private func setPage(_ page: Int) {
-//        print("setPage: \(page)")
         pageControl.currentPage = page
         setEditButtonVisibility(page: page)
         switch page {
@@ -167,10 +171,9 @@ private extension LeftColumnController {
             break
         }
     }
-    
+
     private func scrollToPage(_ page: Int, animated: Bool = true) {
-//        print("scroll to page: \(page)")
-        collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .centeredHorizontally, animated: animated)
+        collectionView.scrollToItem(at: IndexPath(item: page, section: 0), at: .left, animated: animated)
         setPage(page)
     }
     
@@ -186,7 +189,11 @@ private extension LeftColumnController {
             }
         case 1:
             if leftBarButtons.count == 1 {
-                leftBarButtons.append(contentsOf: [navBarFixedSpace, editButtonItem])
+                if let session = session, session.isEditable {
+                    leftBarButtons.append(contentsOf: [navBarFixedSpace, editButtonItem])
+                } else {
+                    leftBarButtons.append(UIBarButtonItem(image: UIImage(named: "lock-icon"), style: .plain, target: nil, action: nil))
+                }
             }
         default:
             break
@@ -253,5 +260,5 @@ extension LeftColumnController : UICollectionViewDataSource {
 // MARK: UICollectionViewDelegate
 
 extension LeftColumnController : UICollectionViewDelegate {
-    
+
 }

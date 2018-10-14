@@ -11,8 +11,14 @@ import Foundation
 import CoreData
 
 public class InjectionSite: NSManagedObject {
-    public static let entityName = "InjectionSite"
+    // static
+    static func create() -> InjectionSite {
+        return CoreDataManager.shared.create()
+    }
     
+    static let entityName = "InjectionSite"
+    
+    //instance
     func setIdAndPosition(x: Double, y: Double, id: UUID) {
         self.xPos = x
         self.yPos = y
@@ -24,41 +30,7 @@ public class InjectionSite: NSManagedObject {
         self.type = type
     }
     
-//    func unitsAreSet() -> Bool {
-//        return self.units != nil && self.type != nil
-//    }
-    
-//    func clearUnits() {
-//        self.units = nil
-//        self.type = nil
-//    }
-    
     func formattedUnits() -> String {
         return self.units > 0 ? self.units.description : "\u{2718}" // String(format: "%.1f", self.units)
-    }
-}
-
-public enum InjectionType: Int, CustomStringConvertible {
-    case NeuroToxin = 0
-    case Filler = 1
-    case Latisse = 2
-    
-    static var toArray: [String] {
-        return [InjectionType.NeuroToxin.description, InjectionType.Filler.description]
-    }
-    
-    static func fromString(_ type: String) -> InjectionType? {
-        if let index = InjectionType.toArray.index(of: type) {
-            return InjectionType(rawValue: index)
-        }
-        return nil
-    }
-    
-    public var description: String {
-        switch self {
-        case .NeuroToxin: return "NeuroToxin"
-        case .Filler: return "Filler"
-        case .Latisse: return "Latisse"
-        }
     }
 }

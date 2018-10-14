@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import CropViewController
+import ContextMenu
 
 class SessionDetailController: UIViewController {
     @IBOutlet weak var sessionDescriptionView: UIView!
@@ -19,11 +20,14 @@ class SessionDetailController: UIViewController {
     @IBOutlet weak var totalsStackView: UIStackView!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var productLabelCollectionContainerView: UIView!
+    @IBOutlet weak var addProductButton: UIButton!
+    @IBOutlet weak var totalsButtonsSeparator: UILabel!
+    @IBOutlet weak var invoiceButton: UIButton!
     
-    // editing of date:
-    var datePicker = UIDatePicker()
-    
-    @IBOutlet weak var editButton: UIButton! // not installed
+    // editing:
+    private var datePicker = UIDatePicker()
+    private var fillerProductRow: SessionTotalsRow?
+    private var latisseProductRow: SessionTotalsRow?
     
     lazy var productLabelCollectionViewController:ProductLabelCollectionViewController = {
         let viewController = ProductLabelCollectionViewController()
@@ -35,13 +39,19 @@ class SessionDetailController: UIViewController {
         return viewController
     }()
     
+    private var invoiceController:InvoiceController?
+    
+    private var _totalNeurotoxinUnits:Float = 0 // so we don't have to keep calling the computed property
     var session: Session? {
         didSet {
             loadViewIfNeeded()
+            _totalNeurotoxinUnits = session?.totalNeurotoxinUnits ?? 0
             setDescriptionLabel()
             setNotes()
             setTotals()
             setLabelImages()
+            setProductAndInvoiceButtons()
+            cameraButton.isHidden = !(session?.isEditable ?? true)
         }
     }
     
@@ -58,8 +68,12 @@ extension SessionDetailController {
         super.viewDidLoad()
         
         // edit mode
-        setEditing(false, animated: false)
         setupDatePicker()
+        ViewHelper.setTextFieldEnabled(dateTextField, isEnabled: false) // initially set "disabled"
+        if let session = session {
+            if session.isEditable {
+            }
+        }
         
         // description
         ViewHelper.setBorderOnView(sessionDescriptionView, withColor: UIColor(white: 0.6, alpha: 1).cgColor, rounded: false)
@@ -89,10 +103,16 @@ extension SessionDetailController {
         super.setEditing(editing, animated: animated)
         
         ViewHelper.setTextFieldEnabled(dateTextField, isEnabled: editing)
-        let title = editing ? "Done" : "Edit"
-        editButton.setTitle(title, for: .normal)
-        
+        addProductButton.isEnabled = !editing
+        invoiceButton.isEnabled = !editing
+        cameraButton.isEnabled = !editing
         productLabelCollectionViewController.isEditing = editing
+        if let fillerRow = fillerProductRow {
+            fillerRow.deleteButton.isHidden = !editing
+        }
+        if let latisseRow = latisseProductRow {
+            latisseRow.deleteButton.isHidden = !editing
+        }
     }
     
     @objc
@@ -107,10 +127,6 @@ extension SessionDetailController {
         self.session = sessionData.value
     }
     
-    @IBAction func editButtonPressed(_ sender: UIButton) {
-        isEditing = !isEditing
-    }
-    
     @IBAction func saveNotesButtonPressed(_ sender: UIButton) {
         saveNotes()
     }
@@ -121,6 +137,34 @@ extension SessionDetailController {
         picker.modalTransitionStyle = .crossDissolve
         picker.delegate = self
         present(picker, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func addProductButtonPressed(_ sender: UIButton) {
+        let addProductController = AddProductController(nibName: AddProductController.nibName, bundle: nil)
+        addProductController.delegate = self
+        let popoverNavController = createPopoverNavigationController(withTarget: self, withRootViewController: addProductController, anchoredTo: addProductButton)
+        
+        present(popoverNavController, animated: true, completion: nil)
+    }
+    
+    @IBAction func invoiceButtonPressed(_ sender: Any) {
+        guard let session = session else { return }
+        // show invoice context menu
+        invoiceController = InvoiceController(nibName: InvoiceController.nibName, bundle: nil)
+        invoiceController?.delegate = self
+        if let invoice = session.invoice {
+            invoiceController?.readOnly = true
+            invoiceController?.invoice = invoice
+            makeViewControllerPopover(invoiceController!, anchoredTo: invoiceButton) // if target isn't nil we will delete session on dismiss!
+            present(invoiceController!, animated: true, completion: nil)
+        } else {
+            let invoice = Invoice.createForSession(session)
+            invoice.setDefaults()
+            invoiceController?.invoice = invoice
+            let popoverNavController = createPopoverNavigationController(withTarget: self, withRootViewController: invoiceController!, anchoredTo: invoiceButton)
+            present(popoverNavController, animated: true, completion: nil)
+        }
     }
     
     @objc
@@ -142,7 +186,11 @@ private extension SessionDetailController {
         datePicker.date = session.date as Date
         datePicker.datePickerMode = .date
         datePicker.maximumDate = Date()
-        datePicker.minimumDate = DateFormatter().date(from: "01/01/2018")
+        var dateComponents = DateComponents()
+        dateComponents.month = 1
+        dateComponents.day = 1
+        dateComponents.year = 2018
+        datePicker.minimumDate = Calendar.current.date(from: dateComponents)
         datePicker.addTarget(self, action: #selector(SessionDetailController.datePickerValueChanged(sender:)), for: .valueChanged)
         dateTextField.inputView = datePicker
         dateTextField.inputAccessoryView = createDoneToolbarForDatePicker()
@@ -176,48 +224,35 @@ private extension SessionDetailController {
             totalsStackView.removeArrangedSubview(view)
         }
         
-        if let injections = session.injections {
-            var totalsByType = [InjectionType: Float]()
-            
-            for injection in injections {
-                var total = totalsByType[injection.type] ?? 0
-                switch injection.type {
-                case .NeuroToxin:
-                    // sum units
-                    total += injection.units
-                case .Filler:
-                    // count number of sites
-                    total += 1
-                default:
-                    break
-                }
-                totalsByType[injection.type] = total
-            }
-            if totalsByType.count > 0 {
-                for (key, value) in totalsByType {
-                    var valueString = ""
-                    var description = ""
-                    switch key {
-                    case .NeuroToxin:
-                        valueString = value.description
-                        description = "units of"
-                    case .Filler:
-                        valueString = String(format: "%.0f", value)
-                        description = "locations of"
-                    default:
-                        break
-                    }
-                    let totalRowView = SessionTotalsRow()
-                    totalRowView.unitsLabel.text = valueString
-                    SessionHelper.setColor(forLabel: totalRowView.unitsLabel, withType: key)
-                    totalRowView.descriptionLabel.text = description
-                    totalRowView.typeLabel.text = "\(key.description)"
-                    SessionHelper.setColor(forLabel: totalRowView.typeLabel, withType: key)
-                    
-                    totalsStackView.addArrangedSubview(totalRowView)
-                }
-            }
+        if _totalNeurotoxinUnits > 0 {
+            totalsStackView.addArrangedSubview(SessionHelper.createTotalsRow(value: _totalNeurotoxinUnits.description, type: InjectionType.Neurotoxin))
         }
+        if session.fillerCount > 0 {
+            let fillerRow = SessionHelper.createTotalsRow(value: session.fillerCount.description, type: ProductType.Filler)
+            fillerRow.deleteButton.addTarget(self, action: #selector(SessionDetailController.deleteFiller(sender:)), for: .touchUpInside)
+            fillerRow.deleteButton.isHidden = !isEditing
+            totalsStackView.addArrangedSubview(fillerRow)
+            fillerProductRow = fillerRow
+        }
+        if session.latisseCount > 0 {
+            let latisseRow = SessionHelper.createTotalsRow(value: session.latisseCount.description, type: ProductType.Latisse)
+            latisseRow.deleteButton.addTarget(self, action: #selector(SessionDetailController.deleteLatisse(sender:)), for: .touchUpInside)
+            latisseRow.deleteButton.isHidden = !isEditing
+            totalsStackView.addArrangedSubview(latisseRow)
+            latisseProductRow = latisseRow
+        }
+    }
+    
+    @objc
+    func deleteFiller(sender: Any) {
+        session?.fillerCount = 0
+        setTotals()
+    }
+    
+    @objc
+    func deleteLatisse(sender: Any) {
+        session?.latisseCount = 0
+        setTotals()
     }
     
     private func setLabelImages() {
@@ -254,18 +289,52 @@ private extension SessionDetailController {
             Application.onError("Couldnt get image as NSData from UIImagePNGRepresentation!")
             return
         }
-        let context = managedContext()
-        guard let entity = NSEntityDescription.entity(forEntityName: ProductLabel.entityName, in: context) else {
-            Application.onError("Couldn't get entity description for name: \(ProductLabel.entityName)!")
-            return		
-        }
-        let newLabel = ProductLabel(entity: entity, insertInto: context)
+        let newLabel = ProductLabel.create()
         newLabel.image = imageData
+        newLabel.sequence = session.nextLabelSequence
         session.addToLabels(newLabel)
         productLabelCollectionViewController.productLabels.append(newLabel)
         NotificationCenter.default.post(name: .sessionDidChange, object: self, userInfo: ["": session])
         
         Application.logInfo("Added ProductLabel for Session with id: \(session.id.uuidString)")
+    }
+    
+    private func onInvoiceCancel(invoice: Invoice) {
+        print("cancelling invoice and deleting")
+        CoreDataManager.shared.delete(invoice)
+    }
+    
+    private func onInvoiceFinalized(invoice: Invoice) {
+        session?.invoice = invoice
+        setProductAndInvoiceButtons()
+    }
+    
+    private func setProductAndInvoiceButtons() {
+        guard let session = session else { return }
+        addProductButton.isHidden = false
+        totalsButtonsSeparator.isHidden = false
+        invoiceButton.isHidden = false
+        if let _ = session.invoice {
+            // we have a "finalized" invoice
+            addProductButton.isHidden = true
+            totalsButtonsSeparator.isHidden = true
+            invoiceButton.setTitleWithoutAnimation("View Invoice", for: .normal)
+        } else if session.isEditable {
+            // we can edit this session
+            if _totalNeurotoxinUnits == 0 && session.fillerCount == 0 && session.latisseCount == 0 {
+                // we don't have any products yet, only show add product button
+                totalsButtonsSeparator.isHidden = true
+                invoiceButton.isHidden = true
+            } else {
+                // we have products, so show create button
+                invoiceButton.setTitleWithoutAnimation("Create Invoice", for: .normal)
+            }
+        } else {
+            // hide everything
+            addProductButton.isHidden = true
+            totalsButtonsSeparator.isHidden = true
+            invoiceButton.isHidden = true
+        }
     }
 }
 
@@ -313,5 +382,44 @@ extension SessionDetailController: CropViewControllerDelegate {
     func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
         print("cropviewcontroller cancelled")
         cropViewController.presentingViewController?.dismiss(animated: false, completion: nil)
+    }
+}
+
+extension SessionDetailController: InvoiceControllerDelegate {
+    func invoiceControllerDidCancel(invoice: Invoice) {
+        onInvoiceCancel(invoice: invoice)
+    }
+    
+    func invoiceControllerDidFinalize(invoice: Invoice) {
+        onInvoiceFinalized(invoice: invoice)
+    }
+}
+
+extension SessionDetailController: AddProductControllerDelegate {
+    func productAdded(withType type: ProductType, andAmount amount: Int) {
+        guard let session = session else { return }
+        switch type {
+        case .Filler:
+            session.fillerCount += Int64(amount)
+        case .Latisse:
+            session.latisseCount += Int64(amount)
+        }
+        setTotals()
+        setProductAndInvoiceButtons()
+    }
+}
+
+extension SessionDetailController: UIPopoverPresentationControllerDelegate {
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+        guard let popoverNavController = popoverPresentationController.presentedViewController as? UINavigationController,
+            let viewController = popoverNavController.topViewController else {
+            return
+        }
+        if let invoiceController = viewController as? InvoiceController {
+            onInvoiceCancel(invoice: invoiceController.invoice)
+        }
+        else if viewController is AddProductController {
+            // do nothing
+        }
     }
 }

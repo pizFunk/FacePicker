@@ -84,6 +84,32 @@ public class ViewHelper {
         ViewHelper.roundCornersOnView(view, withRadius: 0)
     }
     
+    // visibility
+    
+    static func setViewVisibility(_ view: UIView, isHidden: Bool, animated: Bool = true) {
+        if view.isHidden == isHidden {
+            // don't set if no change (and accidentally animate)
+            return
+        }
+        if animated {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: UIView.AnimationOptions.curveLinear, animations: {
+                view.isHidden = isHidden
+            })
+        } else {
+            view.isHidden = isHidden
+        }
+    }
+    
+    static func toggleViewVisibility(_ view: UIView, animated: Bool = true) {
+        if animated {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: UIView.AnimationOptions.curveLinear, animations: {
+                view.isHidden = !view.isHidden
+            })
+        } else {
+            view.isHidden = !view.isHidden
+        }
+    }
+    
     // text field
     
     public static func setTextFieldEnabled(_ textField: UITextField, isEnabled: Bool) {
@@ -109,6 +135,54 @@ public class ViewHelper {
         appearance.animationduration = 0.25
         appearance.textColor = .darkGray
         appearance.textFont = UIFont.systemFont(ofSize: UILabel().font.pointSize)
+    }
+    
+    // slider
+    
+    static func snapSliderToWholeNumberOrMax(_ slider: UISlider) -> Float {
+        var newValue = slider.value.rounded()
+        let lowestWholeNumber = slider.maximumValue.rounded(.down)
+        if lowestWholeNumber < slider.maximumValue && newValue >= lowestWholeNumber {
+            let mid = (lowestWholeNumber + slider.maximumValue) / 2
+            if slider.value >= mid {
+                newValue = slider.maximumValue // snap to max if fractional and we are closer to it
+            } else {
+                newValue = lowestWholeNumber
+            }
+        }
+        return newValue
+    }
+    
+    static func snapSliderToIncrement(_ slider: UISlider, increment: Float) -> Float {
+        let maxIncrementedValue = (slider.maximumValue / increment).rounded(.down) * increment
+        if slider.value > maxIncrementedValue {
+            let mid = (maxIncrementedValue + slider.maximumValue) / 2
+            if slider.value >= mid {
+                return slider.maximumValue
+            } else {
+                return maxIncrementedValue
+            }
+        }
+        return (slider.value / increment).rounded() * increment
+    }
+    
+    static func snapSliderToIncrements(_ slider: UISlider, increments: [Float]) -> Float {
+        var value = slider.value
+        guard let index = increments.index(where: { increment in
+            return value < increment
+        }) else {
+            return value
+        }
+        let lower = increments[index - 1]
+        let upper = increments[index]
+        let mid = (lower + upper) / 2
+        if value <= mid {
+            value = lower
+        }
+        else {
+            value = upper
+        }
+        return value
     }
     
     // constraints

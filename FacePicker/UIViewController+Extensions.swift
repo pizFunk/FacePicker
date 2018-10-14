@@ -10,17 +10,6 @@ import UIKit
 import CoreData
 
 extension UIViewController {
-    fileprivate func appDelegate() -> AppDelegate {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            Application.onError("Couldn't get AppDelegate!")
-            return AppDelegate()
-        }
-        return appDelegate
-    }
-    
-    func managedContext() -> NSManagedObjectContext {
-        return appDelegate().persistentContainer.viewContext
-    }
     
     func setEnabled(_ enabled: Bool, includingNavigationController: Bool = true) {
         if includingNavigationController && navigationController != nil {
@@ -75,5 +64,21 @@ extension UIViewController {
     @objc
     func dismissDatePicker() {
         view.endEditing(true)
+    }
+    
+    func createPopoverNavigationController(withTarget target: UIPopoverPresentationControllerDelegate? = nil, withRootViewController viewController: UIViewController, anchoredTo anchor: UIView, andPermittedArrowDirections arrowDirections: UIPopoverArrowDirection = .up) -> UINavigationController {
+        let navController = UINavigationController(rootViewController: viewController)
+        navController.navigationBar.isTranslucent = false
+        makeViewControllerPopover(navController, withTarget: target, anchoredTo: anchor)
+        
+        return navController
+    }
+    
+    func makeViewControllerPopover(_ viewController: UIViewController, withTarget target: UIPopoverPresentationControllerDelegate? = nil, anchoredTo anchor: UIView, andPermittedArrowDirections arrowDirections: UIPopoverArrowDirection = .up) {
+        viewController.modalPresentationStyle = .popover
+        viewController.popoverPresentationController?.permittedArrowDirections = arrowDirections
+        viewController.popoverPresentationController?.delegate = target
+        viewController.popoverPresentationController?.sourceRect = anchor.bounds
+        viewController.popoverPresentationController?.sourceView = anchor
     }
 }

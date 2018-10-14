@@ -275,7 +275,7 @@ private extension ClientDetailController {
             if let sessions = client.sessions {
                 self.sessions = [Session](sessions)
                 self.sessions.sort {
-                    ($0.date as Date) < ($1.date as Date)
+                    ($0.date as Date) > ($1.date as Date)
                 }
             } else {
                 self.sessions = [Session]()
@@ -322,12 +322,8 @@ private extension ClientDetailController {
             Application.onError("Trying to add new Session to nil Client!")
             return nil
         }
-        let context = managedContext()
-        guard let entity = NSEntityDescription.entity(forEntityName: Session.entityName, in: context) else {
-            Application.onError("Failed to get entity description for name \(Session.entityName) from ManagedContext")
-            return nil
-        }
-        let session = Session(entity: entity, insertInto: context)
+//        let session:Session = CoreDataManager.shared.create()
+        let session = Session.create()
         client.addToSessions(session)
         session.date = Date.init() as NSDate
         session.id = UUID()
@@ -431,7 +427,7 @@ extension ClientDetailController: FlexibleSessionCellDelegate {
         func performDelete(sender: Any) {
             // remove session from array and ManagedObjectContext
             sessions.remove(at: index)
-            managedContext().delete(session)
+            CoreDataManager.shared.delete(session)
             
             // remove cell from collection view
             collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
@@ -488,6 +484,25 @@ extension ClientDetailController: UISplitViewControllerDelegate {
             collectionView.reloadData()
         }
     }
+    
+//    func splitViewController(_ splitViewController: UISplitViewController, show vc: UIViewController, sender: Any?) -> Bool {
+//        return true
+//    }
+//    func splitViewController(_ splitViewController: UISplitViewController, showDetail vc: UIViewController, sender: Any?) -> Bool {
+//        return true
+//    }
+//    func splitViewControllerSupportedInterfaceOrientations(_ splitViewController: UISplitViewController) -> UIInterfaceOrientationMask {
+//        return .all
+//    }
+//    func splitViewControllerPreferredInterfaceOrientationForPresentation(_ splitViewController: UISplitViewController) -> UIInterfaceOrientation {
+//        return .landscapeLeft
+//    }
+//    func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
+//        return nil
+//    }
+//    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+//        return true
+//    }
 }
 
 // MARK: - ClientDetailControllerDelegate

@@ -42,23 +42,33 @@ public class SessionHelper {
     public static func setColor(forLabel label: UILabel, withType type: InjectionType) {
         label.textColor = SessionHelper.getColor(forType: type)
     }
+    public static func setColor(forLabel label: UILabel, withType type: ProductType) {
+        label.textColor = SessionHelper.getColor(forType: type)
+    }
     public static func getColor(forType type: InjectionType) -> UIColor {
         var color: UIColor
         switch type {
-        case InjectionType.NeuroToxin:
-//            color = SessionHelper.neurotoxinColor
+        case .Neurotoxin:
+            //            color = SessionHelper.neurotoxinColor
             color = UIColor.purple
-        case InjectionType.Filler:
-//            color = SessionHelper.fillerColor
+        case .Filler:
+            //            color = SessionHelper.fillerColor
             color = UIColor.magenta
-        case InjectionType.Latisse:
-//            color = SessionHelper.latisseColor
+        }
+        return color
+    }
+    public static func getColor(forType type: ProductType) -> UIColor {
+        var color: UIColor
+        switch type {
+        case .Filler:
+            color = UIColor.magenta
+        case .Latisse:
             color = UIColor.orange
         }
         return color
     }
     public static func textToImage(drawSites sites: [InjectionSite], inImage image: UIImage) -> UIImage {
-        let textFont = UIFont.systemFont(ofSize: 20)
+        let textFont = UIFont.systemFont(ofSize: 18)
         
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
@@ -85,5 +95,43 @@ public class SessionHelper {
         UIGraphicsEndImageContext()
         
         return newImage!
+    }
+    
+    static func createTotalsRow(value: String, description: String, type: String) -> SessionTotalsRow {
+        let totalsRowView = SessionTotalsRow()
+        totalsRowView.unitsLabel.text = value
+        totalsRowView.descriptionLabel.text = description
+        totalsRowView.typeLabel.text = type
+        
+        return totalsRowView
+    }
+    
+    static func createTotalsRow(value: String, type: InjectionType) -> SessionTotalsRow {
+        var description = ""
+        if type == .Neurotoxin {
+            description = Float(value) == 1 ? "unit of" : "units of"
+        }
+        let totalsRowView = createTotalsRow(value: value, description: description, type: type.description)
+        setColor(forLabel: totalsRowView.unitsLabel, withType: type)
+        setColor(forLabel: totalsRowView.typeLabel, withType: type)
+        
+        return totalsRowView
+    }
+    
+    static func createTotalsRow(value: String, type: ProductType) -> SessionTotalsRow {
+        var description = ""
+        let singular = Float(value) == 1
+        switch type {
+        case .Filler:
+            description = singular ? "syringe" : "syringes"
+        case .Latisse:
+            description = singular ? "bottle" : "bottles"
+        }
+        description += " of"
+        let totalsRowView = createTotalsRow(value: value, description: description, type: type.description)
+        setColor(forLabel: totalsRowView.unitsLabel, withType: type)
+        setColor(forLabel: totalsRowView.typeLabel, withType: type)
+        
+        return totalsRowView
     }
 }

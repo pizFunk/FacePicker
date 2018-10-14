@@ -20,6 +20,10 @@ class SessionListController: UIViewController {
     var collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     var selectionChangedHandler: ((Session) -> ())?
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 extension SessionListController {
@@ -36,12 +40,12 @@ extension SessionListController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(SessionListController.sessionDidChange(_:)), name: .sessionDidChange, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(SessionListController.sessionDidChange(_:)), name: .sessionDidChange, object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -61,8 +65,6 @@ extension SessionListController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {

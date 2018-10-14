@@ -24,7 +24,7 @@ class SessionController: UIViewController {
     
     var session: Session? {
         didSet {
-            clientSet()
+            sessionSet()
         }
     }
 }
@@ -34,7 +34,6 @@ extension SessionController {
     // MARK: - Overrides
     
     override func viewDidLoad() {
-//        print("SessionController.viewDidLoad")
         super.viewDidLoad()
         
         let bundle = Bundle(for: type(of: self))
@@ -50,7 +49,9 @@ extension SessionController {
         
         SiteMenuController.usePreviousValues = true
         
-        setupTouchHandler()
+        if let session = session, session.isEditable {
+            setupTouchHandler()
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
@@ -62,11 +63,7 @@ extension SessionController {
         navigationController?.isNavigationBarHidden = UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight
         
         if faceImageView.isDescendant(of: view) {
-            // when setting preferred fraction of splitviewcontroller our viewcontroller loads without a Session
-//            let viewBounds = view.bounds
             let safeAreaLayoutFrame = view.safeAreaLayoutGuide.layoutFrame
-//            print("safeAreaLayoutFrame = \(safeAreaLayoutFrame)")
-//            print("viewBounds = \(viewBounds)")
             
             NSLayoutConstraint.deactivate(layoutConstraints)
             layoutConstraints.removeAll()
@@ -82,12 +79,14 @@ extension SessionController {
             NSLayoutConstraint.activate(layoutConstraints)
         }
     }
+    
     override func viewDidLayoutSubviews() {
 //        print("SessionController.viewDidLayoutSubviews")
         super.viewDidLayoutSubviews()
         
         positionButtons()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
     }
@@ -147,8 +146,6 @@ private extension SessionController {
         //        print("--- FaceController.addSite(atPoint:) ---")
         //        print("point = \(point)")
         
-        let context = managedContext()
-        
         let uuid = UUID() //NSUUID().uuidString
         let siteMenuController = SiteMenuController()
         //
@@ -156,8 +153,7 @@ private extension SessionController {
         //
         let x = Double(point.x / faceImageView.frame.size.width)
         let y = Double(point.y / faceImageView.frame.size.height)
-        let siteEntity = NSEntityDescription.entity(forEntityName: "InjectionSite", in: context)!
-        let site = InjectionSite(entity: siteEntity, insertInto: context)
+        let site = InjectionSite.create()
         session?.addToInjections(site)
         site.setIdAndPosition(x: x, y: y, id: uuid)
         sites[uuid.uuidString] = site
@@ -175,12 +171,14 @@ private extension SessionController {
             sourceView: siteButton,
             delegate: self)
     }
-    func createAndAddSiteButton(withSite site: InjectionSite) -> UIButton {
+    func createAndAddSiteButton(withSite site: InjectionSite, interactionEnabled enabled: Bool = true) -> UIButton {
         let siteButton = UIButton()
         siteButton.restorationIdentifier = site.id.uuidString
         siteButton.setTitle(site.formattedUnits(), for: .normal)
         siteButton.setTitleColor(view.tintColor, for: UIControlState.normal)
-        siteButton.addTarget(self, action: #selector(SessionController.siteTapped(site:)), for: UIControlEvents.touchUpInside)
+        if enabled {
+            siteButton.addTarget(self, action: #selector(SessionController.siteTapped(site:)), for: UIControlEvents.touchUpInside)
+        }
         
         //
         // TODO: revisit styling
@@ -215,8 +213,8 @@ private extension SessionController {
             Application.onError("Unable to find site with uuid = \(uuid) in the sites array while deleting.")
             return
         }
-        let context = managedContext()
-        context.delete(removedSite)
+        session?.removeFromInjections(removedSite)
+        CoreDataManager.shared.delete(removedSite)
         updateSessionAndNotify()
         Application.logInfo("Deleted InjectionSite with id: \(uuid)")
         guard let siteButton = siteButtons.removeValue(forKey: uuid)  else {
@@ -233,7 +231,7 @@ private extension SessionController {
         session.updateSessionImage()
         NotificationCenter.default.post(name: .sessionDidChange, object: nil, userInfo: ["": session])
     }
-    func clientSet() {
+    func sessionSet() {
         loadViewIfNeeded()
         
         // clear existing
@@ -243,12 +241,15 @@ private extension SessionController {
         siteButtons.removeAll()
         sites.removeAll()
         
-        if let injections = session?.injections {
-            faceImageView.isHidden = false
-            let sites = Array(injections)
-            for site in sites {
+        guard let session = session else {
+            return
+        }
+        
+        faceImageView.isHidden = false
+        if session.injectionsArray.count > 0 {
+            for site in session.injectionsArray {
                 self.sites[site.id.uuidString] = site
-                let button = createAndAddSiteButton(withSite: site)
+                let button = createAndAddSiteButton(withSite: site, interactionEnabled: session.isEditable)
                 SessionHelper.setTitleAndColor(forButton: button, withSite: site)
             }
             positionButtons()

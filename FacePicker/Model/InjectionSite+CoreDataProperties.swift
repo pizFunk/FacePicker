@@ -24,9 +24,9 @@ extension InjectionSite {
     @NSManaged public var session: Session
 
     @NSManaged private var typeRaw: Int16
-    public var type: InjectionType {
+    var type: InjectionType {
         get {
-            return InjectionType(rawValue: Int(self.typeRaw)) ?? InjectionType.NeuroToxin
+            return InjectionType(rawValue: Int(self.typeRaw)) ?? InjectionType.Neurotoxin
         }
         set {
             self.typeRaw = Int16(newValue.rawValue)

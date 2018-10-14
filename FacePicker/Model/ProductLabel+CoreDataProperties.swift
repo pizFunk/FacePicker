@@ -12,12 +12,12 @@ import CoreData
 
 
 extension ProductLabel {
-
+    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ProductLabel> {
-        return NSFetchRequest<ProductLabel>(entityName: ProductLabel.entityName)
+        return NSFetchRequest<ProductLabel>(entityName: "ProductLabel")
     }
-
+    
     @NSManaged public var image: NSData?
+    @NSManaged public var sequence: Int64
     @NSManaged public var session: Session?
-
 }
