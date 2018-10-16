@@ -234,11 +234,6 @@ extension ClientDetailController {
                     return
             }
             
-            
-            // make the detail view expandable (reqires fixing the width of the SessionListController UICollectionView)
-            //            split.preferredDisplayMode = .allVisible
-            //            sessionController.navigationItem.leftBarButtonItem = split.displayModeButtonItem
-            
             let sessionListController = leftColumnController.sessionListViewController            
             sessionController.delegate = leftColumnController
             sessionListController.parentDelegate = self

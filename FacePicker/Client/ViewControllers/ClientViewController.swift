@@ -83,11 +83,10 @@ extension ClientViewController {
         let clientController = ClientController(nibName: "ClientController", bundle: nil)
         clientController.delegate = self
         clientController.client = self.client
-        showContextualMenu(
-            clientController,
-            options: ContextMenu.Options(
-                allowTapDismiss: false),
-            delegate: self)
+        let navController = UINavigationController(rootViewController: clientController)
+        navController.modalPresentationStyle = .pageSheet
+        
+        present(navController, animated: true, completion: nil)
     }
     
     @IBAction func showConsentButtonPressed(_ sender: UIButton) {

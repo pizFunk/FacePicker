@@ -153,15 +153,22 @@ extension SessionDetailController {
         // show invoice context menu
         invoiceController = InvoiceController(nibName: InvoiceController.nibName, bundle: nil)
         invoiceController?.delegate = self
+        var hasInvoice = false
         if let invoice = session.invoice {
+            hasInvoice = true
             invoiceController?.readOnly = true
             invoiceController?.invoice = invoice
-            makeViewControllerPopover(invoiceController!, anchoredTo: invoiceButton) // if target isn't nil we will delete session on dismiss!
-            present(invoiceController!, animated: true, completion: nil)
         } else {
             let invoice = Invoice.createForSession(session)
             invoice.setDefaults()
             invoiceController?.invoice = invoice
+        }
+        if hasInvoice && UIDevice.current.userInterfaceIdiom == .pad { // TODO: extract this check somwhere else, maybe ViewHelper
+            // don't need to show nav bar if not on phone
+            makeViewControllerPopover(invoiceController!, anchoredTo: invoiceButton) // if target isn't nil we will delete session on dismiss!
+            present(invoiceController!, animated: true, completion: nil)
+        } else {
+            // let controller show create nav bar options or "close" option if on phone
             let popoverNavController = createPopoverNavigationController(withTarget: self, withRootViewController: invoiceController!, anchoredTo: invoiceButton)
             present(popoverNavController, animated: true, completion: nil)
         }
@@ -245,14 +252,22 @@ private extension SessionDetailController {
     
     @objc
     func deleteFiller(sender: Any) {
-        session?.fillerCount = 0
+        guard let session = session else { return }
+        session.fillerCount = 0
         setTotals()
+        if !session.hasProduct {
+            setProductAndInvoiceButtons() // in case we deleted our last product
+        }
     }
     
     @objc
     func deleteLatisse(sender: Any) {
-        session?.latisseCount = 0
+        guard let session = session else { return }
+        session.latisseCount = 0
         setTotals()
+        if !session.hasProduct {
+            setProductAndInvoiceButtons() // in case we deleted our last product
+        }
     }
     
     private func setLabelImages() {

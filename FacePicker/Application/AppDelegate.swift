@@ -30,10 +30,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 Application.onError("AppDelegate.application: Unexpected view controller configuration at application startup!")
                 return false
         }
+        splitViewController.delegate = clientListController
         clientListController.delegate = clientDetailController
         clientDetailController.delegate = clientListController
-        splitViewController.preferredDisplayMode = .allVisible
+        
         splitViewController.preferredPrimaryColumnWidthFraction = 0.25
+        splitViewController.preferredDisplayMode = .allVisible
+        clientDetailController.navigationItem.leftItemsSupplementBackButton = true
         clientDetailController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         
         return true

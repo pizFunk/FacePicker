@@ -31,6 +31,7 @@ class LeftColumnController: UIViewController {
     
     var session: Session? {
         didSet {
+            setEditButtonVisibility(page: ViewType.SessionDetail.rawValue)
             sessionDetailViewController.session = session
         }
     }
@@ -70,8 +71,6 @@ class LeftColumnController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setEditButtonVisibility(page: ViewType.SessionDetail.rawValue)
         
         pageControl.numberOfPages = ViewType.count
         pageControl.currentPage = ViewType.SessionDetail.rawValue

@@ -83,11 +83,10 @@ extension ClientListController {
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
         let clientController = ClientController(nibName: ClientController.nibName, bundle: nil)
         clientController.delegate = self
-        showContextualMenu(
-            clientController,
-            options: ContextMenu.Options(
-                allowTapDismiss: false),
-            delegate: self)
+        let navController = UINavigationController(rootViewController: clientController)
+        navController.modalPresentationStyle = .pageSheet
+        
+        present(navController, animated: true, completion: nil)
     }
     
     @objc func onListAllClientsSettingDidChange(notification: Notification) {
@@ -203,8 +202,6 @@ extension ClientListController: ClientDetailControllerDelegate {
     }
     
     func setEditingSessions(_ editing: Bool) {
-        print("need to \(editing ? "disable" : "enable") client list view!")
-        
         setEnabled(!editing)
     }
 }
@@ -316,8 +313,9 @@ extension ClientListController {
             showDetailViewController(navigationController, sender: nil)
         }
         // hide client list
-        _ = splitViewController?.displayModeButtonItem.target?.perform(splitViewController?.displayModeButtonItem.action)
-        
+        if splitViewController?.displayMode == .allVisible {
+            _ = splitViewController?.displayModeButtonItem.target?.perform(splitViewController?.displayModeButtonItem.action)
+        }
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
@@ -326,6 +324,14 @@ extension ClientListController {
         }
         
         return .none
+    }
+}
+
+extension ClientListController: UISplitViewControllerDelegate {
+    // needed for iphone initial display when no client is selected
+    // could use a boolean one-time toggle instead
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return getSelectedClient() == nil
     }
 }
 

@@ -33,26 +33,6 @@
                             <constraint firstAttribute="trailing" secondItem="0UR-H8-RMU" secondAttribute="trailing" constant="8" id="yzi-l2-QIz"/>
                         </constraints>
                     </view>
-                    <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4O-Jj-Har">
-                        <rect key="frame" x="742" y="8" width="50" height="50"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xC-bU-hz6">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <state key="normal" image="trash-can-icon"/>
-                                <connections>
-                                    <action selector="deleteButtonPressedWithSender:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Um2-8v-3Kb"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="2xC-bU-hz6" secondAttribute="trailing" id="NNd-xy-JzD"/>
-                            <constraint firstAttribute="height" constant="50" id="Odz-6Y-uRQ"/>
-                            <constraint firstAttribute="bottom" secondItem="2xC-bU-hz6" secondAttribute="bottom" id="ZPI-QB-GiB"/>
-                            <constraint firstAttribute="width" constant="50" id="e3q-3I-LAA"/>
-                            <constraint firstItem="2xC-bU-hz6" firstAttribute="top" secondItem="d4O-Jj-Har" secondAttribute="top" id="etk-Ei-YTI"/>
-                            <constraint firstItem="2xC-bU-hz6" firstAttribute="leading" secondItem="d4O-Jj-Har" secondAttribute="leading" id="ezI-a1-foP"/>
-                        </constraints>
-                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ADe-D2-ChV" userLabel="Details">
                         <rect key="frame" x="400" y="0.0" width="400" height="400"/>
                         <subviews>
@@ -133,6 +113,26 @@
                             <constraint firstItem="EGZ-iI-c5N" firstAttribute="top" secondItem="bLC-en-Fqb" secondAttribute="bottom" constant="8" id="xsh-uG-vtO"/>
                         </constraints>
                     </view>
+                    <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4O-Jj-Har">
+                        <rect key="frame" x="742" y="8" width="50" height="50"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xC-bU-hz6">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <state key="normal" image="trash-can-icon"/>
+                                <connections>
+                                    <action selector="deleteButtonPressedWithSender:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Um2-8v-3Kb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="2xC-bU-hz6" secondAttribute="trailing" id="NNd-xy-JzD"/>
+                            <constraint firstAttribute="height" constant="50" id="Odz-6Y-uRQ"/>
+                            <constraint firstAttribute="bottom" secondItem="2xC-bU-hz6" secondAttribute="bottom" id="ZPI-QB-GiB"/>
+                            <constraint firstAttribute="width" constant="50" id="e3q-3I-LAA"/>
+                            <constraint firstItem="2xC-bU-hz6" firstAttribute="top" secondItem="d4O-Jj-Har" secondAttribute="top" id="etk-Ei-YTI"/>
+                            <constraint firstItem="2xC-bU-hz6" firstAttribute="leading" secondItem="d4O-Jj-Har" secondAttribute="leading" id="ezI-a1-foP"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <constraints>
@@ -143,9 +143,9 @@
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="ADe-D2-ChV" secondAttribute="trailing" id="UqM-sA-kHj"/>
                 <constraint firstItem="6Xs-jw-XVV" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" id="Uvq-BJ-ogg"/>
                 <constraint firstItem="ADe-D2-ChV" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" id="dUM-D9-D5i"/>
+                <constraint firstAttribute="trailing" secondItem="d4O-Jj-Har" secondAttribute="trailing" constant="8" id="fp2-Lq-20J"/>
                 <constraint firstItem="6Xs-jw-XVV" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" id="n4h-gG-alZ"/>
-                <constraint firstItem="d4O-Jj-Har" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="q8B-RW-OQI"/>
-                <constraint firstAttribute="trailing" secondItem="d4O-Jj-Har" secondAttribute="trailing" constant="8" id="tkc-A6-XLl"/>
+                <constraint firstItem="d4O-Jj-Har" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="t7r-Sn-rjU"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="562" height="265"/>
@@ -157,7 +157,7 @@
                 <outlet property="productLabelCollectionContainerView" destination="ZFb-xY-iUn" id="rcX-nE-kzO"/>
                 <outlet property="totalsStackView" destination="EGZ-iI-c5N" id="2Xh-RO-vkT"/>
             </connections>
-            <point key="canvasLocation" x="155.19999999999999" y="125.93703148425789"/>
+            <point key="canvasLocation" x="692.79999999999995" y="3.5982008995502253"/>
         </collectionViewCell>
     </objects>
     <resources>

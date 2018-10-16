@@ -122,9 +122,41 @@ class InvoiceController: UIViewController {
         }
     }
     
+    @objc private func onClose(sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func onCancel(sender: UIBarButtonItem) {
+        delegate?.invoiceControllerDidCancel(invoice: invoice)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func onFinalize(sender: UIBarButtonItem) {
+        if invoice.paymentsArray.count == 0 {
+            paymentErrorLabel.text = "Please enter at least one payment."
+            ViewHelper.setViewVisibility(paymentErrorView, isHidden: false)
+            return
+        }
+        if invoice.paymentsTotal != invoice.total {
+            paymentErrorLabel.text = "Payments do not add up to total."
+            ViewHelper.setViewVisibility(paymentErrorView, isHidden: false)
+            return
+        }
+        delegate?.invoiceControllerDidFinalize(invoice: invoice)
+        dismiss(animated: true, completion: nil)
+    }
+    
     private func setupNavBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(InvoiceController.onCancel(sender:)))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Finalize", style: .done, target: self, action: #selector(InvoiceController.onFinalize(sender:)))
+        guard navigationController != nil else {
+            // no nav bar provided
+            return
+        }
+        if readOnly {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(InvoiceController.onClose(sender:)))
+        } else {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(InvoiceController.onCancel(sender:)))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Finalize", style: .done, target: self, action: #selector(InvoiceController.onFinalize(sender:)))
+        }
     }
     
     private func updateNeurotoxinUnitsButtonTitle() {
@@ -314,26 +346,6 @@ class InvoiceController: UIViewController {
         if let viewToToggle = viewsForSliders[sender] {
             ViewHelper.toggleViewVisibility(viewToToggle)
         }
-    }
-    
-    @objc func onCancel(sender: UIBarButtonItem) {
-        delegate?.invoiceControllerDidCancel(invoice: invoice)
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func onFinalize(sender: UIBarButtonItem) {
-        if invoice.paymentsArray.count == 0 {
-            paymentErrorLabel.text = "Please enter at least one payment."
-            ViewHelper.setViewVisibility(paymentErrorView, isHidden: false)
-            return
-        }
-        if invoice.paymentsTotal != invoice.total {
-            paymentErrorLabel.text = "Payments do not add up to total."
-            ViewHelper.setViewVisibility(paymentErrorView, isHidden: false)
-            return
-        }
-        delegate?.invoiceControllerDidFinalize(invoice: invoice)
-        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func neurotoxinUnitsButtonPressed(_ sender: Any) {

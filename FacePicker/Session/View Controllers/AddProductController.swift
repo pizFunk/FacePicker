@@ -37,6 +37,10 @@ class AddProductController: UIViewController {
         preferredContentSize = contentView.frame.size
     }
     
+    @objc func onCancel(sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc func onAddProduct(sender: Any) {
         guard let index = productTypeDropDown.indexForSelectedRow, let type = ProductType(rawValue: index) else {
             return
@@ -47,6 +51,7 @@ class AddProductController: UIViewController {
     }
 
     private func setupNavBar() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(AddProductController.onCancel(sender:)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(AddProductController.onAddProduct(sender:)))
     }
     

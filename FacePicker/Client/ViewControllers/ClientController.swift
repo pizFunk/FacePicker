@@ -91,9 +91,9 @@ extension ClientController {
         setupDropDowns()
         setupSignature()
         
-        let insets = UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 15)
-        smokeDropDownButton.contentEdgeInsets = insets
-        priorTreatmentDropDownButton.contentEdgeInsets = insets
+        let gestureRecognizer = UITapGestureRecognizer()
+        gestureRecognizer.addTarget(self, action: #selector(ClientController.dismissKeyboard(sender:)))
+        view.addGestureRecognizer(gestureRecognizer)
         
         var titleString = "New Client"
         if let client = self.client {
@@ -183,6 +183,10 @@ extension ClientController {
         let localContextMenu = ContextMenu(), signatureController = SignatureController()
         signatureController.delegate = self
         localContextMenu.show(sourceViewController: self, viewController: signatureController)
+    }
+    
+    @objc func dismissKeyboard(sender: Any) {
+        view.endEditing(true)
     }
 }
 
@@ -543,6 +547,14 @@ private extension ClientController {
             todaysDatePicker.setDate(sigDate as Date, animated: false)
             setTextFieldValue(for: dateTextField, withDate: sigDate as Date)
         }
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+
+extension ClientController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        view.endEditing(true)
     }
 }
 

@@ -12,6 +12,10 @@ import CoreData
 extension UIViewController {
     
     func setEnabled(_ enabled: Bool, includingNavigationController: Bool = true) {
+        guard view.window != nil else {
+            // view isn't showing, do nothing
+            return
+        }
         if includingNavigationController && navigationController != nil {
             navigationController?.setEnabled(enabled)
             return

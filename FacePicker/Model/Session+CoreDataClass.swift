@@ -67,6 +67,10 @@ public class Session: NSManagedObject {
         }
     }
     
+    var hasProduct: Bool {
+        return totalNeurotoxinUnits > 0 || fillerCount > 0 || latisseCount > 0
+    }
+    
     var nextLabelSequence: Int64 {
         var next:Int64 = 0
         for label in labelsArray() {
