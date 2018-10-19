@@ -10,6 +10,7 @@ target 'FacePicker' do
   pod 'DropDown'
   pod 'SwiftSignatureView'
   pod 'CropViewController'
+  Pod 'Seam3'
 
   target 'FacePickerTests' do
     inherit! :search_paths

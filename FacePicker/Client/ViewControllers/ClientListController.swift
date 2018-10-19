@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import CoreData
-import ContextMenu
 
 //MARK: - Properties
 
@@ -153,17 +151,6 @@ private extension ClientListController {
     
     private func isFiltering() -> Bool {
         return searchController.isActive && !searchBarEmpty()
-    }
-}
-
-extension ClientListController: ContextMenuDelegate {
-    
-    //MARK: - ContextMenuDelegate
-    
-    func contextMenuWillDismiss(viewController: UIViewController, animated: Bool) {
-    }
-    
-    func contextMenuDidDismiss(viewController: UIViewController, animated: Bool) {
     }
 }
 

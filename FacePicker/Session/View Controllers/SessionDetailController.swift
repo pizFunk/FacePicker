@@ -7,9 +7,7 @@
 //
 
 import UIKit
-import CoreData
 import CropViewController
-import ContextMenu
 
 class SessionDetailController: UIViewController {
     @IBOutlet weak var sessionDescriptionView: UIView!
